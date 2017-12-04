@@ -26,7 +26,7 @@ In addition, the project will include:
 
 The game will consist of a single screen with a fisherman fishing with rod on the shore next to the sea. On top of the screen, from left to right, it will show the current number of fishes caught, the current total weight of fishes caught and the current remaining time. At the bottom of the screen, from left to right, it will show the energy bar and the tutorial button.
 
-![wireframes](New Mockup 1.png)
+![wireframes](https://github.com/lilyzqy/FunFishing/blob/master/New%20Mockup%201.png)
 
 ## Architecture and Technologies
 
