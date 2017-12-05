@@ -18,10 +18,13 @@ In FunFishing, player will be able to:
 2. press left to pull the rod when it's shaking (when there's fish gets hooked)
 3. press left repeatedly to pull the rod until the fish is caught
 
-In addition, the project will include:
-1. Tutorial to walk through first time gamers
-2. Record board showing the current number and scale of fishes
-3. a 30 seconds count down timer
+MVPs:
+1. a power bar to handle first: how far the bait will go
+                         second: to show the intensity of the rope
+2. a fish wire to show how far the bait went and move back every time user hit the button.
+3. a bucket button to showing the current number and scale of fishes
+4. a 30 seconds count down timer
+5. Tutorial to walk through first time gamers
 ## Wireframes
 
 The game will consist of a single screen with a fisherman fishing with rod on the shore next to the sea. On top of the screen, from left to right, it will show the current number of fishes caught, the current total weight of fishes caught and the current remaining time. At the bottom of the screen, from left to right, it will show the energy bar and the tutorial button.
@@ -43,11 +46,11 @@ This project will be implemented with the following technologies:
 ## Implementation Timeline
 
 ### Day 1:
-Setup all necessary files, get webpack set up and running. Create webpack.config.js as well as package.json. Write a basic entry file and the bare bonesLearn.
+Setup all necessary files, get webpack set up and running. Create webpack.config.js as well as package.json. Write a basic entry file for the webpack.
 
 ### Day 2:
-Get the basic game logic set up, including the game view. Create all the objects in the game.
+Get the power bar and fish rope working.
 ### Day 3:
-Keep working on the objects and get the game working.
+Adding bucket button and timer.
 ### Day 4:
-Finish all the game objects and create the tutorial.
+Create the tutorial.
