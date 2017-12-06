@@ -98,6 +98,7 @@ class Game {
     this.wire = new Wire(this.ctx,40,40,300,150);
     this.energyBar = new EnergyBar(this.ctx,this.on);
     this.draw();
+
     this.update();
   }
 
@@ -130,7 +131,7 @@ class Game {
   }
 
   mayEndGame(){
-    if(this.wire.startX > this.wire.endX || this.wire.endX > 400){
+    if(this.wire.startX > this.wire.endX || this.wire.endX > 400 ||this.energyBar.X < 42){
       this.on = false;
       window.cancelAnimationFrame(this.gameGoing);
     }
@@ -155,6 +156,7 @@ class Wire {
   }
 
   draw(){
+    this.ctx.strokeStyle = "#ffffff";
     this.ctx.beginPath();
     this.ctx.moveTo( this.startX, this.startY);
     this.ctx.lineTo( this.endX, this.endY);
@@ -205,18 +207,22 @@ class EnergyBar {
 
   forEnergy(){
     let addOn = 0;
-    if(addOn < 96){
+    if(addOn < 90){
       addOn += 1;
       this.X += addOn;
     }
   }
 
   forWireStrenth(){
-
+    if(this.X < (42+90)){
+    this.X += 0.5;
+    }
   }
 
   getStress(){
-
+    if(this.X > 42){
+      this.X -= 6;  
+    }
   }
 
   reset(){

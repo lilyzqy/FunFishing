@@ -8,6 +8,7 @@ class Wire {
   }
 
   draw(){
+    this.ctx.strokeStyle = "#ffffff";
     this.ctx.beginPath();
     this.ctx.moveTo( this.startX, this.startY);
     this.ctx.lineTo( this.endX, this.endY);

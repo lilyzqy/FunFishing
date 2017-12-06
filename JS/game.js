@@ -11,6 +11,7 @@ class Game {
     this.wire = new Wire(this.ctx,40,40,300,150);
     this.energyBar = new EnergyBar(this.ctx,this.on);
     this.draw();
+
     this.update();
   }
 
@@ -43,7 +44,7 @@ class Game {
   }
 
   mayEndGame(){
-    if(this.wire.startX > this.wire.endX || this.wire.endX > 400){
+    if(this.wire.startX > this.wire.endX || this.wire.endX > 400 ||this.energyBar.X < 42){
       this.on = false;
       window.cancelAnimationFrame(this.gameGoing);
     }

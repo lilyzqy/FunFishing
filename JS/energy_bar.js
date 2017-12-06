@@ -22,18 +22,22 @@ class EnergyBar {
 
   forEnergy(){
     let addOn = 0;
-    if(addOn < 96){
+    if(addOn < 90){
       addOn += 1;
       this.X += addOn;
     }
   }
 
   forWireStrenth(){
-
+    if(this.X < (42+90)){
+    this.X += 0.5;
+    }
   }
 
   getStress(){
-
+    if(this.X > 42){
+      this.X -= 6;  
+    }
   }
 
   reset(){
