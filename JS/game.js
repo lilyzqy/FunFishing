@@ -1,4 +1,5 @@
 const Wire = require('./fish_wire');
+const EnergyBar = require('./energy_bar');
 
 class Game {
   constructor(ctx){
@@ -8,6 +9,10 @@ class Game {
 
   start(){
     this.wire = new Wire(this.ctx,40,40,300,150);
+    this.energyBar = new EnergyBar(this.ctx,this.on);
+    // this.energyBar.img = new Image();
+    // this.energyBar.img.src = "energybar.png";
+    // console.log(this.energyBar.img);
     this.draw();
     this.update();
   }
@@ -15,6 +20,7 @@ class Game {
   pressButton(e){
     if(this.on && e.code === "Space"){
       this.wire.pullBack();
+      this.energyBar.getStress();
     }else if(!this.on && e.code === "Enter"){
       this.start();
       this.on = true;
@@ -23,21 +29,26 @@ class Game {
 
   update(){
     this.wire.update();
+    if(this.on){
+      this.energyBar.forWireStrenth();
+    }else{
+      this.energyBar.reset();
+    }
     this.draw();
-    this.animate = window.requestAnimationFrame(this.update.bind(this));
-    this.endGame();
+    this.gameGoing = window.requestAnimationFrame(this.update.bind(this));
+    this.mayEndGame();
   }
 
   draw(){
     this.ctx.clearRect(0,0,400,300);
     this.wire.draw();
+    this.energyBar.draw();
   }
 
-  endGame(){
+  mayEndGame(){
     if(this.wire.startX > this.wire.endX || this.wire.endX > 400){
-      console.log("hi");
       this.on = false;
-      window.cancelAnimationFrame(this.animate);
+      window.cancelAnimationFrame(this.gameGoing);
     }
   }
 

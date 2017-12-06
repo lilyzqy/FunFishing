@@ -1,15 +1,12 @@
 class imageRepository {
 	constructor(){
-    this.background = new Image();
-  	this.fisherman = new Image();
-  	this.fishWire = new Image();
+  	this.bar = new Image();
 	// Ensure all images have loaded before starting the game
-  	this.numImages = 3;
+  	this.numImages = 1;
   	this.numLoaded = 0;
 
-    this.background.src = "imgs/bg.png";
-  	this.spaceship.src = "imgs/ship.png";
-  	this.bullet.src = "imgs/bullet.png";
+    this.bar.src = "../energybar.png";
+
   }
 
 	imageLoaded() {

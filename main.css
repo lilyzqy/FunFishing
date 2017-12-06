@@ -1,9 +1,11 @@
 canvas {
         position: absolute;
+        height: 100vh;
+        width: auto;
         top: 0;
-        left: 0;
+        left: 15%;
         background: transparent;
-        background-image: url('./docs/Untitled.png');
+        background-image: url('./docs/background2.png');
         background-repeat: no-repeat;
         background-size: cover;
       }

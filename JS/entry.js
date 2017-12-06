@@ -1,4 +1,5 @@
 const Game = require("./game");
+// const ImageRepository = require("./image_repository");
 // const GameView = require("./game_view");
 
 document.addEventListener("DOMContentLoaded", () => {

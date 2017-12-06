@@ -68,6 +68,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 const Game = __webpack_require__(2);
+// const ImageRepository = require("./image_repository");
 // const GameView = require("./game_view");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /***/ (function(module, exports, __webpack_require__) {
 
 const Wire = __webpack_require__(3);
+const EnergyBar = __webpack_require__(4);
 
 class Game {
   constructor(ctx){
@@ -94,6 +96,10 @@ class Game {
 
   start(){
     this.wire = new Wire(this.ctx,40,40,300,150);
+    this.energyBar = new EnergyBar(this.ctx,this.on);
+    // this.energyBar.img = new Image();
+    // this.energyBar.img.src = "energybar.png";
+    // console.log(this.energyBar.img);
     this.draw();
     this.update();
   }
@@ -101,6 +107,7 @@ class Game {
   pressButton(e){
     if(this.on && e.code === "Space"){
       this.wire.pullBack();
+      this.energyBar.getStress();
     }else if(!this.on && e.code === "Enter"){
       this.start();
       this.on = true;
@@ -109,21 +116,26 @@ class Game {
 
   update(){
     this.wire.update();
+    if(this.on){
+      this.energyBar.forWireStrenth();
+    }else{
+      this.energyBar.reset();
+    }
     this.draw();
-    this.animate = window.requestAnimationFrame(this.update.bind(this));
-    this.endGame();
+    this.gameGoing = window.requestAnimationFrame(this.update.bind(this));
+    this.mayEndGame();
   }
 
   draw(){
     this.ctx.clearRect(0,0,400,300);
     this.wire.draw();
+    this.energyBar.draw();
   }
 
-  endGame(){
+  mayEndGame(){
     if(this.wire.startX > this.wire.endX || this.wire.endX > 400){
-      console.log("hi");
       this.on = false;
-      window.cancelAnimationFrame(this.animate);
+      window.cancelAnimationFrame(this.gameGoing);
     }
   }
 
@@ -166,6 +178,57 @@ class Wire {
 }
 
 module.exports = Wire;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+class EnergyBar {
+  constructor(ctx,gameStatus){
+    this.ctx = ctx;
+    this.type = gameStatus ? "energy" : "wire";
+    this.X = 100;
+    this.Y = 300;
+    this.img = window.document.querySelector("img");
+  }
+
+  update(){
+    if(this.type === "energy"){
+      this.forEnergy();
+    }else{
+      this.forWireStrenth();
+    }
+  }
+
+  draw(){
+      this.ctx.drawImage(this.img, this.X, this.Y);
+  }
+
+  forEnergy(){
+    let addOn = 0;
+    if(addOn < 96){
+      addOn += 1;
+      this.X += addOn;
+    }
+  }
+
+  forWireStrenth(){
+
+  }
+
+  getStress(){
+
+  }
+
+  reset(){
+    this.X = 10;
+    this.Y = 10;
+  }
+}
+
+
+module.exports = EnergyBar;
 
 
 /***/ })
