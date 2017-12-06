@@ -1,23 +1,9 @@
 canvas {
         position: absolute;
-        top: 50%;
-        left: 50%;
+        top: 0;
+        left: 0;
         background: transparent;
+        background-image: url('./docs/Untitled.png');
+        background-repeat: no-repeat;
+        background-size: cover;
       }
-
-
-#background {
-  z-index: -2;
-}
-
-#sea {
-  z-index: -1;
-}
-
-#fisherman {
-  z-index: 0;
-}
-
-#rope {
-  z-index: 1;
-}

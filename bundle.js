@@ -65,22 +65,86 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// const Game = require("./game");
+const Game = __webpack_require__(2);
 // const GameView = require("./game_view");
 
 document.addEventListener("DOMContentLoaded", () => {
-  const canvasEl = document.getElementById("background");
+  const canvasEl = document.querySelector("canvas");
   const ctx = canvasEl.getContext("2d");
-  var bg = new Image();
-  bg.src = './docs/Untitled.png';
-  bg.onload = () => {
 
-    ctx.drawImage(bg,0,0);
+  const bg = new Image();
+  bg.src = './docs/Untitled.png';
+  const game = new Game(ctx);
+  bg.onload = () => {
+    // ctx.drawImage(bg,0,0);
+    game.draw();
+    game.update();
   };
 
 });
+
+
+/***/ }),
+/* 1 */,
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Wire = __webpack_require__(3);
+
+class Game {
+  constructor(ctx){
+    this.ctx = ctx;
+    this.wire = new Wire(ctx,40,40,300,150);
+
+  }
+
+  update(){
+    this.wire.fishRunAway();
+    this.draw();
+    window.requestAnimationFrame(this.update.bind(this));
+  }
+
+  draw(){
+    this.ctx.clearRect(0,0,400,300);
+    this.wire.draw();
+  }
+
+
+
+
+}
+
+module.exports = Game;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+class Wire {
+  constructor(ctx,startX, startY, endX, endY){
+    this.ctx = ctx;
+    this.startX = startX;
+    this.startY = startY;
+    this.endX = endX;
+    this.endY = endY;
+  }
+
+  draw(){
+    this.ctx.beginPath();
+    this.ctx.moveTo( this.startX, this.startY);
+    this.ctx.lineTo( this.endX, this.endY);
+    this.ctx.stroke();
+  }
+
+  fishRunAway(){
+    this.endX += 1;
+  }
+}
+
+module.exports = Wire;
 
 
 /***/ })
