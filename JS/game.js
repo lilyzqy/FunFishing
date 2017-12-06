@@ -24,7 +24,8 @@ class Game {
   update(){
     this.wire.update();
     this.draw();
-    window.requestAnimationFrame(this.update.bind(this));
+    this.animate = window.requestAnimationFrame(this.update.bind(this));
+    this.endGame();
   }
 
   draw(){
@@ -32,10 +33,13 @@ class Game {
     this.wire.draw();
   }
 
-  // handleButton(){
-  //   window.document.addEventListener("keydown",)
-  // }
-
+  endGame(){
+    if(this.wire.startX > this.wire.endX || this.wire.endX > 400){
+      console.log("hi");
+      this.on = false;
+      window.cancelAnimationFrame(this.animate);
+    }
+  }
 
 }
 

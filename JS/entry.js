@@ -7,5 +7,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const game = new Game(ctx);
     window.addEventListener("keyup",game.pressButton.bind(game));
-
 });
