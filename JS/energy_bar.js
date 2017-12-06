@@ -2,9 +2,10 @@ class EnergyBar {
   constructor(ctx,gameStatus){
     this.ctx = ctx;
     this.type = gameStatus ? "energy" : "wire";
-    this.X = 100;
-    this.Y = 300;
-    this.img = window.document.querySelector("img");
+    this.X = 42;
+    this.Y = 274;
+    this.img = new Image();
+    this.img.src = "docs/energybar.png";
   }
 
   update(){
@@ -36,8 +37,8 @@ class EnergyBar {
   }
 
   reset(){
-    this.X = 10;
-    this.Y = 10;
+    this.X = 42;
+    this.Y = 274;
   }
 }
 

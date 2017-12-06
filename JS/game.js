@@ -10,9 +10,6 @@ class Game {
   start(){
     this.wire = new Wire(this.ctx,40,40,300,150);
     this.energyBar = new EnergyBar(this.ctx,this.on);
-    // this.energyBar.img = new Image();
-    // this.energyBar.img.src = "energybar.png";
-    // console.log(this.energyBar.img);
     this.draw();
     this.update();
   }
