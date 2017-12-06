@@ -74,14 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvasEl = document.querySelector("canvas");
   const ctx = canvasEl.getContext("2d");
 
-  const bg = new Image();
-  bg.src = './docs/Untitled.png';
   const game = new Game(ctx);
-  bg.onload = () => {
-    // ctx.drawImage(bg,0,0);
-    game.draw();
-    game.update();
-  };
+    window.addEventListener("keyup",game.pressButton.bind(game));
 
 });
 
@@ -96,12 +90,26 @@ const Wire = __webpack_require__(3);
 class Game {
   constructor(ctx){
     this.ctx = ctx;
-    this.wire = new Wire(ctx,40,40,300,150);
+    this.on = false;
+  }
 
+  start(){
+    this.wire = new Wire(this.ctx,40,40,300,150);
+    this.draw();
+    this.update();
+  }
+
+  pressButton(e){
+    if(this.on && e.code === "Space"){
+      this.wire.pullBack();
+    }else if(!this.on && e.code === "Enter"){
+      this.start();
+      this.on = true;
+    }
   }
 
   update(){
-    this.wire.fishRunAway();
+    this.wire.update();
     this.draw();
     window.requestAnimationFrame(this.update.bind(this));
   }
@@ -111,7 +119,9 @@ class Game {
     this.wire.draw();
   }
 
-
+  // handleButton(){
+  //   window.document.addEventListener("keydown",)
+  // }
 
 
 }
@@ -140,7 +150,15 @@ class Wire {
   }
 
   fishRunAway(){
-    this.endX += 1;
+    this.endX += 0.5;
+  }
+
+  pullBack(){
+    this.endX -= 10;
+  }
+
+  update(){
+    this.fishRunAway();
   }
 }
 

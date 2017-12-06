@@ -15,7 +15,15 @@ class Wire {
   }
 
   fishRunAway(){
-    this.endX += 1;
+    this.endX += 0.5;
+  }
+
+  pullBack(){
+    this.endX -= 10;
+  }
+
+  update(){
+    this.fishRunAway();
   }
 }
 

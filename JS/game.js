@@ -3,12 +3,26 @@ const Wire = require('./fish_wire');
 class Game {
   constructor(ctx){
     this.ctx = ctx;
-    this.wire = new Wire(ctx,40,40,300,150);
+    this.on = false;
+  }
 
+  start(){
+    this.wire = new Wire(this.ctx,40,40,300,150);
+    this.draw();
+    this.update();
+  }
+
+  pressButton(e){
+    if(this.on && e.code === "Space"){
+      this.wire.pullBack();
+    }else if(!this.on && e.code === "Enter"){
+      this.start();
+      this.on = true;
+    }
   }
 
   update(){
-    this.wire.fishRunAway();
+    this.wire.update();
     this.draw();
     window.requestAnimationFrame(this.update.bind(this));
   }
@@ -18,7 +32,9 @@ class Game {
     this.wire.draw();
   }
 
-
+  // handleButton(){
+  //   window.document.addEventListener("keydown",)
+  // }
 
 
 }
