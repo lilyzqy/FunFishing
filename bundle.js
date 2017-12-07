@@ -259,7 +259,7 @@ class GameView{
     }else if (!this.energyBar.moving && e.code === "Enter"){
       this.update();
       this.energyBar.moving = true;
-    }else if(this.energyBar.moving && e.code === "Enter"){
+    }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
       window.cancelAnimationFrame(this.energyBarMoving);
       this.game.start(this.energyBar.X);
       this.game.on = true;
