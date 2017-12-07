@@ -186,6 +186,7 @@ class EnergyBar {
     this.img = new Image();
     this.img.src = "docs/energybar.png";
     this.moving = false;
+    this.a = 0.5;
   }
 
   draw(){
@@ -193,14 +194,20 @@ class EnergyBar {
   }
 
   updateForEnergy(){
-    let min = 42;
+    let min = 41;
     let max = 42+90;
-    let a = 0.5;
+    // let a = 0.5;
     if(min < this.X < max){
-      this.X += a;
-    }else{
-      a *= (-1);
+      if(this.X === min || this.X === max){
+        this.a *= -1;
+      }
+      this.X += this.a;
     }
+    // if(min < this.X < max){
+    //   this.X += a;
+    // }else{
+    //   a *= (-1);
+    // }
   }
 
   updateForWireStrenth(){
