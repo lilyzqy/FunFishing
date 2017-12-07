@@ -19,6 +19,7 @@ class GameView{
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && e.code === "Enter"){
       this.update();
+      this.energyBar.moving = true;
     }else if(this.energyBar.moving && e.code === "Enter"){
       window.cancelAnimationFrame(this.energyBarMoving);
       this.game.start(this.energyBar.X);

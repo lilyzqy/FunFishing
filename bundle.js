@@ -193,8 +193,13 @@ class EnergyBar {
   }
 
   updateForEnergy(){
-    if(this.X < (42+90)){
-    this.X += 0.5;
+    let min = 42;
+    let max = 42+90;
+    let a = 0.5;
+    if(min < this.X < max){
+      this.X += a;
+    }else{
+      a *= (-1);
     }
   }
 
@@ -246,6 +251,7 @@ class GameView{
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && e.code === "Enter"){
       this.update();
+      this.energyBar.moving = true;
     }else if(this.energyBar.moving && e.code === "Enter"){
       window.cancelAnimationFrame(this.energyBarMoving);
       this.game.start(this.energyBar.X);

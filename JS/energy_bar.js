@@ -13,8 +13,13 @@ class EnergyBar {
   }
 
   updateForEnergy(){
-    if(this.X < (42+90)){
-    this.X += 0.5;
+    let min = 42;
+    let max = 42+90;
+    let a = 0.5;
+    if(min < this.X < max){
+      this.X += a;
+    }else{
+      a *= (-1);
     }
   }
 
