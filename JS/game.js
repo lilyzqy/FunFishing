@@ -7,28 +7,22 @@ class Game {
     this.on = false;
   }
 
-  start(){
-    this.wire = new Wire(this.ctx,40,40,300,150);
-    this.energyBar = new EnergyBar(this.ctx,this.on);
+  start(X){
+    this.wire = new Wire(this.ctx,40,40,40+2*X,150);
+    this.energyBar = new EnergyBar(this.ctx);
     this.draw();
-
     this.update();
   }
 
   pressButton(e){
-    if(this.on && e.code === "Space"){
-      this.wire.pullBack();
-      this.energyBar.getStress();
-    }else if(!this.on && e.code === "Enter"){
-      this.start();
-      this.on = true;
-    }
+    this.wire.pullBack();
+    this.energyBar.getStress();
   }
 
   update(){
     this.wire.update();
     if(this.on){
-      this.energyBar.forWireStrenth();
+      this.energyBar.updateForWireStrenth();
     }else{
       this.energyBar.reset();
     }

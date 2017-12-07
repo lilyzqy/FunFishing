@@ -67,7 +67,7 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Game = __webpack_require__(2);
+const GameView = __webpack_require__(6);
 // const ImageRepository = require("./image_repository");
 // const GameView = require("./game_view");
 
@@ -75,8 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvasEl = document.querySelector("canvas");
   const ctx = canvasEl.getContext("2d");
 
-  const game = new Game(ctx);
-    window.addEventListener("keyup",game.pressButton.bind(game));
+  const gameView = new GameView(ctx);
+  gameView.ready();
+  window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });
 
 
@@ -94,28 +95,22 @@ class Game {
     this.on = false;
   }
 
-  start(){
-    this.wire = new Wire(this.ctx,40,40,300,150);
-    this.energyBar = new EnergyBar(this.ctx,this.on);
+  start(X){
+    this.wire = new Wire(this.ctx,40,40,40+2*X,150);
+    this.energyBar = new EnergyBar(this.ctx);
     this.draw();
-
     this.update();
   }
 
   pressButton(e){
-    if(this.on && e.code === "Space"){
-      this.wire.pullBack();
-      this.energyBar.getStress();
-    }else if(!this.on && e.code === "Enter"){
-      this.start();
-      this.on = true;
-    }
+    this.wire.pullBack();
+    this.energyBar.getStress();
   }
 
   update(){
     this.wire.update();
     if(this.on){
-      this.energyBar.forWireStrenth();
+      this.energyBar.updateForWireStrenth();
     }else{
       this.energyBar.reset();
     }
@@ -184,36 +179,26 @@ module.exports = Wire;
 /***/ (function(module, exports) {
 
 class EnergyBar {
-  constructor(ctx,gameStatus){
+  constructor(ctx){
     this.ctx = ctx;
-    this.type = gameStatus ? "energy" : "wire";
     this.X = 42;
     this.Y = 274;
     this.img = new Image();
     this.img.src = "docs/energybar.png";
-  }
-
-  update(){
-    if(this.type === "energy"){
-      this.forEnergy();
-    }else{
-      this.forWireStrenth();
-    }
+    this.moving = false;
   }
 
   draw(){
-      this.ctx.drawImage(this.img, this.X, this.Y);
+    this.ctx.drawImage(this.img, this.X, this.Y);
   }
 
-  forEnergy(){
-    let addOn = 0;
-    if(addOn < 90){
-      addOn += 1;
-      this.X += addOn;
+  updateForEnergy(){
+    if(this.X < (42+90)){
+    this.X += 0.5;
     }
   }
 
-  forWireStrenth(){
+  updateForWireStrenth(){
     if(this.X < (42+90)){
     this.X += 0.5;
     }
@@ -221,7 +206,7 @@ class EnergyBar {
 
   getStress(){
     if(this.X > 42){
-      this.X -= 6;  
+      this.X -= 6;
     }
   }
 
@@ -233,6 +218,55 @@ class EnergyBar {
 
 
 module.exports = EnergyBar;
+
+
+/***/ }),
+/* 5 */,
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const EnergyBar = __webpack_require__(4);
+const Game = __webpack_require__(2);
+//timer
+//fisherman
+
+class GameView{
+  constructor(ctx){
+    this.ctx = ctx;
+  }
+
+  ready(){
+    this.energyBar = new EnergyBar(this.ctx);
+    this.game = new Game(this.ctx);
+    this.draw();
+  }
+
+  pressButton(e){
+    if(this.game.on && e.code === "Space"){
+      this.game.pressButton(e);
+    }else if (!this.energyBar.moving && e.code === "Enter"){
+      this.update();
+    }else if(this.energyBar.moving && e.code === "Enter"){
+      window.cancelAnimationFrame(this.energyBarMoving);
+      this.game.start(this.energyBar.X);
+      this.game.on = true;
+    }
+  }
+
+  update(){
+    this.energyBar.updateForEnergy();
+    this.draw();
+    this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
+  }
+
+  draw(){
+    this.ctx.clearRect(0,0,400,300);
+    this.energyBar.draw();
+  }
+
+}
+
+module.exports = GameView;
 
 
 /***/ })

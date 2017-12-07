@@ -1,34 +1,24 @@
 class EnergyBar {
-  constructor(ctx,gameStatus){
+  constructor(ctx){
     this.ctx = ctx;
-    this.type = gameStatus ? "energy" : "wire";
     this.X = 42;
     this.Y = 274;
     this.img = new Image();
     this.img.src = "docs/energybar.png";
-  }
-
-  update(){
-    if(this.type === "energy"){
-      this.forEnergy();
-    }else{
-      this.forWireStrenth();
-    }
+    this.moving = false;
   }
 
   draw(){
-      this.ctx.drawImage(this.img, this.X, this.Y);
+    this.ctx.drawImage(this.img, this.X, this.Y);
   }
 
-  forEnergy(){
-    let addOn = 0;
-    if(addOn < 90){
-      addOn += 1;
-      this.X += addOn;
+  updateForEnergy(){
+    if(this.X < (42+90)){
+    this.X += 0.5;
     }
   }
 
-  forWireStrenth(){
+  updateForWireStrenth(){
     if(this.X < (42+90)){
     this.X += 0.5;
     }
@@ -36,7 +26,7 @@ class EnergyBar {
 
   getStress(){
     if(this.X > 42){
-      this.X -= 6;  
+      this.X -= 6;
     }
   }
 
