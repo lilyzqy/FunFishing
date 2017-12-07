@@ -8,15 +8,20 @@ class Game {
   }
 
   start(X){
-    this.wire = new Wire(this.ctx,40,40,40+2*X,150);
+    this.wire = new Wire(this.ctx,40,40,40*X*0.05,150);
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
-    this.update();
+    window.setTimeout(()=>{
+      this.wire.fishOn = true;
+      this.update();
+    }, Math.floor((Math.random() * 3) + 1));
   }
 
   pressButton(e){
-    this.wire.pullBack();
-    this.energyBar.getStress();
+    if(this.wire.fishOn){
+      this.wire.pullBack();
+      this.energyBar.getStress();
+    }
   }
 
   update(){

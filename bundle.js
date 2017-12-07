@@ -96,15 +96,20 @@ class Game {
   }
 
   start(X){
-    this.wire = new Wire(this.ctx,40,40,40+2*X,150);
+    this.wire = new Wire(this.ctx,40,40,40*X*0.05,150);
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
-    this.update();
+    window.setTimeout(()=>{
+      this.wire.fishOn = true;
+      this.update();
+    }, Math.floor((Math.random() * 3) + 1));
   }
 
   pressButton(e){
-    this.wire.pullBack();
-    this.energyBar.getStress();
+    if(this.wire.fishOn){
+      this.wire.pullBack();
+      this.energyBar.getStress();
+    }
   }
 
   update(){
@@ -148,6 +153,7 @@ class Wire {
     this.startY = startY;
     this.endX = endX;
     this.endY = endY;
+    this.fishOn = false;
   }
 
   draw(){
@@ -186,7 +192,7 @@ class EnergyBar {
     this.img = new Image();
     this.img.src = "docs/energybar.png";
     this.moving = false;
-    this.a = 0.5;
+    this.a = 2.5;
   }
 
   draw(){
@@ -196,18 +202,13 @@ class EnergyBar {
   updateForEnergy(){
     let min = 41;
     let max = 42+90;
-    // let a = 0.5;
     if(min < this.X < max){
-      if(this.X === min || this.X === max){
+      if(this.X < min || this.X === max){
         this.a *= -1;
       }
       this.X += this.a;
     }
-    // if(min < this.X < max){
-    //   this.X += a;
-    // }else{
-    //   a *= (-1);
-    // }
+    // this.energyBarMoving = window.requestAnimationFrame(this.updateForEnergy.bind(this));
   }
 
   updateForWireStrenth(){
@@ -218,14 +219,19 @@ class EnergyBar {
 
   getStress(){
     if(this.X > 42){
-      this.X -= 6;
+      this.X -= 8;
     }
   }
+
+  // cancelEnergy(){
+  //   window.cancelAnimationFrame(this.energyBarMoving);
+  // }
 
   reset(){
     this.X = 42;
     this.Y = 274;
   }
+
 }
 
 
@@ -256,19 +262,22 @@ class GameView{
   pressButton(e){
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
-    }else if (!this.energyBar.moving && e.code === "Enter"){
+    }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      console.log(this.energyBar.moving);
+      this.ready();
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
       window.cancelAnimationFrame(this.energyBarMoving);
       this.game.start(this.energyBar.X);
       this.game.on = true;
+      this.energyBar.moving = false;
     }
   }
 
   update(){
-    this.energyBar.updateForEnergy();
     this.draw();
+    this.energyBar.updateForEnergy();
     this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
   }
 

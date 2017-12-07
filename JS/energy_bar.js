@@ -6,7 +6,7 @@ class EnergyBar {
     this.img = new Image();
     this.img.src = "docs/energybar.png";
     this.moving = false;
-    this.a = 0.5;
+    this.a = 2.5;
   }
 
   draw(){
@@ -16,18 +16,13 @@ class EnergyBar {
   updateForEnergy(){
     let min = 41;
     let max = 42+90;
-    // let a = 0.5;
     if(min < this.X < max){
-      if(this.X === min || this.X === max){
+      if(this.X < min || this.X === max){
         this.a *= -1;
       }
       this.X += this.a;
     }
-    // if(min < this.X < max){
-    //   this.X += a;
-    // }else{
-    //   a *= (-1);
-    // }
+    // this.energyBarMoving = window.requestAnimationFrame(this.updateForEnergy.bind(this));
   }
 
   updateForWireStrenth(){
@@ -38,14 +33,19 @@ class EnergyBar {
 
   getStress(){
     if(this.X > 42){
-      this.X -= 6;
+      this.X -= 8;
     }
   }
+
+  // cancelEnergy(){
+  //   window.cancelAnimationFrame(this.energyBarMoving);
+  // }
 
   reset(){
     this.X = 42;
     this.Y = 274;
   }
+
 }
 
 

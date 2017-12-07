@@ -5,6 +5,7 @@ class Wire {
     this.startY = startY;
     this.endX = endX;
     this.endY = endY;
+    this.fishOn = false;
   }
 
   draw(){
