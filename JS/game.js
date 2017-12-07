@@ -8,13 +8,13 @@ class Game {
   }
 
   start(X){
-    this.wire = new Wire(this.ctx,40,40,100+X+X*1.7,150);
+    this.wire = new Wire(this.ctx,90,170,100+X+X*1.7,259);
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
+    this.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
-      this.update();
-    }, Math.floor((Math.random() * 3) + 1));
+    }, Math.floor((Math.random() * 8) + 5)*1000);
   }
 
   pressButton(e){
@@ -25,8 +25,10 @@ class Game {
   }
 
   update(){
-    this.wire.update();
     if(this.on){
+      if(this.wire.fishOn){
+        this.wire.update();
+      }
       this.energyBar.updateForWireStrenth();
     }else{
       this.energyBar.reset();
