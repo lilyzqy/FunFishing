@@ -8,7 +8,7 @@ class Game {
   }
 
   start(X){
-    this.wire = new Wire(this.ctx,40,40,40*X*0.05,150);
+    this.wire = new Wire(this.ctx,40,40,100+X+X*1.7,150);
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
     window.setTimeout(()=>{

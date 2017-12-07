@@ -96,7 +96,7 @@ class Game {
   }
 
   start(X){
-    this.wire = new Wire(this.ctx,40,40,40*X*0.05,150);
+    this.wire = new Wire(this.ctx,40,40,100+X+X*1.7,150);
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
     window.setTimeout(()=>{
@@ -269,7 +269,7 @@ class GameView{
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
       window.cancelAnimationFrame(this.energyBarMoving);
-      this.game.start(this.energyBar.X);
+      this.game.start(this.energyBar.X - 42);
       this.game.on = true;
       this.energyBar.moving = false;
     }
