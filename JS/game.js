@@ -63,10 +63,22 @@ class Game {
   }
 
   mayEndGame(){
-    if(this.wire.startX > this.wire.endX || this.wire.endX > 400 ||this.energyBar.X < 42){
-      this.on = false;
-      window.cancelAnimationFrame(this.gameGoing);
+    if(this.wire.startX > this.wire.endX){
+      document.getElementById("fish").style.visibility = "visible";
+
+      this.endGame();
+    }else if( this.wire.endX > 400){
+
+      this.endGame();
+    } else if(this.energyBar.X < 42){
+      this.endGame();
     }
+  }
+
+  endGame (){
+    document.getElementById("board").style.visibility = "visible";
+    this.on = false;
+    window.cancelAnimationFrame(this.gameGoing);
   }
 
 }
