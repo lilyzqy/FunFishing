@@ -91,9 +91,10 @@ const Wire = __webpack_require__(3);
 const EnergyBar = __webpack_require__(4);
 
 class Game {
-  constructor(ctx){
+  constructor(ctx,fisherman){
     this.ctx = ctx;
     this.on = false;
+    this.fisherman = fisherman;
   }
 
   start(X){
@@ -105,9 +106,6 @@ class Game {
       this.wire.fishOn = true;
       this.youGotFish();
     }, Math.floor((Math.random() * 8) + 5)*1000);
-    // window.setTimeout(()=>{
-    //   document.querySelector("h2").style.visibility("visible");
-    // }, 1000);
   }
 
   youGotFish(){
@@ -143,6 +141,7 @@ class Game {
     this.ctx.clearRect(0,0,400,300);
     this.wire.draw();
     this.energyBar.draw();
+    this.fisherman.draw("fishing");
   }
 
   mayEndGame(){
@@ -205,12 +204,15 @@ class EnergyBar {
     this.X = 42;
     this.Y = 274;
     this.img = new Image();
-    this.img.src = "docs/energybar.png";
+    this.img.src = "images/energybar.png";
     this.moving = false;
     this.a = 2.5;
   }
 
   draw(){
+    this.img.onload =()=>{
+      this.ctx.drawImage(this.img, this.X, this.Y);
+    };
     this.ctx.drawImage(this.img, this.X, this.Y);
   }
 
@@ -223,7 +225,6 @@ class EnergyBar {
       }
       this.X += this.a;
     }
-    // this.energyBarMoving = window.requestAnimationFrame(this.updateForEnergy.bind(this));
   }
 
   updateForWireStrenth(){
@@ -237,10 +238,6 @@ class EnergyBar {
       this.X -= 8;
     }
   }
-
-  // cancelEnergy(){
-  //   window.cancelAnimationFrame(this.energyBarMoving);
-  // }
 
   reset(){
     this.X = 42;
@@ -260,6 +257,7 @@ module.exports = EnergyBar;
 
 const EnergyBar = __webpack_require__(4);
 const Game = __webpack_require__(2);
+const Fisherman = __webpack_require__(7);
 //timer
 //fisherman
 
@@ -270,7 +268,8 @@ class GameView{
 
   ready(){
     this.energyBar = new EnergyBar(this.ctx);
-    this.game = new Game(this.ctx);
+    this.fisherman = new Fisherman(this.ctx);
+    this.game = new Game(this.ctx,this.fisherman);
     this.draw();
   }
 
@@ -278,8 +277,6 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
-      console.log(this.energyBar.moving);
-      this.ready();
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
@@ -299,11 +296,44 @@ class GameView{
   draw(){
     this.ctx.clearRect(0,0,400,300);
     this.energyBar.draw();
+    this.fisherman.draw("ready");
   }
 
 }
 
 module.exports = GameView;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+class Fisherman {
+  constructor(ctx){
+    this.ctx = ctx;
+    this.readyPosImg = new Image();
+    this.readyPosImg.src = "images/readystance.gif";
+    this.fishingPosImg = new Image();
+    this.fishingPosImg.src = "images/fishingstance.png";
+  }
+
+  draw(pos){
+    if(pos === "ready"){
+      this.readyPosImg.onload = ()=>{
+      this.drawReady();
+    };
+    this.drawReady();
+    }else if (pos === "fishing"){
+      this.ctx.drawImage(this.fishingPosImg, 50,150);
+    }
+  }
+
+  drawReady(){
+    this.ctx.drawImage(this.readyPosImg, 50, 150);
+  }
+}
+
+module.exports = Fisherman;
 
 
 /***/ })

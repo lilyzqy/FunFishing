@@ -1,5 +1,6 @@
-const EnergyBar = require('./energy_bar');
+const EnergyBar = require("./energy_bar");
 const Game = require("./game");
+const Fisherman = require("./fisherman");
 //timer
 //fisherman
 
@@ -10,7 +11,8 @@ class GameView{
 
   ready(){
     this.energyBar = new EnergyBar(this.ctx);
-    this.game = new Game(this.ctx);
+    this.fisherman = new Fisherman(this.ctx);
+    this.game = new Game(this.ctx,this.fisherman);
     this.draw();
   }
 
@@ -18,8 +20,6 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
-      console.log(this.energyBar.moving);
-      this.ready();
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
@@ -39,6 +39,7 @@ class GameView{
   draw(){
     this.ctx.clearRect(0,0,400,300);
     this.energyBar.draw();
+    this.fisherman.draw("ready");
   }
 
 }

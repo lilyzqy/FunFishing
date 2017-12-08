@@ -5,7 +5,7 @@ canvas {
         top: 0;
         left: 17%;
         background: transparent;
-        background-image: url('./docs/background2.png');
+        background-image: url('./images/background2.png');
         background-repeat: no-repeat;
         background-size: cover;
       }
@@ -13,7 +13,8 @@ canvas {
 h2 {
   z-index: 1;
   position: absolute;
-  left: 22%;
+  left: 25%;
+  top:35%;
   font-size: 32px;
   font-family: 'Press Start 2P', cursive;
 }

@@ -4,12 +4,15 @@ class EnergyBar {
     this.X = 42;
     this.Y = 274;
     this.img = new Image();
-    this.img.src = "docs/energybar.png";
+    this.img.src = "images/energybar.png";
     this.moving = false;
     this.a = 2.5;
   }
 
   draw(){
+    this.img.onload =()=>{
+      this.ctx.drawImage(this.img, this.X, this.Y);
+    };
     this.ctx.drawImage(this.img, this.X, this.Y);
   }
 
@@ -22,7 +25,6 @@ class EnergyBar {
       }
       this.X += this.a;
     }
-    // this.energyBarMoving = window.requestAnimationFrame(this.updateForEnergy.bind(this));
   }
 
   updateForWireStrenth(){
@@ -36,10 +38,6 @@ class EnergyBar {
       this.X -= 8;
     }
   }
-
-  // cancelEnergy(){
-  //   window.cancelAnimationFrame(this.energyBarMoving);
-  // }
 
   reset(){
     this.X = 42;

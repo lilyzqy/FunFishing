@@ -2,9 +2,10 @@ const Wire = require('./fish_wire');
 const EnergyBar = require('./energy_bar');
 
 class Game {
-  constructor(ctx){
+  constructor(ctx,fisherman){
     this.ctx = ctx;
     this.on = false;
+    this.fisherman = fisherman;
   }
 
   start(X){
@@ -16,9 +17,6 @@ class Game {
       this.wire.fishOn = true;
       this.youGotFish();
     }, Math.floor((Math.random() * 8) + 5)*1000);
-    // window.setTimeout(()=>{
-    //   document.querySelector("h2").style.visibility("visible");
-    // }, 1000);
   }
 
   youGotFish(){
@@ -54,6 +52,7 @@ class Game {
     this.ctx.clearRect(0,0,400,300);
     this.wire.draw();
     this.energyBar.draw();
+    this.fisherman.draw("fishing");
   }
 
   mayEndGame(){
