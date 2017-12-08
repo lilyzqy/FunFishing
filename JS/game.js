@@ -14,7 +14,19 @@ class Game {
     this.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
+      this.youGotFish();
     }, Math.floor((Math.random() * 8) + 5)*1000);
+    // window.setTimeout(()=>{
+    //   document.querySelector("h2").style.visibility("visible");
+    // }, 1000);
+  }
+
+  youGotFish(){
+    const mark = document.querySelector("h2");
+    mark.style.visibility = "visible";
+    setTimeout(() => {
+        mark.style.visibility = "hidden";
+    }, 500);
   }
 
   pressButton(e){

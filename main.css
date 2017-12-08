@@ -9,3 +9,11 @@ canvas {
         background-repeat: no-repeat;
         background-size: cover;
       }
+
+h2 {
+  z-index: 1;
+  position: absolute;
+  left: 22%;
+  font-size: 32px;
+  font-family: 'Press Start 2P', cursive;
+}

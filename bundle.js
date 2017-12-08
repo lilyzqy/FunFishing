@@ -74,6 +74,7 @@ const GameView = __webpack_require__(6);
 document.addEventListener("DOMContentLoaded", () => {
   const canvasEl = document.querySelector("canvas");
   const ctx = canvasEl.getContext("2d");
+  document.querySelector("h2").style.visibility = "hidden";
 
   const gameView = new GameView(ctx);
   gameView.ready();
@@ -102,7 +103,19 @@ class Game {
     this.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
+      this.youGotFish();
     }, Math.floor((Math.random() * 8) + 5)*1000);
+    // window.setTimeout(()=>{
+    //   document.querySelector("h2").style.visibility("visible");
+    // }, 1000);
+  }
+
+  youGotFish(){
+    const mark = document.querySelector("h2");
+    mark.style.visibility = "visible";
+    setTimeout(() => {
+        mark.style.visibility = "hidden";
+    }, 500);
   }
 
   pressButton(e){
