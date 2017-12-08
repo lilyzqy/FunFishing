@@ -44,6 +44,9 @@ class Game {
         this.wire.update();
       }
       this.energyBar.updateForWireStrenth();
+      if(this.energyBar.X >= 65){
+        this.wire.ready = true;//for the wire color
+      }
     }else{
       this.energyBar.reset();
     }
