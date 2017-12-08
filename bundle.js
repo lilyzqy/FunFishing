@@ -77,6 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("h2").style.visibility = "hidden";
   document.getElementById("board").style.visibility = "hidden";
   document.getElementById("fish").style.visibility = "hidden";
+  document.getElementById("escape").style.visibility = "hidden";
+  document.getElementById("broken").style.visibility = "hidden";
 
   const gameView = new GameView(ctx);
   gameView.ready();
@@ -156,12 +158,12 @@ class Game {
   mayEndGame(){
     if(this.wire.startX > this.wire.endX){
       document.getElementById("fish").style.visibility = "visible";
-
       this.endGame();
     }else if( this.wire.endX > 400){
-
+      document.getElementById("escape").style.visibility = "visible";
       this.endGame();
     } else if(this.energyBar.X < 42){
+      document.getElementById("broken").style.visibility = "visible";
       this.endGame();
     }
   }
@@ -305,6 +307,8 @@ class GameView{
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
       document.getElementById("board").style.visibility = "hidden";
       document.getElementById("fish").style.visibility = "hidden";
+      document.getElementById("escape").style.visibility = "hidden";
+      document.getElementById("broken").style.visibility = "hidden";
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){

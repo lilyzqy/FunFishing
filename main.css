@@ -9,14 +9,17 @@ canvas {
         background-repeat: no-repeat;
         background-size: cover;
       }
+h2{
+  font-size: 32px;
+  font-family: 'Press Start 2P', cursive;
+}
 
-h2 {
+
+#got {
   z-index: 1;
   position: absolute;
   left: 25%;
   top:35%;
-  font-size: 32px;
-  font-family: 'Press Start 2P', cursive;
 }
 
 #board{
@@ -35,4 +38,13 @@ h2 {
   z-index: 2;
   left: 40%;
   top: 33%;
+}
+
+#escape, #broken{
+  position: absolute;
+  z-index: 2;
+  left: 39%;
+  top:35%;
+  width: 200px;
+  text-align: center;
 }

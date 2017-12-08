@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("h2").style.visibility = "hidden";
   document.getElementById("board").style.visibility = "hidden";
   document.getElementById("fish").style.visibility = "hidden";
+  document.getElementById("escape").style.visibility = "hidden";
+  document.getElementById("broken").style.visibility = "hidden";
 
   const gameView = new GameView(ctx);
   gameView.ready();
