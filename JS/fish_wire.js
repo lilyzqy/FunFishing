@@ -24,7 +24,11 @@ class Wire {
   }
 
   pullBack(){
+    this.startX = 82;
     this.endX -= 10;
+    window.setTimeout(()=>{
+      this.startX = 93;
+    },500);
   }
 
   update(){

@@ -9,7 +9,7 @@ class Game {
   }
 
   start(X){
-    this.wire = new Wire(this.ctx,87,100+X*2.7);
+    this.wire = new Wire(this.ctx,93,100+X*2.7);
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
     this.update();

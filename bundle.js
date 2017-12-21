@@ -231,7 +231,7 @@ class Game {
   }
 
   start(X){
-    this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,87,100+X*2.7);
+    this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,93,100+X*2.7);
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
     this.draw();
     this.update();
@@ -341,7 +341,11 @@ class Wire {
   }
 
   pullBack(){
+    this.startX = 82;
     this.endX -= 10;
+    window.setTimeout(()=>{
+      this.startX = 93;
+    },500);
   }
 
   update(){
