@@ -31,11 +31,9 @@ class Game {
     if(this.wire.fishOn){
       this.wire.pullBack();
       this.energyBar.getStress();
-      this.fisherman.X = 20;
       this.fisherman.fishingPosImg.src = "images/pullstance-3.gif";
       this.fisherman.draw("fishing");
       window.setTimeout(()=>{
-        this.fisherman.X = 50;
         this.fisherman.fishingPosImg.src = "images/fishingstance.png";
       },500);
     }
