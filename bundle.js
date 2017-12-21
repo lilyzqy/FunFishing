@@ -231,7 +231,7 @@ class Game {
   }
 
   start(X){
-    this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,87,142,100+X*2.7,259);
+    this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,87,100+X*2.7);
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
     this.draw();
     this.update();
@@ -268,7 +268,7 @@ class Game {
       }
       this.energyBar.updateForWireStrenth();
       if(this.energyBar.X >= 65){
-        this.wire.dangrous = true;//for the wire color
+        this.wire.dangerous = true;//for the wire color
       }
     }else{
       this.energyBar.reset();
@@ -316,25 +316,23 @@ class Game {
 
 "use strict";
 class Wire {
-  constructor(ctx,startX, startY, endX, endY){
+  constructor(ctx,startX, endX){
     this.ctx = ctx;
     this.startX = startX;
-    this.startY = startY;
     this.endX = endX;
-    this.endY = endY;
     this.fishOn = false;
-    this.dangrous = false;
+    this.dangerous = false;
   }
 
   draw(X){
-    if(X < 60 && this.dangrous){
+    if(X < 60 && this.dangerous){
       this.ctx.strokeStyle = "#f23413";
     }else{
       this.ctx.strokeStyle = "#ffffff";
     }
     this.ctx.beginPath();
-    this.ctx.moveTo( this.startX, this.startY);
-    this.ctx.lineTo( this.endX, this.endY);
+    this.ctx.moveTo( this.startX, 142);
+    this.ctx.lineTo( this.endX,259);
     this.ctx.stroke();
   }
 

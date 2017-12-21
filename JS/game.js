@@ -9,7 +9,7 @@ class Game {
   }
 
   start(X){
-    this.wire = new Wire(this.ctx,87,142,100+X*2.7,259);
+    this.wire = new Wire(this.ctx,87,100+X*2.7);
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
     this.update();
@@ -46,7 +46,7 @@ class Game {
       }
       this.energyBar.updateForWireStrenth();
       if(this.energyBar.X >= 65){
-        this.wire.dangrous = true;//for the wire color
+        this.wire.dangerous = true;//for the wire color
       }
     }else{
       this.energyBar.reset();

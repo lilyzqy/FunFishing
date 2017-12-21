@@ -1,23 +1,21 @@
 class Wire {
-  constructor(ctx,startX, startY, endX, endY){
+  constructor(ctx,startX, endX){
     this.ctx = ctx;
     this.startX = startX;
-    this.startY = startY;
     this.endX = endX;
-    this.endY = endY;
     this.fishOn = false;
-    this.dangrous = false;
+    this.dangerous = false;
   }
 
   draw(X){
-    if(X < 60 && this.dangrous){
+    if(X < 60 && this.dangerous){
       this.ctx.strokeStyle = "#f23413";
     }else{
       this.ctx.strokeStyle = "#ffffff";
     }
     this.ctx.beginPath();
-    this.ctx.moveTo( this.startX, this.startY);
-    this.ctx.lineTo( this.endX, this.endY);
+    this.ctx.moveTo( this.startX, 142);
+    this.ctx.lineTo( this.endX,259);
     this.ctx.stroke();
   }
 
