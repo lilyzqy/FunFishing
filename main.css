@@ -31,13 +31,21 @@ h2{
   top: 29%;
 }
 
+.container {
+  position: absolute;
+  width: 50vw;
+  height: 50vh;
+  left: 15%;
+  top:30%;
+}
+
 #fish {
   position: absolute;
   height: 35vh;
   width: auto;
   z-index: 2;
   left: 40%;
-  top: 33%;
+  top: 25%;
 }
 
 #escape, #broken{
@@ -45,6 +53,5 @@ h2{
   z-index: 2;
   left: 39%;
   top:35%;
-  width: 200px;
   text-align: center;
 }
