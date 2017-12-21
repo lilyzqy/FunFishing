@@ -9,31 +9,6 @@ class Wire {
     this.a = 1;
   }
 
-  toggleFish(a){
-    if(a === 1){
-      this.fishImg.src = "images/gotfish3.png";
-    }else{
-      this.fishImg.src = "images/gotfish.png";
-    }
-  }
-
-  drawfish(){
-    this.fishImg.onload = ()=>{
-      this.ctx.drawImage(this.fishImg, 82, 140);
-    };
-    this.ctx.drawImage(this.fishImg, 82, 140);
-  }
-
-  updatefish(){
-    this.a *= -1;
-    this.toggleFish(this.a);
-    this.ctx.clearRect(85,155,30,30);
-    this.drawfish();
-    window.setTimeout(()=>{
-      this.fishmoving = window.requestAnimationFrame(this.updatefish.bind(this));
-    },100);
-  }
-
   draw(X){
     if(X < 60 && this.dangerous){
       this.ctx.strokeStyle = "#f23413";

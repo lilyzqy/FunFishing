@@ -159,6 +159,8 @@ document.addEventListener("DOMContentLoaded", () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__energy_bar__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fisherman__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fish__ = __webpack_require__(8);
+
 
 
 
@@ -173,7 +175,8 @@ class GameView{
   ready(){
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
-    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman);
+    this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.ctx);
+    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman,this.fish);
     this.draw();
   }
 
@@ -181,6 +184,7 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      console.log(this.fish.outOfWater);
       this.game.pressButton(e);
       document.getElementById("board").style.visibility = "hidden";
       document.getElementById("fish").style.visibility = "hidden";
@@ -225,10 +229,11 @@ class GameView{
 
 
 class Game {
-  constructor(ctx,fisherman){
+  constructor(ctx,fisherman,fish){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
+    this.fish = fish;
   }
 
   start(X){
@@ -251,14 +256,15 @@ class Game {
   }
 
   pressButton(e){
-    if(e.code ==="Space"){
-      if(this.wire.fishOn){
-        this.wire.pullBack();
-        this.energyBar.getStress();
-        this.fisherman.pullBack();
-      }
-    }else if(e.code ==="Enter"){
-      window.cancelAnimationFrame(this.wire.fishmoving);
+    if(e.code === "Space" && this.wire.fishOn){
+      this.wire.pullBack();
+      this.energyBar.getStress();
+      this.fisherman.pullBack();
+    }else if(e.code === "Enter" && this.fish.outOfWater){
+      this.fish.outOfWater = false;
+      console.log("hi");
+      // console.log(this.fish.fishmoving);
+      // window.cancelAnimationFrame(this.fish.fishmoving);
     }
   }
 
@@ -291,7 +297,8 @@ class Game {
     if(this.wire.startX > this.wire.endX){
       document.getElementById("fish").style.visibility = "visible";
       this.ctx.clearRect(0,0,400,260);
-      this.wire.updatefish();
+      this.fish.outOfWater = true;
+      this.fish.update();
       this.fisherman.draw("gotfish");
       this.endGame();
     }else if( this.wire.endX > 400){
@@ -328,31 +335,6 @@ class Wire {
     this.dangerous = false;
     this.fishImg = new Image();
     this.a = 1;
-  }
-
-  toggleFish(a){
-    if(a === 1){
-      this.fishImg.src = "images/gotfish3.png";
-    }else{
-      this.fishImg.src = "images/gotfish.png";
-    }
-  }
-
-  drawfish(){
-    this.fishImg.onload = ()=>{
-      this.ctx.drawImage(this.fishImg, 82, 140);
-    };
-    this.ctx.drawImage(this.fishImg, 82, 140);
-  }
-
-  updatefish(){
-    this.a *= -1;
-    this.toggleFish(this.a);
-    this.ctx.clearRect(85,155,30,30);
-    this.drawfish();
-    window.setTimeout(()=>{
-      this.fishmoving = window.requestAnimationFrame(this.updatefish.bind(this));
-    },100);
   }
 
   draw(X){
@@ -470,6 +452,53 @@ class Wave {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Wave);
+
+
+/***/ }),
+/* 7 */,
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Fish{
+  constructor(ctx){
+    this.ctx = ctx;
+    this.outOfWater = false;
+    this.fishImg = new Image();
+    this.a = 1;
+  }
+
+  toggleFish(a){
+    if(a === 1){
+      this.fishImg.src = "images/gotfish3.png";
+    }else{
+      this.fishImg.src = "images/gotfish.png";
+    }
+  }
+
+  draw(){
+    this.fishImg.onload = ()=>{
+      this.ctx.drawImage(this.fishImg, 82, 140);
+    };
+    this.ctx.drawImage(this.fishImg, 82, 140);
+  }
+
+  update(){
+    this.a *= -1;
+    this.toggleFish(this.a);
+    this.ctx.clearRect(85,155,30,30);
+    this.draw();
+    if(this.outOfWater){
+      window.setTimeout(()=>{
+        console.log(this.outOfWater);
+        console.log(this.fishmoving);
+        this.fishmoving = window.requestAnimationFrame(this.update.bind(this));
+      },100);
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Fish);
 
 
 /***/ })

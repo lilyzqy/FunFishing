@@ -1,6 +1,7 @@
 import EnergyBar from"./energy_bar";
 import Game from"./game";
 import Fisherman from"./fisherman";
+import Fish from './fish';
 //timer
 //fisherman
 
@@ -12,7 +13,8 @@ class GameView{
   ready(){
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
-    this.game = new Game(this.ctx,this.fisherman);
+    this.fish = new Fish(this.ctx);
+    this.game = new Game(this.ctx,this.fisherman,this.fish);
     this.draw();
   }
 
@@ -20,6 +22,7 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      console.log(this.fish.outOfWater);
       this.game.pressButton(e);
       document.getElementById("board").style.visibility = "hidden";
       document.getElementById("fish").style.visibility = "hidden";

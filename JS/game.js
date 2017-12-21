@@ -2,10 +2,11 @@ import Wire from './fish_wire';
 import EnergyBar from './energy_bar';
 
 class Game {
-  constructor(ctx,fisherman){
+  constructor(ctx,fisherman,fish){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
+    this.fish = fish;
   }
 
   start(X){
@@ -28,14 +29,15 @@ class Game {
   }
 
   pressButton(e){
-    if(e.code ==="Space"){
-      if(this.wire.fishOn){
-        this.wire.pullBack();
-        this.energyBar.getStress();
-        this.fisherman.pullBack();
-      }
-    }else if(e.code ==="Enter"){
-      window.cancelAnimationFrame(this.wire.fishmoving);
+    if(e.code === "Space" && this.wire.fishOn){
+      this.wire.pullBack();
+      this.energyBar.getStress();
+      this.fisherman.pullBack();
+    }else if(e.code === "Enter" && this.fish.outOfWater){
+      this.fish.outOfWater = false;
+      console.log("hi");
+      // console.log(this.fish.fishmoving);
+      // window.cancelAnimationFrame(this.fish.fishmoving);
     }
   }
 
@@ -68,7 +70,8 @@ class Game {
     if(this.wire.startX > this.wire.endX){
       document.getElementById("fish").style.visibility = "visible";
       this.ctx.clearRect(0,0,400,260);
-      this.wire.updatefish();
+      this.fish.outOfWater = true;
+      this.fish.update();
       this.fisherman.draw("gotfish");
       this.endGame();
     }else if( this.wire.endX > 400){
