@@ -253,10 +253,13 @@ class Game {
     if(this.wire.fishOn){
       this.wire.pullBack();
       this.energyBar.getStress();
+      this.fisherman.X = 20;
       this.fisherman.fishingPosImg.src = "images/pullstance-3.gif";
+      this.fisherman.draw("fishing");
       window.setTimeout(()=>{
+        this.fisherman.X = 50;
         this.fisherman.fishingPosImg.src = "images/fishingstance.png";
-      },5000);
+      },500);
     }
   }
 
@@ -267,7 +270,7 @@ class Game {
       }
       this.energyBar.updateForWireStrenth();
       if(this.energyBar.X >= 65){
-        this.wire.ready = true;//for the wire color
+        this.wire.dangrous = true;//for the wire color
       }
     }else{
       this.energyBar.reset();
@@ -322,11 +325,11 @@ class Wire {
     this.endX = endX;
     this.endY = endY;
     this.fishOn = false;
-    this.ready = false;
+    this.dangrous = false;
   }
 
   draw(X){
-    if(X < 60 && this.ready){
+    if(X < 60 && this.dangrous){
       this.ctx.strokeStyle = "#f23413";
     }else{
       this.ctx.strokeStyle = "#ffffff";
@@ -361,6 +364,8 @@ class Wire {
 class Fisherman {
   constructor(ctx){
     this.ctx = ctx;
+    this.X = 26;
+    this.Y = 148;
     this.readyPosImg = new Image();
     this.readyPosImg.src = "images/readystance.gif";
     this.fishingPosImg = new Image();
@@ -371,19 +376,23 @@ class Fisherman {
 
   draw(pos){
     if(pos === "ready"){
-      this.readyPosImg.onload = ()=>{
+    this.readyPosImg.onload = ()=>{
       this.drawReady();
     };
     this.drawReady();
     }else if (pos === "fishing"){
-      this.ctx.drawImage(this.fishingPosImg, 50,140);
+      this.X = 50;
+      this.Y = 140;
+      this.ctx.drawImage(this.fishingPosImg, this.X, this.Y);
     // }else{
     //   this.ctx.drawImage(this.pullingPosImg, 50, 140);
     }
   }
 
   drawReady(){
-    this.ctx.drawImage(this.readyPosImg, 26, 148);
+    this.X = 26;
+    this.Y = 148;
+    this.ctx.drawImage(this.readyPosImg, this.X , this.Y);
   }
 }
 

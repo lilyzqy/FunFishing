@@ -6,11 +6,11 @@ class Wire {
     this.endX = endX;
     this.endY = endY;
     this.fishOn = false;
-    this.ready = false;
+    this.dangrous = false;
   }
 
   draw(X){
-    if(X < 60 && this.ready){
+    if(X < 60 && this.dangrous){
       this.ctx.strokeStyle = "#f23413";
     }else{
       this.ctx.strokeStyle = "#ffffff";
