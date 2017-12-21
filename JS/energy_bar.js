@@ -47,4 +47,4 @@ class EnergyBar {
 }
 
 
-module.exports = EnergyBar;
+export default EnergyBar;

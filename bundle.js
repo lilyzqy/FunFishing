@@ -65,8 +65,9 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 class EnergyBar {
   constructor(ctx){
     this.ctx = ctx;
@@ -116,7 +117,7 @@ class EnergyBar {
 }
 
 
-module.exports = EnergyBar;
+/* harmony default export */ __webpack_exports__["a"] = (EnergyBar);
 
 
 /***/ }),
@@ -126,7 +127,6 @@ module.exports = EnergyBar;
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__game_view__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(6);
 
 
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](ctx);
   wave.draw();
   wave.update();
-  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view___default.a(ctx);
+  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });
@@ -153,11 +153,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const EnergyBar = __webpack_require__(0);
-const Game = __webpack_require__(3);
-const Fisherman = __webpack_require__(5);
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__energy_bar__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fisherman__ = __webpack_require__(5);
+
+
+
 //timer
 //fisherman
 
@@ -167,9 +171,9 @@ class GameView{
   }
 
   ready(){
-    this.energyBar = new EnergyBar(this.ctx);
-    this.fisherman = new Fisherman(this.ctx);
-    this.game = new Game(this.ctx,this.fisherman);
+    this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
+    this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
+    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman);
     this.draw();
   }
 
@@ -206,15 +210,18 @@ class GameView{
 
 }
 
-module.exports = GameView;
+/* harmony default export */ __webpack_exports__["a"] = (GameView);
 
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const Wire = __webpack_require__(4);
-const EnergyBar = __webpack_require__(0);
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fish_wire__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__energy_bar__ = __webpack_require__(0);
+
+
 
 class Game {
   constructor(ctx,fisherman){
@@ -224,8 +231,8 @@ class Game {
   }
 
   start(X){
-    this.wire = new Wire(this.ctx,87,142,100+X+X*1.7,259);
-    this.energyBar = new EnergyBar(this.ctx);
+    this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,87,142,100+X*2.7,259);
+    this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
     this.draw();
     this.update();
     window.setTimeout(()=>{
@@ -299,13 +306,14 @@ class Game {
 
 }
 
-module.exports = Game;
+/* harmony default export */ __webpack_exports__["a"] = (Game);
 
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 class Wire {
   constructor(ctx,startX, startY, endX, endY){
     this.ctx = ctx;
@@ -342,13 +350,14 @@ class Wire {
   }
 }
 
-module.exports = Wire;
+/* harmony default export */ __webpack_exports__["a"] = (Wire);
 
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 class Fisherman {
   constructor(ctx){
     this.ctx = ctx;
@@ -378,7 +387,7 @@ class Fisherman {
   }
 }
 
-module.exports = Fisherman;
+/* harmony default export */ __webpack_exports__["a"] = (Fisherman);
 
 
 /***/ }),

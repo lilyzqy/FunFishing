@@ -1,5 +1,5 @@
-const Wire = require('./fish_wire');
-const EnergyBar = require('./energy_bar');
+import Wire from './fish_wire';
+import EnergyBar from './energy_bar';
 
 class Game {
   constructor(ctx,fisherman){
@@ -9,7 +9,7 @@ class Game {
   }
 
   start(X){
-    this.wire = new Wire(this.ctx,87,142,100+X+X*1.7,259);
+    this.wire = new Wire(this.ctx,87,142,100+X*2.7,259);
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
     this.update();
@@ -84,4 +84,4 @@ class Game {
 
 }
 
-module.exports = Game;
+export default Game;

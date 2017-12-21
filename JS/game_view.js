@@ -1,6 +1,6 @@
-const EnergyBar = require("./energy_bar");
-const Game = require("./game");
-const Fisherman = require("./fisherman");
+import EnergyBar from"./energy_bar";
+import Game from"./game";
+import Fisherman from"./fisherman";
 //timer
 //fisherman
 
@@ -49,4 +49,4 @@ class GameView{
 
 }
 
-module.exports = GameView;
+export default GameView;

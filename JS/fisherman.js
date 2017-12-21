@@ -27,4 +27,4 @@ class Fisherman {
   }
 }
 
-module.exports = Fisherman;
+export default Fisherman;

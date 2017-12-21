@@ -34,4 +34,4 @@ class Wire {
   }
 }
 
-module.exports = Wire;
+export default Wire;
