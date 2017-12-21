@@ -60,14 +60,76 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-const GameView = __webpack_require__(6);
+class EnergyBar {
+  constructor(ctx){
+    this.ctx = ctx;
+    this.X = 42;
+    this.Y = 274;
+    this.img = new Image();
+    this.img.src = "images/energybar.png";
+    this.moving = false;
+    this.a = 2.5;
+  }
+
+  draw(){
+    this.img.onload =()=>{
+      this.ctx.drawImage(this.img, this.X, this.Y);
+    };
+    this.ctx.drawImage(this.img, this.X, this.Y);
+  }
+
+  updateForEnergy(){
+    let min = 41;
+    let max = 42+90;
+    if(min < this.X < max){
+      if(this.X < min || this.X === max){
+        this.a *= -1;
+      }
+      this.X += this.a;
+    }
+  }
+
+  updateForWireStrenth(){
+    if(this.X < (42+90)){
+    this.X += 0.5;
+    }
+  }
+
+  getStress(){
+    if(this.X > 42){
+      this.X -= 8;
+    }
+  }
+
+  reset(){
+    this.X = 42;
+    this.Y = 274;
+  }
+
+}
+
+
+module.exports = EnergyBar;
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__game_view__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(6);
+
+
 // const ImageRepository = require("./image_repository");
 // const GameView = require("./game_view");
 
@@ -80,19 +142,78 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("escape").style.visibility = "hidden";
   document.getElementById("broken").style.visibility = "hidden";
 
-  const gameView = new GameView(ctx);
+  const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](ctx);
+  wave.draw();
+  wave.update();
+  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view___default.a(ctx);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });
 
 
 /***/ }),
-/* 1 */,
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Wire = __webpack_require__(3);
-const EnergyBar = __webpack_require__(4);
+const EnergyBar = __webpack_require__(0);
+const Game = __webpack_require__(3);
+const Fisherman = __webpack_require__(5);
+//timer
+//fisherman
+
+class GameView{
+  constructor(ctx){
+    this.ctx = ctx;
+  }
+
+  ready(){
+    this.energyBar = new EnergyBar(this.ctx);
+    this.fisherman = new Fisherman(this.ctx);
+    this.game = new Game(this.ctx,this.fisherman);
+    this.draw();
+  }
+
+  pressButton(e){
+    if(this.game.on && e.code === "Space"){
+      this.game.pressButton(e);
+    }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      document.getElementById("board").style.visibility = "hidden";
+      document.getElementById("fish").style.visibility = "hidden";
+      document.getElementById("escape").style.visibility = "hidden";
+      document.getElementById("broken").style.visibility = "hidden";
+      this.update();
+      this.energyBar.moving = true;
+    }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      window.cancelAnimationFrame(this.energyBarMoving);
+      this.game.start(this.energyBar.X - 42);
+      this.game.on = true;
+      this.energyBar.moving = false;
+    }
+  }
+
+  update(){
+    this.draw();
+    this.energyBar.updateForEnergy();
+    this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
+  }
+
+  draw(){
+    this.ctx.clearRect(0,0,400,300);
+    this.energyBar.draw();
+    this.fisherman.draw("ready");
+  }
+
+}
+
+module.exports = GameView;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Wire = __webpack_require__(4);
+const EnergyBar = __webpack_require__(0);
 
 class Game {
   constructor(ctx,fisherman){
@@ -180,7 +301,7 @@ module.exports = Game;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 class Wire {
@@ -223,121 +344,7 @@ module.exports = Wire;
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-class EnergyBar {
-  constructor(ctx){
-    this.ctx = ctx;
-    this.X = 42;
-    this.Y = 274;
-    this.img = new Image();
-    this.img.src = "images/energybar.png";
-    this.moving = false;
-    this.a = 2.5;
-  }
-
-  draw(){
-    this.img.onload =()=>{
-      this.ctx.drawImage(this.img, this.X, this.Y);
-    };
-    this.ctx.drawImage(this.img, this.X, this.Y);
-  }
-
-  updateForEnergy(){
-    let min = 41;
-    let max = 42+90;
-    if(min < this.X < max){
-      if(this.X < min || this.X === max){
-        this.a *= -1;
-      }
-      this.X += this.a;
-    }
-  }
-
-  updateForWireStrenth(){
-    if(this.X < (42+90)){
-    this.X += 0.5;
-    }
-  }
-
-  getStress(){
-    if(this.X > 42){
-      this.X -= 8;
-    }
-  }
-
-  reset(){
-    this.X = 42;
-    this.Y = 274;
-  }
-
-}
-
-
-module.exports = EnergyBar;
-
-
-/***/ }),
-/* 5 */,
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const EnergyBar = __webpack_require__(4);
-const Game = __webpack_require__(2);
-const Fisherman = __webpack_require__(7);
-//timer
-//fisherman
-
-class GameView{
-  constructor(ctx){
-    this.ctx = ctx;
-  }
-
-  ready(){
-    this.energyBar = new EnergyBar(this.ctx);
-    this.fisherman = new Fisherman(this.ctx);
-    this.game = new Game(this.ctx,this.fisherman);
-    this.draw();
-  }
-
-  pressButton(e){
-    if(this.game.on && e.code === "Space"){
-      this.game.pressButton(e);
-    }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
-      document.getElementById("board").style.visibility = "hidden";
-      document.getElementById("fish").style.visibility = "hidden";
-      document.getElementById("escape").style.visibility = "hidden";
-      document.getElementById("broken").style.visibility = "hidden";
-      this.update();
-      this.energyBar.moving = true;
-    }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
-      window.cancelAnimationFrame(this.energyBarMoving);
-      this.game.start(this.energyBar.X - 42);
-      this.game.on = true;
-      this.energyBar.moving = false;
-    }
-  }
-
-  update(){
-    this.draw();
-    this.energyBar.updateForEnergy();
-    this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
-  }
-
-  draw(){
-    this.ctx.clearRect(0,0,400,300);
-    this.energyBar.draw();
-    this.fisherman.draw("ready");
-  }
-
-}
-
-module.exports = GameView;
-
-
-/***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, exports) {
 
 class Fisherman {
@@ -370,6 +377,50 @@ class Fisherman {
 }
 
 module.exports = Fisherman;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Wave {
+  constructor(ctx){
+    this.ctx = ctx;
+    this.X = 0;
+    this.Y = 0;
+    this.img = new Image();
+    this.img.src = "images/wave.png";
+    this.a = 0.1;
+  }
+
+  draw(){
+
+    // this.img.onload =()=>{
+      this.ctx.drawImage(this.img, this.X, this.Y);
+    // };
+  }
+
+  move(){
+    const min = -5;
+    const max = 5;
+    if( min < this.X < max){
+      if(this.X < min || this.X > max){
+        this.a *= -1;
+      }
+      this.X += this.a;
+    }
+  }
+
+  update(){
+    this.ctx.clearRect(0,260,400,10);
+    this.move();
+    this.draw();
+    window.requestAnimationFrame(this.update.bind(this));
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Wave);
 
 
 /***/ })
