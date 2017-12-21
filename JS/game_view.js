@@ -41,7 +41,7 @@ class GameView{
   }
 
   draw(){
-    this.ctx.clearRect(0,0,400,300);
+    this.ctx.clearRect(0,270,400,30);
     this.energyBar.draw();
     this.fisherman.draw("ready");
   }
