@@ -63,6 +63,8 @@ class Game {
   mayEndGame(){
     if(this.wire.startX > this.wire.endX){
       document.getElementById("fish").style.visibility = "visible";
+      this.ctx.clearRect(0,0,400,260);
+      this.fisherman.draw("gotfish");
       this.endGame();
     }else if( this.wire.endX > 400){
       document.getElementById("escape").style.visibility = "visible";

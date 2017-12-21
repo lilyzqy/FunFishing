@@ -285,6 +285,8 @@ class Game {
   mayEndGame(){
     if(this.wire.startX > this.wire.endX){
       document.getElementById("fish").style.visibility = "visible";
+      this.ctx.clearRect(0,0,400,260);
+      this.fisherman.draw("gotfish");
       this.endGame();
     }else if( this.wire.endX > 400){
       document.getElementById("escape").style.visibility = "visible";
@@ -364,6 +366,8 @@ class Fisherman {
     this.readyPosImg.src = "images/readystance.gif";
     this.fishingPosImg = new Image();
     this.fishingPosImg.src = "images/fishingstance.png";
+    this.gotfishPosImg = new Image();
+    this.gotfishPosImg.src = "images/gotfishfisherman.png";
   }
 
   draw(pos){
@@ -374,6 +378,8 @@ class Fisherman {
     this.drawReady();
     }else if (pos === "fishing"){
       this.ctx.drawImage(this.fishingPosImg, 50, 140);
+    }else if (pos === "gotfish"){
+      this.ctx.drawImage(this.gotfishPosImg, 55,136);
     }
   }
 

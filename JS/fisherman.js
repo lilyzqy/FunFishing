@@ -5,6 +5,8 @@ class Fisherman {
     this.readyPosImg.src = "images/readystance.gif";
     this.fishingPosImg = new Image();
     this.fishingPosImg.src = "images/fishingstance.png";
+    this.gotfishPosImg = new Image();
+    this.gotfishPosImg.src = "images/gotfishfisherman.png";
   }
 
   draw(pos){
@@ -15,6 +17,8 @@ class Fisherman {
     this.drawReady();
     }else if (pos === "fishing"){
       this.ctx.drawImage(this.fishingPosImg, 50, 140);
+    }else if (pos === "gotfish"){
+      this.ctx.drawImage(this.gotfishPosImg, 55,136);
     }
   }
 
