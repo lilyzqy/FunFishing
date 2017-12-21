@@ -181,6 +181,7 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      this.game.pressButton(e);
       document.getElementById("board").style.visibility = "hidden";
       document.getElementById("fish").style.visibility = "hidden";
       document.getElementById("escape").style.visibility = "hidden";
@@ -238,7 +239,7 @@ class Game {
     window.setTimeout(()=>{
       this.wire.fishOn = true;
       this.youGotFish();
-    }, Math.floor((Math.random() * 8) + 5)*1000);
+    }, Math.floor((Math.random() * 8) + 0)*1000);
   }
 
   youGotFish(){
@@ -250,10 +251,14 @@ class Game {
   }
 
   pressButton(e){
-    if(this.wire.fishOn){
-      this.wire.pullBack();
-      this.energyBar.getStress();
-      this.fisherman.pullBack();
+    if(e.code ==="Space"){
+      if(this.wire.fishOn){
+        this.wire.pullBack();
+        this.energyBar.getStress();
+        this.fisherman.pullBack();
+      }
+    }else if(e.code ==="Enter"){
+      window.cancelAnimationFrame(this.wire.fishmoving);
     }
   }
 
@@ -286,6 +291,7 @@ class Game {
     if(this.wire.startX > this.wire.endX){
       document.getElementById("fish").style.visibility = "visible";
       this.ctx.clearRect(0,0,400,260);
+      this.wire.updatefish();
       this.fisherman.draw("gotfish");
       this.endGame();
     }else if( this.wire.endX > 400){
@@ -320,6 +326,33 @@ class Wire {
     this.endX = endX;
     this.fishOn = false;
     this.dangerous = false;
+    this.fishImg = new Image();
+    this.a = 1;
+  }
+
+  toggleFish(a){
+    if(a === 1){
+      this.fishImg.src = "images/gotfish3.png";
+    }else{
+      this.fishImg.src = "images/gotfish.png";
+    }
+  }
+
+  drawfish(){
+    this.fishImg.onload = ()=>{
+      this.ctx.drawImage(this.fishImg, 82, 140);
+    };
+    this.ctx.drawImage(this.fishImg, 82, 140);
+  }
+
+  updatefish(){
+    this.a *= -1;
+    this.toggleFish(this.a);
+    this.ctx.clearRect(85,155,30,30);
+    this.drawfish();
+    window.setTimeout(()=>{
+      this.fishmoving = window.requestAnimationFrame(this.updatefish.bind(this));
+    },100);
   }
 
   draw(X){

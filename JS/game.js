@@ -16,7 +16,7 @@ class Game {
     window.setTimeout(()=>{
       this.wire.fishOn = true;
       this.youGotFish();
-    }, Math.floor((Math.random() * 8) + 5)*1000);
+    }, Math.floor((Math.random() * 8) + 0)*1000);
   }
 
   youGotFish(){
@@ -28,10 +28,14 @@ class Game {
   }
 
   pressButton(e){
-    if(this.wire.fishOn){
-      this.wire.pullBack();
-      this.energyBar.getStress();
-      this.fisherman.pullBack();
+    if(e.code ==="Space"){
+      if(this.wire.fishOn){
+        this.wire.pullBack();
+        this.energyBar.getStress();
+        this.fisherman.pullBack();
+      }
+    }else if(e.code ==="Enter"){
+      window.cancelAnimationFrame(this.wire.fishmoving);
     }
   }
 
@@ -64,6 +68,7 @@ class Game {
     if(this.wire.startX > this.wire.endX){
       document.getElementById("fish").style.visibility = "visible";
       this.ctx.clearRect(0,0,400,260);
+      this.wire.updatefish();
       this.fisherman.draw("gotfish");
       this.endGame();
     }else if( this.wire.endX > 400){
