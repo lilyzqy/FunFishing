@@ -403,8 +403,8 @@ class Wave {
   }
 
   move(){
-    const min = -5;
-    const max = 5;
+    const min = -10;
+    const max = 1.2;
     if( min < this.X < max){
       if(this.X < min || this.X > max){
         this.a *= -1;
