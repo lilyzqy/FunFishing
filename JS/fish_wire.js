@@ -28,7 +28,7 @@ class Wire {
     this.endX -= 10;
     window.setTimeout(()=>{
       this.startX = 93;
-    },500);
+    },800);
   }
 
   update(){

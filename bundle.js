@@ -253,11 +253,7 @@ class Game {
     if(this.wire.fishOn){
       this.wire.pullBack();
       this.energyBar.getStress();
-      this.fisherman.fishingPosImg.src = "images/pullstance-3.gif";
-      this.fisherman.draw("fishing");
-      window.setTimeout(()=>{
-        this.fisherman.fishingPosImg.src = "images/fishingstance.png";
-      },500);
+      this.fisherman.pullBack();
     }
   }
 
@@ -345,7 +341,7 @@ class Wire {
     this.endX -= 10;
     window.setTimeout(()=>{
       this.startX = 93;
-    },500);
+    },800);
   }
 
   update(){
@@ -379,6 +375,13 @@ class Fisherman {
     }else if (pos === "fishing"){
       this.ctx.drawImage(this.fishingPosImg, 50, 140);
     }
+  }
+
+  pullBack(){
+    this.fishingPosImg.src = "images/pullstance-3.gif";
+    window.setTimeout(()=>{
+      this.fishingPosImg.src = "images/fishingstance.png";
+    },800);
   }
 
   drawReady(){

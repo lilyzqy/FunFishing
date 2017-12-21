@@ -18,6 +18,13 @@ class Fisherman {
     }
   }
 
+  pullBack(){
+    this.fishingPosImg.src = "images/pullstance-3.gif";
+    window.setTimeout(()=>{
+      this.fishingPosImg.src = "images/fishingstance.png";
+    },800);
+  }
+
   drawReady(){
     this.ctx.drawImage(this.readyPosImg, 26 , 148);
   }
