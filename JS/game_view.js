@@ -6,12 +6,12 @@ import Timer from './timer';
 
 
 class GameView{
-  constructor(ctx){
+  constructor(ctx,timer){
     this.ctx = ctx;
+    this.timer = timer;
   }
 
   ready(){
-    this.timer = new Timer(this.ctx);
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
     this.fish = new Fish(this.ctx);
@@ -23,6 +23,8 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      this.timer.on = true;
+      this.timer.update();
       this.game.pressButton(e);
       document.getElementById("board").style.visibility = "hidden";
       document.getElementById("fish").style.visibility = "hidden";
@@ -45,7 +47,7 @@ class GameView{
   }
 
   draw(){
-    this.ctx.clearRect(0,0,400,260);
+    this.ctx.clearRect(0,110,400,260);
     this.ctx.clearRect(0,270,400,30);
     this.timer.draw();
     this.energyBar.draw();

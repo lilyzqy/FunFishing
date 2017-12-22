@@ -1,8 +1,8 @@
 class Timer {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 30;
-    this.seconds = "30";
+    this.count = 31;
+    this.seconds = "31";
     this.on = false;
   }
 
@@ -13,20 +13,23 @@ class Timer {
   draw(){
     this.ctx.font = "10px 'Press Start 2P',cursive";
     // this.ctx.fillStyle = "red";
+    this.cal();
     this.ctx.fillText(`Timer: 00:${this.seconds}`,270,20);
   }
 
   cal(){
     if(this.count < 10){
-      this.seconds = `0${this.count}`;
+      this.seconds = `0${Math.floor(this.count)}`;
     }else{
-      this.seconds = this.count.toString();
+      this.seconds = Math.floor(this.count).toString();
     }
   }
 
   update(){
+    console.log(this.on);
     this.ctx.clearRect(0,0,400,100);
-    this.count -= 1;
+    this.count -= (1/300);
+    this.draw();
     if(this.on && this.count > 0 ){
       window.requestAnimationFrame(this.update.bind(this));
     }

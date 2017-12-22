@@ -15,6 +15,7 @@ class Game {
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
     this.update();
+    this.timer.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
       this.youGotFish();
@@ -83,6 +84,7 @@ class Game {
   }
 
   endGame (){
+    this.timer.on = false;
     this.ctx.clearRect(0,110,400,260);
     document.getElementById("board").style.visibility = "visible";
     this.on = false;

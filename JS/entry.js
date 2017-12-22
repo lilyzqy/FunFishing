@@ -1,5 +1,6 @@
 import GameView from './game_view';
 import Wave from './wave';
+import Timer from './timer';
 // const ImageRepository = require("./image_repository");
 // const GameView = require("./game_view");
 
@@ -15,7 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const wave = new Wave(ctx);
   wave.draw();
   wave.update();
-  const gameView = new GameView(ctx);
+  const timer = new Timer(ctx);
+  timer.update();
+  const gameView = new GameView(ctx,timer);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });

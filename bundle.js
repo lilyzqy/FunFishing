@@ -128,6 +128,8 @@ class EnergyBar {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__timer__ = __webpack_require__(9);
+
 
 
 // const ImageRepository = require("./image_repository");
@@ -145,7 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](ctx);
   wave.draw();
   wave.update();
-  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx);
+  const timer = new __WEBPACK_IMPORTED_MODULE_2__timer__["a" /* default */](ctx);
+  timer.update();
+  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,timer);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });
@@ -169,12 +173,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 class GameView{
-  constructor(ctx){
+  constructor(ctx,timer){
     this.ctx = ctx;
+    this.timer = timer;
   }
 
   ready(){
-    this.timer = new __WEBPACK_IMPORTED_MODULE_4__timer__["a" /* default */](this.ctx);
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
     this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.ctx);
@@ -186,6 +190,8 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      this.timer.on = true;
+      this.timer.update();
       this.game.pressButton(e);
       document.getElementById("board").style.visibility = "hidden";
       document.getElementById("fish").style.visibility = "hidden";
@@ -208,7 +214,7 @@ class GameView{
   }
 
   draw(){
-    this.ctx.clearRect(0,0,400,260);
+    this.ctx.clearRect(0,110,400,260);
     this.ctx.clearRect(0,270,400,30);
     this.timer.draw();
     this.energyBar.draw();
@@ -244,6 +250,7 @@ class Game {
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
     this.draw();
     this.update();
+    this.timer.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
       this.youGotFish();
@@ -312,6 +319,7 @@ class Game {
   }
 
   endGame (){
+    this.timer.on = false;
     this.ctx.clearRect(0,110,400,260);
     document.getElementById("board").style.visibility = "visible";
     this.on = false;
@@ -513,8 +521,8 @@ class Fish{
 class Timer {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 30;
-    this.seconds = "30";
+    this.count = 31;
+    this.seconds = "31";
     this.on = false;
   }
 
@@ -525,20 +533,23 @@ class Timer {
   draw(){
     this.ctx.font = "10px 'Press Start 2P',cursive";
     // this.ctx.fillStyle = "red";
+    this.cal();
     this.ctx.fillText(`Timer: 00:${this.seconds}`,270,20);
   }
 
   cal(){
     if(this.count < 10){
-      this.seconds = `0${this.count}`;
+      this.seconds = `0${Math.floor(this.count)}`;
     }else{
-      this.seconds = this.count.toString();
+      this.seconds = Math.floor(this.count).toString();
     }
   }
 
   update(){
+    console.log(this.on);
     this.ctx.clearRect(0,0,400,100);
-    this.count -= 1;
+    this.count -= (1/300);
+    this.draw();
     if(this.on && this.count > 0 ){
       window.requestAnimationFrame(this.update.bind(this));
     }
