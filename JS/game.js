@@ -83,7 +83,7 @@ class Game {
   }
 
   endGame (){
-    this.ctx.clearRect(0,0,400,260);
+    this.ctx.clearRect(0,110,400,260);
     document.getElementById("board").style.visibility = "visible";
     this.on = false;
     window.cancelAnimationFrame(this.gameGoing);
