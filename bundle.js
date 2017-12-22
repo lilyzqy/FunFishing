@@ -178,7 +178,7 @@ class GameView{
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
     this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.ctx);
-    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman,this.fish);
+    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman,this.fish,this.timer);
     this.draw();
   }
 
@@ -231,11 +231,12 @@ class GameView{
 
 
 class Game {
-  constructor(ctx,fisherman,fish){
+  constructor(ctx,fisherman,fish,timer){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
     this.fish = fish;
+    this.timer = timer;
   }
 
   start(X){

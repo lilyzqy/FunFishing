@@ -2,11 +2,12 @@ import Wire from './fish_wire';
 import EnergyBar from './energy_bar';
 
 class Game {
-  constructor(ctx,fisherman,fish){
+  constructor(ctx,fisherman,fish,timer){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
     this.fish = fish;
+    this.timer = timer;
   }
 
   start(X){

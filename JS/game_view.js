@@ -15,7 +15,7 @@ class GameView{
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
     this.fish = new Fish(this.ctx);
-    this.game = new Game(this.ctx,this.fisherman,this.fish);
+    this.game = new Game(this.ctx,this.fisherman,this.fish,this.timer);
     this.draw();
   }
 
