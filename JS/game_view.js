@@ -22,7 +22,6 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
-      console.log(this.fish.outOfWater);
       this.game.pressButton(e);
       document.getElementById("board").style.visibility = "hidden";
       document.getElementById("fish").style.visibility = "hidden";

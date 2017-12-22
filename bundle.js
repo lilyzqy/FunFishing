@@ -184,7 +184,6 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
-      console.log(this.fish.outOfWater);
       this.game.pressButton(e);
       document.getElementById("board").style.visibility = "hidden";
       document.getElementById("fish").style.visibility = "hidden";
@@ -261,10 +260,7 @@ class Game {
       this.energyBar.getStress();
       this.fisherman.pullBack();
     }else if(e.code === "Enter" && this.fish.outOfWater){
-      this.fish.outOfWater = false;
-      console.log("hi");
-      // console.log(this.fish.fishmoving);
-      // window.cancelAnimationFrame(this.fish.fishmoving);
+      this.fish.outOfWater = false;   
     }
   }
 
@@ -496,8 +492,6 @@ class Fish{
     this.draw();
     if(this.outOfWater){
       window.setTimeout(()=>{
-        console.log(this.outOfWater);
-        console.log(this.fishmoving);
         this.fishmoving = window.requestAnimationFrame(this.update.bind(this));
       },100);
     }

@@ -28,8 +28,6 @@ class Fish{
     this.draw();
     if(this.outOfWater){
       window.setTimeout(()=>{
-        console.log(this.outOfWater);
-        console.log(this.fishmoving);
         this.fishmoving = window.requestAnimationFrame(this.update.bind(this));
       },100);
     }

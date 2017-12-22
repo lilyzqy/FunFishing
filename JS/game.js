@@ -34,10 +34,7 @@ class Game {
       this.energyBar.getStress();
       this.fisherman.pullBack();
     }else if(e.code === "Enter" && this.fish.outOfWater){
-      this.fish.outOfWater = false;
-      console.log("hi");
-      // console.log(this.fish.fishmoving);
-      // window.cancelAnimationFrame(this.fish.fishmoving);
+      this.fish.outOfWater = false;   
     }
   }
 
