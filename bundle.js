@@ -296,21 +296,23 @@ class Game {
   mayEndGame(){
     if(this.wire.startX > this.wire.endX){
       document.getElementById("fish").style.visibility = "visible";
-      this.ctx.clearRect(0,0,400,260);
+      this.endGame();
       this.fish.outOfWater = true;
       this.fish.update();
       this.fisherman.draw("gotfish");
-      this.endGame();
     }else if( this.wire.endX > 400){
       document.getElementById("escape").style.visibility = "visible";
       this.endGame();
+      this.fisherman.draw("broken");
     } else if(this.energyBar.X < 42){
       document.getElementById("broken").style.visibility = "visible";
       this.endGame();
+      this.fisherman.draw("broken");
     }
   }
 
   endGame (){
+    this.ctx.clearRect(0,0,400,260);
     document.getElementById("board").style.visibility = "visible";
     this.on = false;
     window.cancelAnimationFrame(this.gameGoing);
@@ -383,6 +385,8 @@ class Fisherman {
     this.fishingPosImg.src = "images/fishingstance.png";
     this.gotfishPosImg = new Image();
     this.gotfishPosImg.src = "images/gotfishfisherman.png";
+    this.brokenPosImg = new Image();
+    this.brokenPosImg.src = "Images/broken.png";
   }
 
   draw(pos){
@@ -395,6 +399,8 @@ class Fisherman {
       this.ctx.drawImage(this.fishingPosImg, 50, 140);
     }else if (pos === "gotfish"){
       this.ctx.drawImage(this.gotfishPosImg, 55,136);
+    }else if (pos === "broken"){
+      this.ctx.drawImage(this.brokenPosImg,44,135);
     }
   }
 
