@@ -546,11 +546,10 @@ class Timer {
   }
 
   update(){
-    console.log(this.on);
     this.ctx.clearRect(0,0,400,100);
     this.count -= (1/300);
     this.draw();
-    if(this.on && this.count > 0 ){
+    if(this.on && this.count > 1 ){
       window.requestAnimationFrame(this.update.bind(this));
     }
   }
