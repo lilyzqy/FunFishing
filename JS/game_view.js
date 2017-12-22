@@ -2,8 +2,8 @@ import EnergyBar from"./energy_bar";
 import Game from"./game";
 import Fisherman from"./fisherman";
 import Fish from './fish';
-//timer
-//fisherman
+import Timer from './timer';
+
 
 class GameView{
   constructor(ctx){
@@ -11,6 +11,7 @@ class GameView{
   }
 
   ready(){
+    this.timer = new Timer(this.ctx);
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
     this.fish = new Fish(this.ctx);
@@ -46,6 +47,7 @@ class GameView{
   draw(){
     this.ctx.clearRect(0,0,400,260);
     this.ctx.clearRect(0,270,400,30);
+    this.timer.draw();
     this.energyBar.draw();
     this.fisherman.draw("ready");
   }

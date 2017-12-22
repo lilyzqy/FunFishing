@@ -21,11 +21,11 @@ class Game {
   }
 
   youGotFish(){
-    const mark = document.querySelector("h2");
-    mark.style.visibility = "visible";
+    this.ctx.font = "20px 'Press Start 2P',cursive";
+    this.ctx.fillText("!",60,140);
     setTimeout(() => {
-        mark.style.visibility = "hidden";
-    }, 300);
+        this.ctx.clearRect(0,110,200,30);
+    }, 500);
   }
 
   pressButton(e){
@@ -56,7 +56,7 @@ class Game {
   }
 
   draw(){
-    this.ctx.clearRect(0,0,400,260);
+    this.ctx.clearRect(0,140,400,260);
     this.ctx.clearRect(0,270,400,30);
     this.wire.draw(this.energyBar.X);
     this.energyBar.draw();

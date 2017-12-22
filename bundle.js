@@ -160,12 +160,13 @@ document.addEventListener("DOMContentLoaded", () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fisherman__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fish__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__timer__ = __webpack_require__(9);
 
 
 
 
-//timer
-//fisherman
+
+
 
 class GameView{
   constructor(ctx){
@@ -173,6 +174,7 @@ class GameView{
   }
 
   ready(){
+    this.timer = new __WEBPACK_IMPORTED_MODULE_4__timer__["a" /* default */](this.ctx);
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
     this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.ctx);
@@ -208,6 +210,7 @@ class GameView{
   draw(){
     this.ctx.clearRect(0,0,400,260);
     this.ctx.clearRect(0,270,400,30);
+    this.timer.draw();
     this.energyBar.draw();
     this.fisherman.draw("ready");
   }
@@ -247,11 +250,11 @@ class Game {
   }
 
   youGotFish(){
-    const mark = document.querySelector("h2");
-    mark.style.visibility = "visible";
+    this.ctx.font = "20px 'Press Start 2P',cursive";
+    this.ctx.fillText("!",60,140);
     setTimeout(() => {
-        mark.style.visibility = "hidden";
-    }, 300);
+        this.ctx.clearRect(0,110,200,30);
+    }, 500);
   }
 
   pressButton(e){
@@ -282,7 +285,7 @@ class Game {
   }
 
   draw(){
-    this.ctx.clearRect(0,0,400,260);
+    this.ctx.clearRect(0,140,400,260);
     this.ctx.clearRect(0,270,400,30);
     this.wire.draw(this.energyBar.X);
     this.energyBar.draw();
@@ -499,6 +502,45 @@ class Fish{
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Fish);
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Timer {
+  constructor(ctx){
+    this.ctx = ctx;
+    this.count = 0;
+    this.seconds = "00";
+    this.on = true;
+  }
+
+  pause(){
+    this.on = false;
+  }
+
+  draw(){
+    this.ctx.font = "12px 'Press Start 2P',cursive";
+    this.ctx.color = "red";
+    this.ctx.fillText(`00:${this.seconds}`,330,20);
+  }
+
+  cal(){
+    if(this.count < 10){
+      this.seconds = `0${this.count}`;
+    }else{
+      this.seconds = this.count.toString();
+    }
+  }
+
+  update(){
+
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Timer);
 
 
 /***/ })
