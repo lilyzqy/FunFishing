@@ -260,7 +260,7 @@ class Game {
       this.energyBar.getStress();
       this.fisherman.pullBack();
     }else if(e.code === "Enter" && this.fish.outOfWater){
-      this.fish.outOfWater = false;   
+      this.fish.outOfWater = false;
     }
   }
 
