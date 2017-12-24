@@ -60,7 +60,7 @@ class Game {
   }
 
   draw(){
-    this.ctx.clearRect(0,140,400,260);
+    this.ctx.clearRect(0,140,400,120);
     this.ctx.clearRect(0,270,400,30);
     this.wire.draw(this.energyBar.X);
     this.energyBar.draw();

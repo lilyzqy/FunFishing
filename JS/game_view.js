@@ -49,7 +49,7 @@ class GameView{
   }
 
   draw(){
-    this.ctx.clearRect(0,110,400,260);
+    this.ctx.clearRect(0,110,400,150);
     this.ctx.clearRect(0,270,400,30);
     this.timer.draw();
     this.energyBar.draw();
