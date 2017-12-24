@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   wave.update();
   const timer = new Timer(ctx);
   timer.update();
-  const gameView = new GameView(ctx,timer);
+  const gameView = new GameView(ctx,wave,timer);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });

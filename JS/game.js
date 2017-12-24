@@ -2,11 +2,12 @@ import Wire from './fish_wire';
 import EnergyBar from './energy_bar';
 
 class Game {
-  constructor(ctx,fisherman,fish,timer){
+  constructor(ctx,fisherman,fish,wave,timer){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
     this.fish = fish;
+    this.wave = wave;
     this.timer = timer;
   }
 
@@ -15,6 +16,7 @@ class Game {
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
     this.update();
+    // this.wave.update();
     this.timer.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
@@ -85,7 +87,7 @@ class Game {
 
   endGame (){
     this.timer.on = false;
-    this.ctx.clearRect(0,110,400,260);
+    this.ctx.clearRect(0,110,400,150);
     document.getElementById("board").style.visibility = "visible";
     this.on = false;
     window.cancelAnimationFrame(this.gameGoing);

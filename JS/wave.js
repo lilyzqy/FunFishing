@@ -5,7 +5,7 @@ class Wave {
     this.Y = 0;
     this.img = new Image();
     this.img.src = "images/wave.png";
-    this.a = 0.08;
+    this.a = 0.1;
   }
 
   draw(){

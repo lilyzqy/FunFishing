@@ -6,8 +6,9 @@ import Timer from './timer';
 
 
 class GameView{
-  constructor(ctx,timer){
+  constructor(ctx,wave,timer){
     this.ctx = ctx;
+    this.wave = wave;
     this.timer = timer;
   }
 
@@ -15,7 +16,7 @@ class GameView{
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
     this.fish = new Fish(this.ctx);
-    this.game = new Game(this.ctx,this.fisherman,this.fish,this.timer);
+    this.game = new Game(this.ctx,this.fisherman,this.fish,this.wave,this.timer);
     this.draw();
   }
 
@@ -24,6 +25,7 @@ class GameView{
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
       this.timer.on = true;
+      // this.wave.update();
       this.timer.update();
       this.game.pressButton(e);
       document.getElementById("board").style.visibility = "hidden";

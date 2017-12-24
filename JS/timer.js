@@ -27,7 +27,7 @@ class Timer {
 
   update(){
     this.ctx.clearRect(0,0,400,100);
-    this.count -= (1/300);
+    this.count -= (1/220);
     this.draw();
     if(this.on && this.count > 1 ){
       window.requestAnimationFrame(this.update.bind(this));

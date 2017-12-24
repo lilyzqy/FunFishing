@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
   wave.update();
   const timer = new __WEBPACK_IMPORTED_MODULE_2__timer__["a" /* default */](ctx);
   timer.update();
-  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,timer);
+  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,wave,timer);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });
@@ -173,8 +173,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 class GameView{
-  constructor(ctx,timer){
+  constructor(ctx,wave,timer){
     this.ctx = ctx;
+    this.wave = wave;
     this.timer = timer;
   }
 
@@ -182,7 +183,7 @@ class GameView{
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
     this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.ctx);
-    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman,this.fish,this.timer);
+    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman,this.fish,this.wave,this.timer);
     this.draw();
   }
 
@@ -191,6 +192,7 @@ class GameView{
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
       this.timer.on = true;
+      // this.wave.update();
       this.timer.update();
       this.game.pressButton(e);
       document.getElementById("board").style.visibility = "hidden";
@@ -237,11 +239,12 @@ class GameView{
 
 
 class Game {
-  constructor(ctx,fisherman,fish,timer){
+  constructor(ctx,fisherman,fish,wave,timer){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
     this.fish = fish;
+    this.wave = wave;
     this.timer = timer;
   }
 
@@ -250,6 +253,7 @@ class Game {
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
     this.draw();
     this.update();
+    // this.wave.update();
     this.timer.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
@@ -320,7 +324,7 @@ class Game {
 
   endGame (){
     this.timer.on = false;
-    this.ctx.clearRect(0,110,400,260);
+    this.ctx.clearRect(0,110,400,150);
     document.getElementById("board").style.visibility = "visible";
     this.on = false;
     window.cancelAnimationFrame(this.gameGoing);
@@ -439,7 +443,7 @@ class Wave {
     this.Y = 0;
     this.img = new Image();
     this.img.src = "images/wave.png";
-    this.a = 0.08;
+    this.a = 0.1;
   }
 
   draw(){
@@ -547,7 +551,7 @@ class Timer {
 
   update(){
     this.ctx.clearRect(0,0,400,100);
-    this.count -= (1/300);
+    this.count -= (1/220);
     this.draw();
     if(this.on && this.count > 1 ){
       window.requestAnimationFrame(this.update.bind(this));
