@@ -6,17 +6,17 @@ import Timer from './timer';
 
 
 class GameView{
-  constructor(ctx,wave,timer){
-    this.ctx = ctx;
+  constructor(gamectx,wave,timer){
+    this.gamectx = gamectx;
     this.wave = wave;
     this.timer = timer;
   }
 
   ready(){
-    this.energyBar = new EnergyBar(this.ctx);
-    this.fisherman = new Fisherman(this.ctx);
-    this.fish = new Fish(this.ctx);
-    this.game = new Game(this.ctx,this.fisherman,this.fish,this.wave,this.timer);
+    this.energyBar = new EnergyBar(this.gamectx);
+    this.fisherman = new Fisherman(this.gamectx);
+    this.fish = new Fish(this.gamectx);
+    this.game = new Game(this.gamectx,this.fisherman,this.fish,this.wave,this.timer);
     this.draw();
   }
 
@@ -49,8 +49,8 @@ class GameView{
   }
 
   draw(){
-    this.ctx.clearRect(0,110,400,150);
-    this.ctx.clearRect(0,270,400,30);
+    this.gamectx.clearRect(0,110,400,150);
+    this.gamectx.clearRect(0,270,400,30);
     this.timer.draw();
     this.energyBar.draw();
     this.fisherman.draw("ready");

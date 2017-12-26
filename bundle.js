@@ -137,19 +137,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 document.addEventListener("DOMContentLoaded", () => {
   const gamecanvasEl = document.getElementById("game-canvas");
-  const ctx = gamecanvasEl.getContext("2d");
-  document.querySelector("h2").style.visibility = "hidden";
+  const gamectx = gamecanvasEl.getContext("2d");
+  const boardcanvasEl = document.getElementById("board-canvas");
+  const boardctx = gamecanvasEl.getContext("2d");
+  boardcanvasEl.style.visibility = "hidden";
   document.getElementById("board").style.visibility = "hidden";
   document.getElementById("fish").style.visibility = "hidden";
   document.getElementById("escape").style.visibility = "hidden";
   document.getElementById("broken").style.visibility = "hidden";
 
-  const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](ctx);
+  const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](gamectx);
   wave.draw();
   wave.update();
-  const timer = new __WEBPACK_IMPORTED_MODULE_2__timer__["a" /* default */](ctx);
+  const timer = new __WEBPACK_IMPORTED_MODULE_2__timer__["a" /* default */](gamectx);
   timer.update();
-  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,wave,timer);
+  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](gamectx,wave,timer);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });
@@ -173,17 +175,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 class GameView{
-  constructor(ctx,wave,timer){
-    this.ctx = ctx;
+  constructor(gamectx,wave,timer){
+    this.gamectx = gamectx;
     this.wave = wave;
     this.timer = timer;
   }
 
   ready(){
-    this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
-    this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
-    this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.ctx);
-    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman,this.fish,this.wave,this.timer);
+    this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.gamectx);
+    this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.gamectx);
+    this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.gamectx);
+    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.gamectx,this.fisherman,this.fish,this.wave,this.timer);
     this.draw();
   }
 
@@ -216,8 +218,8 @@ class GameView{
   }
 
   draw(){
-    this.ctx.clearRect(0,110,400,150);
-    this.ctx.clearRect(0,270,400,30);
+    this.gamectx.clearRect(0,110,400,150);
+    this.gamectx.clearRect(0,270,400,30);
     this.timer.draw();
     this.energyBar.draw();
     this.fisherman.draw("ready");
