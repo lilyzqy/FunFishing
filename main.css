@@ -1,4 +1,4 @@
-canvas {
+#game-canvas {
         position: absolute;
         height: 100vh;
         width: auto;

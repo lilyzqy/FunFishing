@@ -136,8 +136,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // const GameView = require("./game_view");
 
 document.addEventListener("DOMContentLoaded", () => {
-  const canvasEl = document.querySelector("canvas");
-  const ctx = canvasEl.getContext("2d");
+  const gamecanvasEl = document.getElementById("game-canvas");
+  const ctx = gamecanvasEl.getContext("2d");
   document.querySelector("h2").style.visibility = "hidden";
   document.getElementById("board").style.visibility = "hidden";
   document.getElementById("fish").style.visibility = "hidden";
