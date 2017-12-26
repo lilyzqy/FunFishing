@@ -8,7 +8,7 @@ class Fisherman {
     this.gotfishPosImg = new Image();
     this.gotfishPosImg.src = "images/gotfishfisherman.png";
     this.brokenPosImg = new Image();
-    this.brokenPosImg.src = "Images/broken.png";
+    this.brokenPosImg.src = "images/broken.png";
   }
 
   draw(pos){
