@@ -1,5 +1,6 @@
 import Wire from './fish_wire';
 import EnergyBar from './energy_bar';
+import Board from './board';
 
 class Game {
   constructor(ctx,fisherman,fish,wave,timer){

@@ -137,21 +137,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 document.addEventListener("DOMContentLoaded", () => {
   const gamecanvasEl = document.getElementById("game-canvas");
-  const gamectx = gamecanvasEl.getContext("2d");
+  const ctx = gamecanvasEl.getContext("2d");
   const boardcanvasEl = document.getElementById("board-canvas");
-  const boardctx = gamecanvasEl.getContext("2d");
   boardcanvasEl.style.visibility = "hidden";
-  document.getElementById("board").style.visibility = "hidden";
-  document.getElementById("fish").style.visibility = "hidden";
-  document.getElementById("escape").style.visibility = "hidden";
-  document.getElementById("broken").style.visibility = "hidden";
+  // document.getElementById("board").style.visibility = "hidden";
+  // document.getElementById("fish").style.visibility = "hidden";
+  // document.getElementById("escape").style.visibility = "hidden";
+  // document.getElementById("broken").style.visibility = "hidden";
 
-  const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](gamectx);
+  const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](ctx);
   wave.draw();
   wave.update();
-  const timer = new __WEBPACK_IMPORTED_MODULE_2__timer__["a" /* default */](gamectx);
+  const timer = new __WEBPACK_IMPORTED_MODULE_2__timer__["a" /* default */](ctx);
   timer.update();
-  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](gamectx,wave,timer);
+  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,wave,timer);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });
@@ -175,17 +174,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 class GameView{
-  constructor(gamectx,wave,timer){
-    this.gamectx = gamectx;
+  constructor(ctx,wave,timer){
+    this.ctx = ctx;
     this.wave = wave;
     this.timer = timer;
   }
 
   ready(){
-    this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.gamectx);
-    this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.gamectx);
-    this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.gamectx);
-    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.gamectx,this.fisherman,this.fish,this.wave,this.timer);
+    this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
+    this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
+    this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.ctx);
+    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman,this.fish,this.wave,this.timer);
     this.draw();
   }
 
@@ -197,10 +196,10 @@ class GameView{
       // this.wave.update();
       this.timer.update();
       this.game.pressButton(e);
-      document.getElementById("board").style.visibility = "hidden";
-      document.getElementById("fish").style.visibility = "hidden";
-      document.getElementById("escape").style.visibility = "hidden";
-      document.getElementById("broken").style.visibility = "hidden";
+      document.getElementById("board-canvas").style.visibility = "hidden";
+      // document.getElementById("fish").style.visibility = "hidden";
+      // document.getElementById("escape").style.visibility = "hidden";
+      // document.getElementById("broken").style.visibility = "hidden";
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
@@ -218,8 +217,8 @@ class GameView{
   }
 
   draw(){
-    this.gamectx.clearRect(0,110,400,150);
-    this.gamectx.clearRect(0,270,400,30);
+    this.ctx.clearRect(0,110,400,150);
+    this.ctx.clearRect(0,270,400,30);
     this.timer.draw();
     this.energyBar.draw();
     this.fisherman.draw("ready");
@@ -237,6 +236,9 @@ class GameView{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fish_wire__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__energy_bar__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__board__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__board___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__board__);
+
 
 
 
@@ -562,6 +564,18 @@ class Timer {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Timer);
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+class Board {
+  constructor(){
+    this.boardcanvasEl = document.getElementById("board-canvas");
+    this.boardctx = this.boardcanvasEl.getContext("2d");
+  }
+}
 
 
 /***/ })
