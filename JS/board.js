@@ -21,6 +21,6 @@ class Board {
       this.ctx.fillText("The fish escaped",20,20);
     }
   }
-
-  
 }
+
+export default Board;

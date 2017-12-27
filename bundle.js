@@ -237,7 +237,6 @@ class GameView{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fish_wire__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__energy_bar__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__board__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__board___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__board__);
 
 
 
@@ -255,6 +254,7 @@ class Game {
   start(X){
     this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,93,100+X*2.7);
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
+    this.board = new __WEBPACK_IMPORTED_MODULE_2__board__["a" /* default */]();
     this.draw();
     this.update();
     // this.wave.update();
@@ -310,17 +310,20 @@ class Game {
 
   mayEndGame(){
     if(this.wire.startX > this.wire.endX){
-      document.getElementById("fish").style.visibility = "visible";
+      this.board.draw("fish");
+      // document.getElementById("fish").style.visibility = "visible";
       this.endGame();
       this.fish.outOfWater = true;
       this.fish.update();
       this.fisherman.draw("gotfish");
     }else if( this.wire.endX > 400){
-      document.getElementById("escape").style.visibility = "visible";
+      this.board.draw("escape");
+      // document.getElementById("escape").style.visibility = "visible";
       this.endGame();
       this.fisherman.draw("broken");
     } else if(this.energyBar.X < 42){
-      document.getElementById("broken").style.visibility = "visible";
+      this.board.draw("broken");
+      // document.getElementById("broken").style.visibility = "visible";
       this.endGame();
       this.fisherman.draw("broken");
     }
@@ -329,7 +332,7 @@ class Game {
   endGame (){
     this.timer.on = false;
     this.ctx.clearRect(0,110,400,150);
-    document.getElementById("board").style.visibility = "visible";
+    this.board.boardcanvasEl.style.visibility = "visible";
     this.on = false;
     window.cancelAnimationFrame(this.gameGoing);
   }
@@ -568,8 +571,9 @@ class Timer {
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 class Board {
   constructor(){
     this.boardcanvasEl = document.getElementById("board-canvas");
@@ -593,9 +597,9 @@ class Board {
       this.ctx.fillText("The fish escaped",20,20);
     }
   }
-
-  
 }
+
+/* harmony default export */ __webpack_exports__["a"] = (Board);
 
 
 /***/ })

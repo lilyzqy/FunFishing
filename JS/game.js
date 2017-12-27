@@ -15,6 +15,7 @@ class Game {
   start(X){
     this.wire = new Wire(this.ctx,93,100+X*2.7);
     this.energyBar = new EnergyBar(this.ctx);
+    this.board = new Board();
     this.draw();
     this.update();
     // this.wave.update();
@@ -70,17 +71,20 @@ class Game {
 
   mayEndGame(){
     if(this.wire.startX > this.wire.endX){
-      document.getElementById("fish").style.visibility = "visible";
+      this.board.draw("fish");
+      // document.getElementById("fish").style.visibility = "visible";
       this.endGame();
       this.fish.outOfWater = true;
       this.fish.update();
       this.fisherman.draw("gotfish");
     }else if( this.wire.endX > 400){
-      document.getElementById("escape").style.visibility = "visible";
+      this.board.draw("escape");
+      // document.getElementById("escape").style.visibility = "visible";
       this.endGame();
       this.fisherman.draw("broken");
     } else if(this.energyBar.X < 42){
-      document.getElementById("broken").style.visibility = "visible";
+      this.board.draw("broken");
+      // document.getElementById("broken").style.visibility = "visible";
       this.endGame();
       this.fisherman.draw("broken");
     }
@@ -89,7 +93,7 @@ class Game {
   endGame (){
     this.timer.on = false;
     this.ctx.clearRect(0,110,400,150);
-    document.getElementById("board").style.visibility = "visible";
+    this.board.boardcanvasEl.style.visibility = "visible";
     this.on = false;
     window.cancelAnimationFrame(this.gameGoing);
   }
