@@ -3,6 +3,7 @@ import Game from"./game";
 import Fisherman from"./fisherman";
 import Fish from './fish';
 import Timer from './timer';
+import Board from './board';
 
 
 class GameView{
@@ -15,8 +16,14 @@ class GameView{
   ready(){
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
+    this.board = new Board();
     this.fish = new Fish(this.ctx);
-    this.game = new Game(this.ctx,this.fisherman,this.fish,this.wave,this.timer);
+    this.game = new Game(this.ctx,
+                         this.fisherman,
+                         this.fish,
+                         this.wave,
+                         this.timer,
+                         this.board);
     this.draw();
   }
 
@@ -27,7 +34,8 @@ class GameView{
       this.timer.on = true;
       this.timer.update();
       this.game.pressButton(e);
-      document.getElementById("board-canvas").style.visibility = "hidden";
+      this.board.boardcanvasEl.style.visibility = "hidden";
+      this.board.ctx.clearRect(0,0,200,140);
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){

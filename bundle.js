@@ -166,6 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fisherman__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fish__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__timer__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__board__ = __webpack_require__(10);
+
 
 
 
@@ -183,8 +185,14 @@ class GameView{
   ready(){
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
+    this.board = new __WEBPACK_IMPORTED_MODULE_5__board__["a" /* default */]();
     this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.ctx);
-    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,this.fisherman,this.fish,this.wave,this.timer);
+    this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,
+                         this.fisherman,
+                         this.fish,
+                         this.wave,
+                         this.timer,
+                         this.board);
     this.draw();
   }
 
@@ -195,7 +203,8 @@ class GameView{
       this.timer.on = true;
       this.timer.update();
       this.game.pressButton(e);
-      document.getElementById("board-canvas").style.visibility = "hidden";
+      this.board.boardcanvasEl.style.visibility = "hidden";
+      this.board.ctx.clearRect(0,0,200,140);
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
@@ -232,28 +241,25 @@ class GameView{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fish_wire__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__energy_bar__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__board__ = __webpack_require__(10);
-
 
 
 
 class Game {
-  constructor(ctx,fisherman,fish,wave,timer){
+  constructor(ctx,fisherman,fish,wave,timer,board){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
     this.fish = fish;
     this.wave = wave;
     this.timer = timer;
+    this.board = board;
   }
 
   start(X){
     this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,93,100+X*2.7);
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
-    this.board = new __WEBPACK_IMPORTED_MODULE_2__board__["a" /* default */]();
     this.draw();
     this.update();
-    // this.wave.update();
     this.timer.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
