@@ -2,6 +2,8 @@ class Board {
   constructor(){
     this.boardcanvasEl = document.getElementById("board-canvas");
     this.ctx = this.boardcanvasEl.getContext("2d");
+    this.fishImg = new Image();
+    this.fishImg.src = "images/fish.png";
   }
 
   show(){
@@ -10,9 +12,7 @@ class Board {
 
   draw(type){
     if (type === "gotfish"){
-      const fishImg = new Image();
-      fishImg.src = "images/fish.png";
-      this.ctx.drawImage(this.fishImg, 50, 140);
+        this.ctx.drawImage(this.fishImg, 35, 5);
     }else if (type === "broken"){
       this.ctx.font = "10px 'Press Start 2P',cursive";
       this.ctx.fillText("The wire is broken",20,20);

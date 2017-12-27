@@ -71,7 +71,7 @@ class Game {
 
   mayEndGame(){
     if(this.wire.startX > this.wire.endX){
-      this.board.draw("fish");
+      this.board.draw("gotfish");
       // document.getElementById("fish").style.visibility = "visible";
       this.endGame();
       this.fish.outOfWater = true;
