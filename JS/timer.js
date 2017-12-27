@@ -14,7 +14,7 @@ class Timer {
     this.ctx.font = "10px 'Press Start 2P',cursive";
     // this.ctx.fillStyle = "red";
     this.cal();
-    this.ctx.fillText(`Timer: 00:${this.seconds}`,270,20);
+    this.ctx.fillText(`TIMER: 00:${this.seconds}`,270,20);
   }
 
   cal(){
