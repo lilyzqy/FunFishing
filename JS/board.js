@@ -15,10 +15,10 @@ class Board {
         this.ctx.drawImage(this.fishImg, 35, 5);
     }else if (type === "broken"){
       this.ctx.font = "9px 'Press Start 2P',cursive";
-      this.ctx.fillText("THE WIRE IS BROKEN!",20,70);
+      this.ctx.fillText("THE WIRE IS BROKEN!",20,74);
     }else if (type === "escape"){
       this.ctx.font = "10px 'Press Start 2P',cursive";
-      this.ctx.fillText("THE FISH ESCAPED!",20,70);
+      this.ctx.fillText("THE FISH ESCAPED!",20,74);
     }
   }
 }
