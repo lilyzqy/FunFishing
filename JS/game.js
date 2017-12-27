@@ -72,19 +72,16 @@ class Game {
   mayEndGame(){
     if(this.wire.startX > this.wire.endX){
       this.board.draw("gotfish");
-      // document.getElementById("fish").style.visibility = "visible";
       this.endGame();
       this.fish.outOfWater = true;
       this.fish.update();
       this.fisherman.draw("gotfish");
     }else if( this.wire.endX > 400){
       this.board.draw("escape");
-      // document.getElementById("escape").style.visibility = "visible";
       this.endGame();
       this.fisherman.draw("broken");
     } else if(this.energyBar.X < 42){
       this.board.draw("broken");
-      // document.getElementById("broken").style.visibility = "visible";
       this.endGame();
       this.fisherman.draw("broken");
     }
