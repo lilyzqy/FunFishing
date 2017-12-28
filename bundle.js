@@ -261,10 +261,10 @@ class Game {
     this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,93,100+X*2.7);
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
     let weight = X*0.1+Math.random();
-    if(X < 4.5){
+    if(X < 45){
       weight = X*0.01+Math.random();
     }
-    this.fish = new __WEBPACK_IMPORTED_MODULE_2__fish__["a" /* default */](this.ctx, weight);
+    this.fish = new __WEBPACK_IMPORTED_MODULE_2__fish__["a" /* default */](this.ctx, weight.toFixed(2));
     this.draw();
     this.update();
     this.timer.update();

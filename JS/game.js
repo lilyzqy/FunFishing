@@ -16,10 +16,10 @@ class Game {
     this.wire = new Wire(this.ctx,93,100+X*2.7);
     this.energyBar = new EnergyBar(this.ctx);
     let weight = X*0.1+Math.random();
-    if(X < 4.5){
+    if(X < 45){
       weight = X*0.01+Math.random();
     }
-    this.fish = new Fish(this.ctx, weight);
+    this.fish = new Fish(this.ctx, weight.toFixed(2));
     this.draw();
     this.update();
     this.timer.update();
