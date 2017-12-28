@@ -79,6 +79,16 @@ class EnergyBar {
     this.a = 2.5;
   }
 
+  drawTitle(type){
+    if(type === "Power"){
+      this.ctx.font = "5px 'Press Start 2P',cursive";
+      this.ctx.fillText("POWER",20,74);
+    }else if (type === "Wire"){
+      this.ctx.font = "5px 'Press Start 2P',cursive";
+      this.ctx.fillText("WIRE",20,74);
+    }
+  }
+
   draw(){
     this.img.onload =()=>{
       this.ctx.drawImage(this.img, this.X, this.Y);
