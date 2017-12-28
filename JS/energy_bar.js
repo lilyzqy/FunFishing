@@ -10,12 +10,13 @@ class EnergyBar {
   }
 
   drawTitle(type){
+     // this.ctx.fillStyle = "white";
     if(type === "Power"){
-      this.ctx.font = "5px 'Press Start 2P',cursive";
-      this.ctx.fillText("POWER",10,286);
+      this.ctx.font = "7px 'Press Start 2P',cursive";
+      this.ctx.fillText("PWR",15,287);
     }else if (type === "Wire"){
-      this.ctx.font = "5px 'Press Start 2P',cursive";
-      this.ctx.fillText("WIRE", 10, 286);
+      this.ctx.font = "6px 'Press Start 2P',cursive";
+      this.ctx.fillText("WIRE", 14, 286.6);
     }
   }
 
