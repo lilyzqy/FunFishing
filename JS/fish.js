@@ -1,13 +1,15 @@
 class Fish{
-  constructor(ctx){
+  constructor(ctx,weight){
     this.ctx = ctx;
+    this.weight = weight;
+    console.log(weight);
     this.outOfWater = false;
     this.fishImg = new Image();
     this.a = 1;
   }
 
   weight(){
-    
+
   }
 
   toggleFish(a){

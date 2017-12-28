@@ -15,14 +15,18 @@ class Game {
   start(X){
     this.wire = new Wire(this.ctx,93,100+X*2.7);
     this.energyBar = new EnergyBar(this.ctx);
-    this.fish = new Fish(this.ctx);
+    let weight = X*0.1+Math.random();
+    if(X < 4.5){
+      weight = X*0.01+Math.random();
+    }
+    this.fish = new Fish(this.ctx, weight);
     this.draw();
     this.update();
     this.timer.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
       this.youGotFish();
-    }, Math.floor((Math.random() * 8) + 0)*1000);
+    }, Math.floor((Math.random() * 8) + 2)*1000);
   }
 
   youGotFish(){
@@ -52,7 +56,7 @@ class Game {
       }
       this.energyBar.updateForWireStrenth();
       if(this.energyBar.X >= 65){
-        this.wire.dangerous = true;//for the wire color
+        this.wire.dangerous = true;
       }
     }else{
       this.energyBar.reset();

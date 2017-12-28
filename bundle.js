@@ -260,14 +260,18 @@ class Game {
   start(X){
     this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,93,100+X*2.7);
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
-    this.fish = new __WEBPACK_IMPORTED_MODULE_2__fish__["a" /* default */](this.ctx);
+    let weight = X*0.1+Math.random();
+    if(X < 4.5){
+      weight = X*0.01+Math.random();
+    }
+    this.fish = new __WEBPACK_IMPORTED_MODULE_2__fish__["a" /* default */](this.ctx, weight);
     this.draw();
     this.update();
     this.timer.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
       this.youGotFish();
-    }, Math.floor((Math.random() * 8) + 0)*1000);
+    }, Math.floor((Math.random() * 8) + 2)*1000);
   }
 
   youGotFish(){
@@ -297,7 +301,7 @@ class Game {
       }
       this.energyBar.updateForWireStrenth();
       if(this.energyBar.X >= 65){
-        this.wire.dangerous = true;//for the wire color
+        this.wire.dangerous = true;
       }
     }else{
       this.energyBar.reset();
@@ -491,15 +495,17 @@ class Wave {
 
 "use strict";
 class Fish{
-  constructor(ctx){
+  constructor(ctx,weight){
     this.ctx = ctx;
+    this.weight = weight;
+    console.log(weight);
     this.outOfWater = false;
     this.fishImg = new Image();
     this.a = 1;
   }
 
   weight(){
-    
+
   }
 
   toggleFish(a){
