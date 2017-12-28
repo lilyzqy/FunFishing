@@ -77,7 +77,7 @@ class Game {
 
   mayEndGame(){
     if(this.wire.startX > this.wire.endX){
-      this.board.draw("gotfish");
+      this.board.draw("gotfish", this.fish.weight);
       this.endGame();
       this.fish.outOfWater = true;
       this.fish.update();

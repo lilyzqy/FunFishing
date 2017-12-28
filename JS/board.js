@@ -10,9 +10,11 @@ class Board {
     this.boardcanvasEl.style.visibility = "visible";
   }
 
-  draw(type){
+  draw(type, fishWeight){
     if (type === "gotfish"){
         this.ctx.drawImage(this.fishImg, 35, 5);
+        this.ctx.font = "9px 'Press Start 2P',cursive";
+        this.ctx.fillText(`WEIGHT: ${fishWeight} lb`,30,124);
     }else if (type === "broken"){
       this.ctx.font = "9px 'Press Start 2P',cursive";
       this.ctx.fillText("THE WIRE IS BROKEN!",20,74);
