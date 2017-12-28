@@ -6,6 +6,10 @@ class Fish{
     this.a = 1;
   }
 
+  weight(){
+    
+  }
+
   toggleFish(a){
     if(a === 1){
       this.fishImg.src = "images/gotfish3.png";

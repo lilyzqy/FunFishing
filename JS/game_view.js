@@ -1,7 +1,6 @@
 import EnergyBar from"./energy_bar";
 import Game from"./game";
 import Fisherman from"./fisherman";
-import Fish from './fish';
 import Timer from './timer';
 import Board from './board';
 
@@ -17,10 +16,8 @@ class GameView{
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
     this.board = new Board();
-    this.fish = new Fish(this.ctx);
     this.game = new Game(this.ctx,
                          this.fisherman,
-                         this.fish,
                          this.wave,
                          this.timer,
                          this.board);

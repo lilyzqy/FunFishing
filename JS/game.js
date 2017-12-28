@@ -1,12 +1,12 @@
 import Wire from './fish_wire';
 import EnergyBar from './energy_bar';
+import Fish from './fish';
 
 class Game {
-  constructor(ctx,fisherman,fish,wave,timer,board){
+  constructor(ctx,fisherman,wave,timer,board){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
-    this.fish = fish;
     this.wave = wave;
     this.timer = timer;
     this.board = board;
@@ -15,6 +15,7 @@ class Game {
   start(X){
     this.wire = new Wire(this.ctx,93,100+X*2.7);
     this.energyBar = new EnergyBar(this.ctx);
+    this.fish = new Fish(this.ctx);
     this.draw();
     this.update();
     this.timer.update();
@@ -37,8 +38,10 @@ class Game {
       this.wire.pullBack();
       this.energyBar.getStress();
       this.fisherman.pullBack();
-    }else if(e.code === "Enter" && this.fish.outOfWater){
-      this.fish.outOfWater = false;
+    }else if(e.code === "Enter"){
+      if(this.fish && this.fish.outOfWater){
+        this.fish.outOfWater = false;
+      }
     }
   }
 

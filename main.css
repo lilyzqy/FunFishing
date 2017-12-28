@@ -1,10 +1,10 @@
 #game-canvas {
         z-index: -1;
         position: absolute;
-        height: 100vh;
+        height: 80vh;
         width: auto;
-        top: 0;
-        left: 17%;
+        top: 10%;
+        left: 25%;
         background: transparent;
         background-image: url('./images/background.png');
         background-repeat: no-repeat;
@@ -13,10 +13,10 @@
 
 #board-canvas {
   position: absolute;
-  height: 50vh;
+  height: 40vh;
   width: auto;
   top: 25%;
-  left: 33%;
+  left: 40%;
   background-image: url('./images/board.png');
   background-repeat: no-repeat;
   background-size: cover;

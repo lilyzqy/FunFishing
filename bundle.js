@@ -168,10 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__energy_bar__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fisherman__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fish__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__timer__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__board__ = __webpack_require__(10);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timer__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__board__ = __webpack_require__(10);
 
 
 
@@ -189,11 +187,9 @@ class GameView{
   ready(){
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
-    this.board = new __WEBPACK_IMPORTED_MODULE_5__board__["a" /* default */]();
-    this.fish = new __WEBPACK_IMPORTED_MODULE_3__fish__["a" /* default */](this.ctx);
+    this.board = new __WEBPACK_IMPORTED_MODULE_4__board__["a" /* default */]();
     this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,
                          this.fisherman,
-                         this.fish,
                          this.wave,
                          this.timer,
                          this.board);
@@ -246,15 +242,16 @@ class GameView{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fish_wire__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__energy_bar__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fish__ = __webpack_require__(8);
+
 
 
 
 class Game {
-  constructor(ctx,fisherman,fish,wave,timer,board){
+  constructor(ctx,fisherman,wave,timer,board){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
-    this.fish = fish;
     this.wave = wave;
     this.timer = timer;
     this.board = board;
@@ -263,6 +260,7 @@ class Game {
   start(X){
     this.wire = new __WEBPACK_IMPORTED_MODULE_0__fish_wire__["a" /* default */](this.ctx,93,100+X*2.7);
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
+    this.fish = new __WEBPACK_IMPORTED_MODULE_2__fish__["a" /* default */](this.ctx);
     this.draw();
     this.update();
     this.timer.update();
@@ -285,8 +283,10 @@ class Game {
       this.wire.pullBack();
       this.energyBar.getStress();
       this.fisherman.pullBack();
-    }else if(e.code === "Enter" && this.fish.outOfWater){
-      this.fish.outOfWater = false;
+    }else if(e.code === "Enter"){
+      if(this.fish && this.fish.outOfWater){
+        this.fish.outOfWater = false;
+      }
     }
   }
 
@@ -496,6 +496,10 @@ class Fish{
     this.outOfWater = false;
     this.fishImg = new Image();
     this.a = 1;
+  }
+
+  weight(){
+    
   }
 
   toggleFish(a){
