@@ -85,8 +85,8 @@ class EnergyBar {
       this.ctx.font = "7px 'Press Start 2P',cursive";
       this.ctx.fillText("PWR",15,287);
     }else if (type === "Wire"){
-      this.ctx.font = "6px 'Press Start 2P',cursive";
-      this.ctx.fillText("WIRE", 14, 286.6);
+      this.ctx.font = "7px 'Press Start 2P',cursive";
+      this.ctx.fillText("WIRE", 12, 286.6);
     }
   }
 
