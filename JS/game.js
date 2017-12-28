@@ -64,6 +64,7 @@ class Game {
     this.ctx.clearRect(0,270,400,30);
     this.wire.draw(this.energyBar.X);
     this.energyBar.draw();
+    this.energyBar.drawTitle("Wire");
     this.fisherman.draw("fishing");
   }
 

@@ -57,6 +57,7 @@ class GameView{
     this.ctx.clearRect(0,270,400,30);
     this.timer.draw();
     this.energyBar.draw();
+    this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
   }
 

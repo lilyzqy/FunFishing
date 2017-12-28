@@ -82,10 +82,10 @@ class EnergyBar {
   drawTitle(type){
     if(type === "Power"){
       this.ctx.font = "5px 'Press Start 2P',cursive";
-      this.ctx.fillText("POWER",20,74);
+      this.ctx.fillText("POWER",10,286);
     }else if (type === "Wire"){
       this.ctx.font = "5px 'Press Start 2P',cursive";
-      this.ctx.fillText("WIRE",20,74);
+      this.ctx.fillText("WIRE", 10, 286);
     }
   }
 
@@ -230,6 +230,7 @@ class GameView{
     this.ctx.clearRect(0,270,400,30);
     this.timer.draw();
     this.energyBar.draw();
+    this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
   }
 
@@ -311,6 +312,7 @@ class Game {
     this.ctx.clearRect(0,270,400,30);
     this.wire.draw(this.energyBar.X);
     this.energyBar.draw();
+    this.energyBar.drawTitle("Wire");
     this.fisherman.draw("fishing");
   }
 
