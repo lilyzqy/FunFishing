@@ -171,6 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fisherman__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timer__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__board__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__bucket__ = __webpack_require__(11);
+
 
 
 
@@ -189,6 +191,7 @@ class GameView{
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
     this.board = new __WEBPACK_IMPORTED_MODULE_4__board__["a" /* default */]();
+    this.bucket = new __WEBPACK_IMPORTED_MODULE_5__bucket__["a" /* default */]();
     this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,
                          this.fisherman,
                          this.wave,
@@ -613,6 +616,31 @@ class Board {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Board);
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Bucket{
+  constructor(ctx){
+    this.ctx = ctx;
+    this.bucketImg = new Image();
+    this.bucketImg.src = "images/bucket.png";
+    this.weight = 0;
+    this.fishNumber = 0;
+  }
+
+  draw(){
+    this.ctx.drawImage(this.bucketImg, 10, 10);
+    this.ctx.font = "9px 'Press Start 2P',cursive";
+    this.ctx.fillText(`WEIGHT: ${this.weight} lb`,50,10);
+    this.ctx.fillText(`WEIGHT: ${this.weight} lb`,500,20);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Bucket);
 
 
 /***/ })

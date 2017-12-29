@@ -3,6 +3,7 @@ import Game from"./game";
 import Fisherman from"./fisherman";
 import Timer from './timer';
 import Board from './board';
+import Bucket from './bucket';
 
 
 class GameView{
@@ -16,6 +17,7 @@ class GameView{
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
     this.board = new Board();
+    this.bucket = new Bucket();
     this.game = new Game(this.ctx,
                          this.fisherman,
                          this.wave,
