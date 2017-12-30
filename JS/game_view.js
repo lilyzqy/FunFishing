@@ -22,6 +22,7 @@ class GameView{
                          this.fisherman,
                          this.wave,
                          this.timer,
+                         this.bucket,
                          this.board);
     this.draw();
   }

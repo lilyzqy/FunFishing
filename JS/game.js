@@ -3,29 +3,30 @@ import EnergyBar from './energy_bar';
 import Fish from './fish';
 
 class Game {
-  constructor(ctx,fisherman,wave,timer,board){
+  constructor(ctx,fisherman,wave,timer,bucket,board){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
     this.wave = wave;
     this.timer = timer;
+    this.bucket = bucket;
     this.board = board;
   }
 
   start(X){
     this.wire = new Wire(this.ctx,93,100+X*2.7);
     this.energyBar = new EnergyBar(this.ctx);
-    let weight = X*0.1+Math.random();
-    if(X < 45){
-      weight = X*0.01+Math.random();
-    }
-    this.fish = new Fish(this.ctx, weight.toFixed(2));
     this.draw();
     this.update();
     this.timer.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
       this.youGotFish();
+      let weight = X*0.1+Math.random();
+      if(X < 45){
+        weight = X*0.01+Math.random();
+      }
+      this.fish = new Fish(this.ctx, weight.toFixed(2));
     }, Math.floor((Math.random() * 8) + 2)*1000);
   }
 
