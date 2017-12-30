@@ -17,7 +17,7 @@ class GameView{
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
     this.board = new Board();
-    this.bucket = new Bucket();
+    this.bucket = new Bucket(this.ctx);
     this.game = new Game(this.ctx,
                          this.fisherman,
                          this.wave,
@@ -56,6 +56,7 @@ class GameView{
     this.ctx.clearRect(0,270,400,30);
     this.timer.draw();
     this.energyBar.draw();
+    this.bucket.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
   }
