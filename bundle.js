@@ -554,7 +554,6 @@ class Timer {
   constructor(ctx){
     this.ctx = ctx;
     this.count = 30;
-    this.seconds = "30";
     this.on = false;
   }
 
@@ -570,10 +569,10 @@ class Timer {
   }
 
   cal(){
-    if(this.count < 10){
-      this.seconds = `0${Math.ceil(this.count)}`;
+    if(this.count < 9.5){
+      this.seconds = `0${Math.ceil(this.count.toFixed())}`;
     }else{
-      this.seconds = Math.ceil(this.count).toString();
+      this.seconds = Math.ceil(this.count.toFixed());
     }
   }
 
