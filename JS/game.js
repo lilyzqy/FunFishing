@@ -21,16 +21,16 @@ class Game {
     this.timer.update();
     window.setTimeout(()=>{
       this.wire.fishOn = true;
-      this.youGotFish();
-      let weight = X*0.1+Math.random();
-      if(X < 45){
-        weight = X*0.01+Math.random();
-      }
-      this.fish = new Fish(this.ctx, weight.toFixed(2));
+      this.youGotFish(X);
     }, Math.floor((Math.random() * 8) + 2)*1000);
   }
 
-  youGotFish(){
+  youGotFish(X){
+    let weight = X*0.1+Math.random();
+    if(X < 45){
+      weight = X*0.01+Math.random();
+    }
+    this.fish = new Fish(this.ctx, weight.toFixed(2));
     this.ctx.font = "20px 'Press Start 2P',cursive";
     this.ctx.fillText("!",60,140);
     setTimeout(() => {
