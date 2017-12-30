@@ -229,9 +229,9 @@ class GameView{
   draw(){
     this.ctx.clearRect(0,110,400,150);
     this.ctx.clearRect(0,270,400,30);
+    this.bucket.draw();
     this.timer.draw();
     this.energyBar.draw();
-    this.bucket.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
   }
@@ -271,17 +271,18 @@ class Game {
     this.update();
     this.timer.update();
     window.setTimeout(()=>{
-      this.wire.fishOn = true;
       this.youGotFish(X);
     }, Math.floor((Math.random() * 8) + 2)*1000);
   }
 
   youGotFish(X){
-    let weight = X*0.1+Math.random();
+    this.wire.fishOn = true;
+    let weight = X*0.1+Math.random().toFixed(2);
     if(X < 45){
-      weight = X*0.01+Math.random();
+      weight = X*0.01+Math.random().toFixed(2);
     }
-    this.fish = new __WEBPACK_IMPORTED_MODULE_2__fish__["a" /* default */](this.ctx, weight.toFixed(2));
+    this.fish = new __WEBPACK_IMPORTED_MODULE_2__fish__["a" /* default */](this.ctx, weight);
+    this.bucket.addFish(weight);
     this.ctx.font = "20px 'Press Start 2P',cursive";
     this.ctx.fillText("!",60,140);
     setTimeout(() => {
@@ -325,6 +326,8 @@ class Game {
     this.energyBar.draw();
     this.energyBar.drawTitle("Wire");
     this.fisherman.draw("fishing");
+    console.log("yes");
+    this.bucket.draw();
   }
 
   mayEndGame(){
@@ -574,7 +577,7 @@ class Timer {
   }
 
   update(){
-    this.ctx.clearRect(0,0,400,100);
+    this.ctx.clearRect(200,0,200,100);
     this.count -= (1/220);
     this.draw();
     if(this.on && this.count > 1 ){
@@ -636,6 +639,7 @@ class Bucket{
   }
 
   draw(){
+    console.log("?");
     this.bucketImg.onload =()=>{
       this.ctx.drawImage(this.bucketImg, 10,-5);
     };
@@ -643,6 +647,11 @@ class Bucket{
     this.ctx.font = "9px 'Press Start 2P',cursive";
     this.ctx.fillText(`FISH: ${this.fishNumber}`,60,30);
     this.ctx.fillText(`WEIGHT: ${this.weight} lb`,60,40);
+  }
+
+  addFish(weight){
+    this.fishNumber += 1;
+    this.weight += weight;
   }
 }
 

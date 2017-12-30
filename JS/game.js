@@ -20,17 +20,18 @@ class Game {
     this.update();
     this.timer.update();
     window.setTimeout(()=>{
-      this.wire.fishOn = true;
       this.youGotFish(X);
     }, Math.floor((Math.random() * 8) + 2)*1000);
   }
 
   youGotFish(X){
-    let weight = X*0.1+Math.random();
+    this.wire.fishOn = true;
+    let weight = X*0.1+Math.random().toFixed(2);
     if(X < 45){
-      weight = X*0.01+Math.random();
+      weight = X*0.01+Math.random().toFixed(2);
     }
-    this.fish = new Fish(this.ctx, weight.toFixed(2));
+    this.fish = new Fish(this.ctx, weight);
+    this.bucket.addFish(weight);
     this.ctx.font = "20px 'Press Start 2P',cursive";
     this.ctx.fillText("!",60,140);
     setTimeout(() => {
@@ -74,6 +75,8 @@ class Game {
     this.energyBar.draw();
     this.energyBar.drawTitle("Wire");
     this.fisherman.draw("fishing");
+    console.log("yes");
+    this.bucket.draw();
   }
 
   mayEndGame(){

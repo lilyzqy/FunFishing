@@ -8,6 +8,7 @@ class Bucket{
   }
 
   draw(){
+    console.log("?");
     this.bucketImg.onload =()=>{
       this.ctx.drawImage(this.bucketImg, 10,-5);
     };
@@ -15,6 +16,11 @@ class Bucket{
     this.ctx.font = "9px 'Press Start 2P',cursive";
     this.ctx.fillText(`FISH: ${this.fishNumber}`,60,30);
     this.ctx.fillText(`WEIGHT: ${this.weight} lb`,60,40);
+  }
+
+  addFish(weight){
+    this.fishNumber += 1;
+    this.weight += weight;
   }
 }
 
