@@ -26,7 +26,7 @@ class Timer {
   }
 
   update(){
-    this.ctx.clearRect(200,0,200,100);
+    this.ctx.clearRect(250,0,200,100);
     this.count -= (1/220);
     this.draw();
     if(this.on && this.count > 1 ){

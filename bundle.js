@@ -578,7 +578,7 @@ class Timer {
   }
 
   update(){
-    this.ctx.clearRect(200,0,200,100);
+    this.ctx.clearRect(250,0,200,100);
     this.count -= (1/220);
     this.draw();
     if(this.on && this.count > 1 ){
@@ -635,7 +635,7 @@ class Bucket{
     this.ctx = ctx;
     this.bucketImg = new Image();
     this.bucketImg.src = "images/bucket.png";
-    this.weight = 0.00;
+    this.weight = 0;
     this.fishNumber = 0;
   }
 
@@ -651,7 +651,7 @@ class Bucket{
 
   addFish(weight){
     this.fishNumber += 1;
-    this.weight += weight;
+    this.weight += parseFloat(weight);
     console.log(typeof this.weight);
   }
 }
