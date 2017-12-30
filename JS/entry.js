@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   wave.draw();
   wave.update();
   const timer = new Timer(ctx);
-  timer.update();
+  // timer.update();
   const gameView = new GameView(ctx,wave,timer);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
