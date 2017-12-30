@@ -3,12 +3,11 @@ class Bucket{
     this.ctx = ctx;
     this.bucketImg = new Image();
     this.bucketImg.src = "images/bucket.png";
-    this.weight = 0;
+    this.weight = 0.00;
     this.fishNumber = 0;
   }
 
   draw(){
-    console.log("?");
     this.bucketImg.onload =()=>{
       this.ctx.drawImage(this.bucketImg, 10,-5);
     };
@@ -21,6 +20,7 @@ class Bucket{
   addFish(weight){
     this.fishNumber += 1;
     this.weight += weight;
+    console.log(typeof this.weight);
   }
 }
 

@@ -229,6 +229,7 @@ class GameView{
   draw(){
     this.ctx.clearRect(0,110,400,150);
     this.ctx.clearRect(0,270,400,30);
+    this.ctx.clearRect(0,0,200,100);
     this.bucket.draw();
     this.timer.draw();
     this.energyBar.draw();
@@ -277,12 +278,11 @@ class Game {
 
   youGotFish(X){
     this.wire.fishOn = true;
-    let weight = X*0.1+Math.random().toFixed(2);
+    let weight = X*0.1+Math.random();
     if(X < 45){
-      weight = X*0.01+Math.random().toFixed(2);
+      weight = X*0.01+Math.random();
     }
-    this.fish = new __WEBPACK_IMPORTED_MODULE_2__fish__["a" /* default */](this.ctx, weight);
-    this.bucket.addFish(weight);
+    this.fish = new __WEBPACK_IMPORTED_MODULE_2__fish__["a" /* default */](this.ctx, weight.toFixed(2));
     this.ctx.font = "20px 'Press Start 2P',cursive";
     this.ctx.fillText("!",60,140);
     setTimeout(() => {
@@ -322,11 +322,11 @@ class Game {
   draw(){
     this.ctx.clearRect(0,140,400,120);
     this.ctx.clearRect(0,270,400,30);
+    this.ctx.clearRect(0,0,200,100);
     this.wire.draw(this.energyBar.X);
     this.energyBar.draw();
     this.energyBar.drawTitle("Wire");
     this.fisherman.draw("fishing");
-    console.log("yes");
     this.bucket.draw();
   }
 
@@ -335,6 +335,7 @@ class Game {
       this.board.draw("gotfish", this.fish.weight);
       this.endGame();
       this.fish.outOfWater = true;
+      this.bucket.addFish(this.fish.weight);
       this.fish.update();
       this.fisherman.draw("gotfish");
     }else if( this.wire.endX > 400){
@@ -634,12 +635,11 @@ class Bucket{
     this.ctx = ctx;
     this.bucketImg = new Image();
     this.bucketImg.src = "images/bucket.png";
-    this.weight = 0;
+    this.weight = 0.00;
     this.fishNumber = 0;
   }
 
   draw(){
-    console.log("?");
     this.bucketImg.onload =()=>{
       this.ctx.drawImage(this.bucketImg, 10,-5);
     };
@@ -652,6 +652,7 @@ class Bucket{
   addFish(weight){
     this.fishNumber += 1;
     this.weight += weight;
+    console.log(typeof this.weight);
   }
 }
 
