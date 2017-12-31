@@ -18,7 +18,7 @@ class Game {
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
     this.update();
-    this.timer.update();
+    // this.timer.update();
     window.setTimeout(()=>{
       this.youGotFish(X);
     }, Math.floor((Math.random() * 8) + 2)*1000);

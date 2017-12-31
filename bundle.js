@@ -106,6 +106,8 @@ class EnergyBar {
       }
       this.X += this.a;
     }
+    this.draw();
+    this.movingForEnergy = window.requestAnimationFrame(this.updateForEnergy.bind(this));
   }
 
   updateForWireStrenth(){
@@ -139,12 +141,19 @@ class EnergyBar {
 class Timer {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 3;
+    this.count = 10;
     this.on = false;
   }
 
   pause(){
     this.on = false;
+  }
+
+  timepass(){
+    window.setTimeout(()=>{
+      this.count -= 1;
+      this.timepass();
+    },10000);
   }
 
   draw(){
@@ -164,7 +173,6 @@ class Timer {
 
   update(){
     this.ctx.clearRect(250,0,200,100);
-    this.count -= (1/220);
     this.draw();
     if(this.on && this.count > 0 ){
       window.requestAnimationFrame(this.update.bind(this));
@@ -250,14 +258,15 @@ class GameView{
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
       this.timer.on = true;
-      this.timer.update();
+      this.timer.timepass();
+      this.energyBar.updateForEnergy();
       this.game.pressButton(e);
       this.board.boardcanvasEl.style.visibility = "hidden";
       this.board.ctx.clearRect(0,0,200,140);
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
-      window.cancelAnimationFrame(this.energyBarMoving);
+      window.cancelAnimationFrame(this.energyBar.movingForEnergy);
       this.game.start(this.energyBar.X - 42);
       this.game.on = true;
       this.energyBar.moving = false;
@@ -265,12 +274,13 @@ class GameView{
   }
 
   update(){
-    if(this.timer.count < 0.5){
-      this.gameover;
+    console.log(this.timer.count);
+    if(this.timer.count < 0){
+      this.gameover();
     }else{
       this.draw();
-      this.energyBar.updateForEnergy();
-      this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
+      this.timer.update();
+      window.requestAnimationFrame(this.update.bind(this));
     }
   }
 
@@ -286,12 +296,7 @@ class GameView{
   }
 
   gameover(){
-    console.log("?");
-    this.ctx.fillStyle = "white";
-    this.ctx.rect(0,0,400,300);
-    this.ctx.fillRect();
-    this.ctx.font = "10px 'Press Start 2P',cursive";
-    this.ctx.fillText(`Congratulations, fish for dinner!`, 100, 150);
+    console.log("gameover");
   }
 
 }
@@ -327,7 +332,7 @@ class Game {
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
     this.draw();
     this.update();
-    this.timer.update();
+    // this.timer.update();
     window.setTimeout(()=>{
       this.youGotFish(X);
     }, Math.floor((Math.random() * 8) + 2)*1000);

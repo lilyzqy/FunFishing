@@ -36,6 +36,8 @@ class EnergyBar {
       }
       this.X += this.a;
     }
+    this.draw();
+    this.movingForEnergy = window.requestAnimationFrame(this.updateForEnergy.bind(this));
   }
 
   updateForWireStrenth(){

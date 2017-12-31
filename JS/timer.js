@@ -1,12 +1,19 @@
 class Timer {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 3;
+    this.count = 10;
     this.on = false;
   }
 
   pause(){
     this.on = false;
+  }
+
+  timepass(){
+    window.setTimeout(()=>{
+      this.count -= 1;
+      this.timepass();
+    },10000);
   }
 
   draw(){
@@ -26,7 +33,6 @@ class Timer {
 
   update(){
     this.ctx.clearRect(250,0,200,100);
-    this.count -= (1/220);
     this.draw();
     if(this.on && this.count > 0 ){
       window.requestAnimationFrame(this.update.bind(this));

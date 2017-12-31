@@ -32,14 +32,15 @@ class GameView{
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
       this.timer.on = true;
-      this.timer.update();
+      this.timer.timepass();
+      this.energyBar.updateForEnergy();
       this.game.pressButton(e);
       this.board.boardcanvasEl.style.visibility = "hidden";
       this.board.ctx.clearRect(0,0,200,140);
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
-      window.cancelAnimationFrame(this.energyBarMoving);
+      window.cancelAnimationFrame(this.energyBar.movingForEnergy);
       this.game.start(this.energyBar.X - 42);
       this.game.on = true;
       this.energyBar.moving = false;
@@ -47,12 +48,13 @@ class GameView{
   }
 
   update(){
-    if(this.timer.count < 0.5){
-      this.gameover;
+    console.log(this.timer.count);
+    if(this.timer.count < 0){
+      this.gameover();
     }else{
       this.draw();
-      this.energyBar.updateForEnergy();
-      this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
+      this.timer.update();
+      window.requestAnimationFrame(this.update.bind(this));
     }
   }
 
@@ -68,12 +70,7 @@ class GameView{
   }
 
   gameover(){
-    console.log("?");
-    this.ctx.fillStyle = "white";
-    this.ctx.rect(0,0,400,300);
-    this.ctx.fillRect();
-    this.ctx.font = "10px 'Press Start 2P',cursive";
-    this.ctx.fillText(`Congratulations, fish for dinner!`, 100, 150);
+    console.log("gameover");
   }
 
 }
