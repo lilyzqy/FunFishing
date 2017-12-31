@@ -32,7 +32,7 @@ class GameView{
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
       this.timer.on = true;
-      this.timer.timepass();
+      this.timer.update();
       this.energyBar.updateForEnergy();
       this.game.pressButton(e);
       this.board.boardcanvasEl.style.visibility = "hidden";
@@ -53,7 +53,7 @@ class GameView{
       this.gameover();
     }else{
       this.draw();
-      this.timer.update();
+      // this.timer.update();
       window.requestAnimationFrame(this.update.bind(this));
     }
   }

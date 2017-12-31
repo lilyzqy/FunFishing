@@ -149,14 +149,9 @@ class Timer {
     this.on = false;
   }
 
-  timepass(){
-    window.setTimeout(()=>{
-      this.count -= 1;
-      this.timepass();
-    },10000);
-  }
 
   draw(){
+    this.ctx.clearRect(250,0,200,100);
     this.ctx.font = "9px 'Press Start 2P',cursive";
     // this.ctx.fillStyle = "red";
     this.cal();
@@ -165,15 +160,15 @@ class Timer {
 
   cal(){
     if(this.count < 9.5){
-      this.seconds = `0${Math.ceil(this.count.toFixed())}`;
+      this.seconds = `0${Math.ceil((this.count).toFixed())}`;
     }else{
-      this.seconds = Math.ceil(this.count.toFixed());
+      this.seconds = Math.ceil((this.count).toFixed());
     }
   }
 
   update(){
-    this.ctx.clearRect(250,0,200,100);
     this.draw();
+    this.count -= 1/130;
     if(this.on && this.count > 0 ){
       window.requestAnimationFrame(this.update.bind(this));
     }
@@ -258,7 +253,7 @@ class GameView{
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
       this.timer.on = true;
-      this.timer.timepass();
+      this.timer.update();
       this.energyBar.updateForEnergy();
       this.game.pressButton(e);
       this.board.boardcanvasEl.style.visibility = "hidden";
@@ -279,7 +274,7 @@ class GameView{
       this.gameover();
     }else{
       this.draw();
-      this.timer.update();
+      // this.timer.update();
       window.requestAnimationFrame(this.update.bind(this));
     }
   }
