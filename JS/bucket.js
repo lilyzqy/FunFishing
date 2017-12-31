@@ -14,13 +14,12 @@ class Bucket{
     this.ctx.drawImage(this.bucketImg, 10, -5);
     this.ctx.font = "9px 'Press Start 2P',cursive";
     this.ctx.fillText(`FISH: ${this.fishNumber}`,60,30);
-    this.ctx.fillText(`WEIGHT: ${this.weight} lb`,60,40);
+    this.ctx.fillText(`WEIGHT: ${this.weight.toFixed(2)} lb`,60,40);
   }
 
   addFish(weight){
     this.fishNumber += 1;
     this.weight += parseFloat(weight);
-    console.log(typeof this.weight);
   }
 }
 

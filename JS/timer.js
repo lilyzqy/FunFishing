@@ -1,7 +1,7 @@
 class Timer {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 30;
+    this.count = 3;
     this.on = false;
   }
 
@@ -28,7 +28,7 @@ class Timer {
     this.ctx.clearRect(250,0,200,100);
     this.count -= (1/220);
     this.draw();
-    if(this.on && this.count > 1 ){
+    if(this.on && this.count > 0 ){
       window.requestAnimationFrame(this.update.bind(this));
     }
   }

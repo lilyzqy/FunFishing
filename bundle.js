@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -136,10 +136,54 @@ class EnergyBar {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+class Timer {
+  constructor(ctx){
+    this.ctx = ctx;
+    this.count = 3;
+    this.on = false;
+  }
+
+  pause(){
+    this.on = false;
+  }
+
+  draw(){
+    this.ctx.font = "9px 'Press Start 2P',cursive";
+    // this.ctx.fillStyle = "red";
+    this.cal();
+    this.ctx.fillText(`TIMER: 00:${this.seconds}`,270,30);
+  }
+
+  cal(){
+    if(this.count < 9.5){
+      this.seconds = `0${Math.ceil(this.count.toFixed())}`;
+    }else{
+      this.seconds = Math.ceil(this.count.toFixed());
+    }
+  }
+
+  update(){
+    this.ctx.clearRect(250,0,200,100);
+    this.count -= (1/220);
+    this.draw();
+    if(this.on && this.count > 0 ){
+      window.requestAnimationFrame(this.update.bind(this));
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Timer);
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__timer__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__timer__ = __webpack_require__(1);
 
 
 
@@ -162,16 +206,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__energy_bar__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fisherman__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timer__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__board__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__bucket__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fisherman__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timer__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__board__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__bucket__ = __webpack_require__(9);
 
 
 
@@ -221,9 +265,13 @@ class GameView{
   }
 
   update(){
-    this.draw();
-    this.energyBar.updateForEnergy();
-    this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
+    if(this.timer.count < 0.5){
+      this.gameover;
+    }else{
+      this.draw();
+      this.energyBar.updateForEnergy();
+      this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
+    }
   }
 
   draw(){
@@ -237,19 +285,28 @@ class GameView{
     this.fisherman.draw("ready");
   }
 
+  gameover(){
+    console.log("?");
+    this.ctx.fillStyle = "white";
+    this.ctx.rect(0,0,400,300);
+    this.ctx.fillRect();
+    this.ctx.font = "10px 'Press Start 2P',cursive";
+    this.ctx.fillText(`Congratulations, fish for dinner!`, 100, 150);
+  }
+
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (GameView);
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fish_wire__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fish_wire__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__energy_bar__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fish__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fish__ = __webpack_require__(6);
 
 
 
@@ -363,7 +420,7 @@ class Game {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -411,7 +468,52 @@ class Wire {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Fish{
+  constructor(ctx,weight){
+    this.ctx = ctx;
+    this.weight = weight;
+    this.outOfWater = false;
+    this.fishImg = new Image();
+    this.a = 1;
+  }
+
+  toggleFish(a){
+    if(a === 1){
+      this.fishImg.src = "images/gotfish3.png";
+    }else{
+      this.fishImg.src = "images/gotfish.png";
+    }
+  }
+
+  draw(){
+    this.fishImg.onload = ()=>{
+      this.ctx.drawImage(this.fishImg, 82, 140);
+    };
+    this.ctx.drawImage(this.fishImg, 82, 140);
+  }
+
+  update(){
+    this.a *= -1;
+    this.toggleFish(this.a);
+    this.ctx.clearRect(85,155,30,30);
+    this.draw();
+    if(this.outOfWater){
+      window.setTimeout(()=>{
+        this.fishmoving = window.requestAnimationFrame(this.update.bind(this));
+      },100);
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Fish);
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -459,7 +561,75 @@ class Fisherman {
 
 
 /***/ }),
-/* 6 */
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Board {
+  constructor(){
+    this.boardcanvasEl = document.getElementById("board-canvas");
+    this.ctx = this.boardcanvasEl.getContext("2d");
+    this.fishImg = new Image();
+    this.fishImg.src = "images/fish.png";
+  }
+
+  show(){
+    this.boardcanvasEl.style.visibility = "visible";
+  }
+
+  draw(type, fishWeight){
+    if (type === "gotfish"){
+        this.ctx.drawImage(this.fishImg, 35, 5);
+        this.ctx.font = "9px 'Press Start 2P',cursive";
+        this.ctx.fillText(`WEIGHT: ${fishWeight} lb`,30,124);
+    }else if (type === "broken"){
+      this.ctx.font = "9px 'Press Start 2P',cursive";
+      this.ctx.fillText("THE WIRE IS BROKEN!",20,74);
+    }else if (type === "escape"){
+      this.ctx.font = "10px 'Press Start 2P',cursive";
+      this.ctx.fillText("THE FISH ESCAPED!",20,74);
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Board);
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Bucket{
+  constructor(ctx){
+    this.ctx = ctx;
+    this.bucketImg = new Image();
+    this.bucketImg.src = "images/bucket.png";
+    this.weight = 0;
+    this.fishNumber = 0;
+  }
+
+  draw(){
+    this.bucketImg.onload =()=>{
+      this.ctx.drawImage(this.bucketImg, 10,-5);
+    };
+    this.ctx.drawImage(this.bucketImg, 10, -5);
+    this.ctx.font = "9px 'Press Start 2P',cursive";
+    this.ctx.fillText(`FISH: ${this.fishNumber}`,60,30);
+    this.ctx.fillText(`WEIGHT: ${this.weight.toFixed(2)} lb`,60,40);
+  }
+
+  addFish(weight){
+    this.fishNumber += 1;
+    this.weight += parseFloat(weight);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Bucket);
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -497,165 +667,6 @@ class Wave {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Wave);
-
-
-/***/ }),
-/* 7 */,
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Fish{
-  constructor(ctx,weight){
-    this.ctx = ctx;
-    this.weight = weight;
-    this.outOfWater = false;
-    this.fishImg = new Image();
-    this.a = 1;
-  }
-
-  toggleFish(a){
-    if(a === 1){
-      this.fishImg.src = "images/gotfish3.png";
-    }else{
-      this.fishImg.src = "images/gotfish.png";
-    }
-  }
-
-  draw(){
-    this.fishImg.onload = ()=>{
-      this.ctx.drawImage(this.fishImg, 82, 140);
-    };
-    this.ctx.drawImage(this.fishImg, 82, 140);
-  }
-
-  update(){
-    this.a *= -1;
-    this.toggleFish(this.a);
-    this.ctx.clearRect(85,155,30,30);
-    this.draw();
-    if(this.outOfWater){
-      window.setTimeout(()=>{
-        this.fishmoving = window.requestAnimationFrame(this.update.bind(this));
-      },100);
-    }
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Fish);
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Timer {
-  constructor(ctx){
-    this.ctx = ctx;
-    this.count = 30;
-    this.on = false;
-  }
-
-  pause(){
-    this.on = false;
-  }
-
-  draw(){
-    this.ctx.font = "9px 'Press Start 2P',cursive";
-    // this.ctx.fillStyle = "red";
-    this.cal();
-    this.ctx.fillText(`TIMER: 00:${this.seconds}`,270,30);
-  }
-
-  cal(){
-    if(this.count < 9.5){
-      this.seconds = `0${Math.ceil(this.count.toFixed())}`;
-    }else{
-      this.seconds = Math.ceil(this.count.toFixed());
-    }
-  }
-
-  update(){
-    this.ctx.clearRect(250,0,200,100);
-    this.count -= (1/220);
-    this.draw();
-    if(this.on && this.count > 1 ){
-      window.requestAnimationFrame(this.update.bind(this));
-    }
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Timer);
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Board {
-  constructor(){
-    this.boardcanvasEl = document.getElementById("board-canvas");
-    this.ctx = this.boardcanvasEl.getContext("2d");
-    this.fishImg = new Image();
-    this.fishImg.src = "images/fish.png";
-  }
-
-  show(){
-    this.boardcanvasEl.style.visibility = "visible";
-  }
-
-  draw(type, fishWeight){
-    if (type === "gotfish"){
-        this.ctx.drawImage(this.fishImg, 35, 5);
-        this.ctx.font = "9px 'Press Start 2P',cursive";
-        this.ctx.fillText(`WEIGHT: ${fishWeight} lb`,30,124);
-    }else if (type === "broken"){
-      this.ctx.font = "9px 'Press Start 2P',cursive";
-      this.ctx.fillText("THE WIRE IS BROKEN!",20,74);
-    }else if (type === "escape"){
-      this.ctx.font = "10px 'Press Start 2P',cursive";
-      this.ctx.fillText("THE FISH ESCAPED!",20,74);
-    }
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Board);
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Bucket{
-  constructor(ctx){
-    this.ctx = ctx;
-    this.bucketImg = new Image();
-    this.bucketImg.src = "images/bucket.png";
-    this.weight = 0;
-    this.fishNumber = 0;
-  }
-
-  draw(){
-    this.bucketImg.onload =()=>{
-      this.ctx.drawImage(this.bucketImg, 10,-5);
-    };
-    this.ctx.drawImage(this.bucketImg, 10, -5);
-    this.ctx.font = "9px 'Press Start 2P',cursive";
-    this.ctx.fillText(`FISH: ${this.fishNumber}`,60,30);
-    this.ctx.fillText(`WEIGHT: ${this.weight} lb`,60,40);
-  }
-
-  addFish(weight){
-    this.fishNumber += 1;
-    this.weight += parseFloat(weight);
-    console.log(typeof this.weight);
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Bucket);
 
 
 /***/ })

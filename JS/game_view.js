@@ -47,9 +47,13 @@ class GameView{
   }
 
   update(){
-    this.draw();
-    this.energyBar.updateForEnergy();
-    this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
+    if(this.timer.count < 0.5){
+      this.gameover;
+    }else{
+      this.draw();
+      this.energyBar.updateForEnergy();
+      this.energyBarMoving = window.requestAnimationFrame(this.update.bind(this));
+    }
   }
 
   draw(){
@@ -61,6 +65,15 @@ class GameView{
     this.energyBar.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
+  }
+
+  gameover(){
+    console.log("?");
+    this.ctx.fillStyle = "white";
+    this.ctx.rect(0,0,400,300);
+    this.ctx.fillRect();
+    this.ctx.font = "10px 'Press Start 2P',cursive";
+    this.ctx.fillText(`Congratulations, fish for dinner!`, 100, 150);
   }
 
 }
