@@ -1,5 +1,4 @@
 #game-canvas, #cover-canvas {
-        z-index: -1;
         position: absolute;
         height: 80vh;
         width: auto;
@@ -11,6 +10,10 @@
         background-size: cover;
       }
 
+#game-canvas {
+  z-index: -1;
+}
+
 #board-canvas {
   position: absolute;
   height: 40vh;
@@ -21,13 +24,6 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-/*
-#cover-canvas {
-  position: absolute;
-  height: 80vh;
-  width: auto;;*/
-/*}*/
-
 
 h2{
   font-size: 32px;
