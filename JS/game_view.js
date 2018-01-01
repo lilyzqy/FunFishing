@@ -53,7 +53,6 @@ class GameView{
       this.gameover();
     }else{
       this.draw();
-      // this.timer.update();
       window.requestAnimationFrame(this.update.bind(this));
     }
   }
@@ -70,7 +69,11 @@ class GameView{
   }
 
   gameover(){
-    console.log("gameover");
+    const covercanvasEl = document.getElementById("cover-canvas");
+    const coverctx = covercanvasEl.getContext("2d");
+    covercanvasEl.style.visibility = "visible";
+    coverctx.fillStyle = "white";
+    coverctx.fillRect(0,0,400,300);
   }
 
 }

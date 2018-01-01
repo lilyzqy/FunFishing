@@ -196,6 +196,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctx = gamecanvasEl.getContext("2d");
   const boardcanvasEl = document.getElementById("board-canvas");
   boardcanvasEl.style.visibility = "hidden";
+  const covercanvasEl = document.getElementById("cover-canvas");
+  covercanvasEl.style.visibility = "hidden";
 
   const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](ctx);
   wave.draw();
@@ -274,7 +276,6 @@ class GameView{
       this.gameover();
     }else{
       this.draw();
-      // this.timer.update();
       window.requestAnimationFrame(this.update.bind(this));
     }
   }
@@ -291,7 +292,11 @@ class GameView{
   }
 
   gameover(){
-    console.log("gameover");
+    const covercanvasEl = document.getElementById("cover-canvas");
+    const coverctx = covercanvasEl.getContext("2d");
+    covercanvasEl.style.visibility = "visible";
+    coverctx.fillStyle = "white";
+    coverctx.fillRect(0,0,400,300);
   }
 
 }

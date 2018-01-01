@@ -1,4 +1,4 @@
-#game-canvas {
+#game-canvas, #cover-canvas {
         z-index: -1;
         position: absolute;
         height: 80vh;
@@ -21,6 +21,12 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+/*
+#cover-canvas {
+  position: absolute;
+  height: 80vh;
+  width: auto;;*/
+/*}*/
 
 
 h2{

@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctx = gamecanvasEl.getContext("2d");
   const boardcanvasEl = document.getElementById("board-canvas");
   boardcanvasEl.style.visibility = "hidden";
+  const covercanvasEl = document.getElementById("cover-canvas");
+  covercanvasEl.style.visibility = "hidden";
 
   const wave = new Wave(ctx);
   wave.draw();
