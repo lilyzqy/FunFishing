@@ -45,6 +45,7 @@ class Game {
       this.fisherman.pullBack();
     }else if(e.code === "Enter"){
       if(this.fish && this.fish.outOfWater){
+        console.log("back to water");
         this.fish.outOfWater = false;
       }
     }

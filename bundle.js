@@ -271,7 +271,6 @@ class GameView{
   }
 
   update(){
-    console.log(this.timer.count);
     if(this.timer.count < 0){
       this.gameover();
     }else{
@@ -297,6 +296,8 @@ class GameView{
     covercanvasEl.style.visibility = "visible";
     coverctx.fillStyle = "white";
     coverctx.fillRect(0,0,400,300);
+    coverctx.font = "9px 'Press Start 2P',cursive";
+    coverctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 70,70);
   }
 
 }
@@ -359,6 +360,7 @@ class Game {
       this.fisherman.pullBack();
     }else if(e.code === "Enter"){
       if(this.fish && this.fish.outOfWater){
+        console.log("back to water");
         this.fish.outOfWater = false;
       }
     }
