@@ -271,8 +271,8 @@ class GameView{
   }
 
   update(){
-    if(this.timer.count < 0){
-      this.gameover();
+    if(this.timer.count < 0.1){
+      this.timeup();
     }else if(!this.game.on){
       this.draw();
       window.requestAnimationFrame(this.update.bind(this));
@@ -285,12 +285,13 @@ class GameView{
     this.ctx.clearRect(0,0,200,100);//bucket update
     this.bucket.draw();
     this.timer.draw();
+    console.log(`${this.timer.count}`);
     this.energyBar.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
   }
 
-  gameover(){
+  timeup(){
     const covercanvasEl = document.getElementById("cover-canvas");
     const coverctx = covercanvasEl.getContext("2d");
     covercanvasEl.style.visibility = "visible";
