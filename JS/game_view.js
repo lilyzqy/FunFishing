@@ -48,7 +48,7 @@ class GameView{
   }
 
   update(){
-    if(this.timer.count < 0.1){
+    if(this.timer.count < 0){
       this.timeup();
     }else if(!this.game.on){
       this.draw();

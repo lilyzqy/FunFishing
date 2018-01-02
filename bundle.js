@@ -141,7 +141,7 @@ class EnergyBar {
 class Timer {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 30;
+    this.count = 3;
     this.on = false;
   }
 
@@ -271,7 +271,7 @@ class GameView{
   }
 
   update(){
-    if(this.timer.count < 0.1){
+    if(this.timer.count < 0){
       this.timeup();
     }else if(!this.game.on){
       this.draw();
@@ -395,6 +395,9 @@ class Game {
   }
 
   mayEndGame(){
+    if(this.timer.count < 0){
+      this.on = false;
+    }
     if(this.wire.startX > this.wire.endX){
       this.board.draw("gotfish", this.fish.weight);
       this.endGame();

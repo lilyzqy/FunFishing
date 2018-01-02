@@ -80,6 +80,9 @@ class Game {
   }
 
   mayEndGame(){
+    if(this.timer.count < 0){
+      this.on = false;
+    }
     if(this.wire.startX > this.wire.endX){
       this.board.draw("gotfish", this.fish.weight);
       this.endGame();
