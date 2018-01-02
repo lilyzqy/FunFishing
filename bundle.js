@@ -273,16 +273,16 @@ class GameView{
   update(){
     if(this.timer.count < 0){
       this.gameover();
-    }else{
+    }else if(!this.game.on){
       this.draw();
       window.requestAnimationFrame(this.update.bind(this));
     }
   }
 
   draw(){
-    this.ctx.clearRect(0,110,400,150);
-    this.ctx.clearRect(0,270,400,30);
-    this.ctx.clearRect(0,0,200,100);
+    // this.ctx.clearRect(0,110,400,150);
+    this.ctx.clearRect(0,270,400,30);//energybar update
+    this.ctx.clearRect(0,0,200,100);//bucket update
     this.bucket.draw();
     this.timer.draw();
     this.energyBar.draw();
