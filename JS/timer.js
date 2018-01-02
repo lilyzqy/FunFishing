@@ -1,7 +1,7 @@
 class Timer {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 10;
+    this.count = 30;
     this.on = false;
   }
 

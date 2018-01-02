@@ -62,7 +62,6 @@ class GameView{
     this.ctx.clearRect(0,0,200,100);//bucket update
     this.bucket.draw();
     this.timer.draw();
-    console.log(`${this.timer.count}`);
     this.energyBar.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
