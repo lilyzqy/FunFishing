@@ -5,7 +5,6 @@ class Wire {
     this.endX = endX;
     this.fishOn = false;
     this.dangerous = false;
-    this.fishImg = new Image();
     this.a = 1;
   }
 

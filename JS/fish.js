@@ -25,9 +25,9 @@ class Fish{
   update(){
     this.a *= -1;
     this.toggleFish(this.a);
-    this.ctx.clearRect(85,155,30,30);
-    this.draw();
     if(this.outOfWater){
+      this.ctx.clearRect(85,155,30,30);
+      this.draw();
       window.setTimeout(()=>{
         this.fishmoving = window.requestAnimationFrame(this.update.bind(this));
       },100);

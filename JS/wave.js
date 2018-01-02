@@ -2,7 +2,7 @@ class Wave {
   constructor(ctx){
     this.ctx = ctx;
     this.X = 0;
-    this.Y = -0.6;
+    this.Y = 0;
     this.img = new Image();
     this.img.src = "images/wave.png";
     this.a = 0.1;

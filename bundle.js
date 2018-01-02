@@ -254,10 +254,10 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      this.game.pressButton(e);
       this.timer.on = true;
       this.timer.update();
       this.energyBar.updateForEnergy();
-      this.game.pressButton(e);
       this.board.boardcanvasEl.style.visibility = "hidden";
       this.board.ctx.clearRect(0,0,200,140);
       this.update();
@@ -280,7 +280,7 @@ class GameView{
   }
 
   draw(){
-    // this.ctx.clearRect(0,110,400,150);
+    this.ctx.clearRect(0,110,400,150);
     this.ctx.clearRect(0,270,400,30);//energybar update
     this.ctx.clearRect(0,0,200,100);//bucket update
     this.bucket.draw();
@@ -438,7 +438,6 @@ class Wire {
     this.endX = endX;
     this.fishOn = false;
     this.dangerous = false;
-    this.fishImg = new Image();
     this.a = 1;
   }
 
@@ -506,9 +505,9 @@ class Fish{
   update(){
     this.a *= -1;
     this.toggleFish(this.a);
-    this.ctx.clearRect(85,155,30,30);
-    this.draw();
     if(this.outOfWater){
+      this.ctx.clearRect(85,155,30,30);
+      this.draw();
       window.setTimeout(()=>{
         this.fishmoving = window.requestAnimationFrame(this.update.bind(this));
       },100);
@@ -644,7 +643,7 @@ class Wave {
   constructor(ctx){
     this.ctx = ctx;
     this.X = 0;
-    this.Y = -0.6;
+    this.Y = 0;
     this.img = new Image();
     this.img.src = "images/wave.png";
     this.a = 0.1;

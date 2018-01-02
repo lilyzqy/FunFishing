@@ -31,10 +31,10 @@ class GameView{
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
     }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+      this.game.pressButton(e);
       this.timer.on = true;
       this.timer.update();
       this.energyBar.updateForEnergy();
-      this.game.pressButton(e);
       this.board.boardcanvasEl.style.visibility = "hidden";
       this.board.ctx.clearRect(0,0,200,140);
       this.update();
@@ -57,7 +57,7 @@ class GameView{
   }
 
   draw(){
-    // this.ctx.clearRect(0,110,400,150);
+    this.ctx.clearRect(0,110,400,150);
     this.ctx.clearRect(0,270,400,30);//energybar update
     this.ctx.clearRect(0,0,200,100);//bucket update
     this.bucket.draw();
