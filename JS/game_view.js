@@ -7,10 +7,11 @@ import Bucket from './bucket';
 
 
 class GameView{
-  constructor(ctx,wave,timer){
+  constructor(ctx,wave,timer,gamecover){
     this.ctx = ctx;
     this.wave = wave;
     this.timer = timer;
+    this.gamecover = gamecover;
   }
 
   ready(){
@@ -23,7 +24,8 @@ class GameView{
                          this.wave,
                          this.timer,
                          this.bucket,
-                         this.board);
+                         this.board,
+                         this.gamecover);
     this.draw();
   }
 
@@ -68,13 +70,8 @@ class GameView{
   }
 
   timeup(){
-    const covercanvasEl = document.getElementById("cover-canvas");
-    const coverctx = covercanvasEl.getContext("2d");
-    covercanvasEl.style.visibility = "visible";
-    coverctx.fillStyle = "white";
-    coverctx.fillRect(0,0,400,300);
-    coverctx.font = "9px 'Press Start 2P',cursive";
-    coverctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 70,70);
+    this.gamecover.el.style.visibility = "visible";
+    this.gamecover.draw();
   }
 
 }

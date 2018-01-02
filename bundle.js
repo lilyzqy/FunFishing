@@ -187,6 +187,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__timer__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gamecover__ = __webpack_require__(11);
+
 
 
 
@@ -203,8 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
   wave.draw();
   wave.update();
   const timer = new __WEBPACK_IMPORTED_MODULE_2__timer__["a" /* default */](ctx);
-  // timer.update();
-  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,wave,timer);
+  const gamecover = new __WEBPACK_IMPORTED_MODULE_3__gamecover__["a" /* default */]();
+  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,wave,timer,gamecover);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
 });
@@ -230,10 +232,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 class GameView{
-  constructor(ctx,wave,timer){
+  constructor(ctx,wave,timer,gamecover){
     this.ctx = ctx;
     this.wave = wave;
     this.timer = timer;
+    this.gamecover = gamecover;
   }
 
   ready(){
@@ -246,7 +249,8 @@ class GameView{
                          this.wave,
                          this.timer,
                          this.bucket,
-                         this.board);
+                         this.board,
+                         this.gamecover);
     this.draw();
   }
 
@@ -291,13 +295,8 @@ class GameView{
   }
 
   timeup(){
-    const covercanvasEl = document.getElementById("cover-canvas");
-    const coverctx = covercanvasEl.getContext("2d");
-    covercanvasEl.style.visibility = "visible";
-    coverctx.fillStyle = "white";
-    coverctx.fillRect(0,0,400,300);
-    coverctx.font = "9px 'Press Start 2P',cursive";
-    coverctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 70,70);
+    this.gamecover.el.style.visibility = "visible";
+    this.gamecover.draw();
   }
 
 }
@@ -318,7 +317,7 @@ class GameView{
 
 
 class Game {
-  constructor(ctx,fisherman,wave,timer,bucket,board){
+  constructor(ctx,fisherman,wave,timer,bucket,board,gamecover){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
@@ -326,6 +325,7 @@ class Game {
     this.timer = timer;
     this.bucket = bucket;
     this.board = board;
+    this.gamecover = gamecover;
   }
 
   start(X){
@@ -396,7 +396,8 @@ class Game {
 
   mayEndGame(){
     if(this.timer.count < 0){
-      this.on = false;
+      this.gamecover.el.style.visibility = "visible";
+      this.gamecover.draw();
     }
     if(this.wire.startX > this.wire.endX){
       this.board.draw("gotfish", this.fish.weight);
@@ -676,6 +677,28 @@ class Wave {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Wave);
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Gamecover{
+  constructor(){
+    this.el = document.getElementById("cover-canvas");
+    this.ctx = this.el.getContext("2d");
+  }
+
+  draw(){
+    this.ctx.fillStyle = "white";
+    this.ctx.fillRect(0,0,400,300);
+    this.ctx.font = "9px 'Press Start 2P',cursive";
+    this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 70,70);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Gamecover);
 
 
 /***/ })

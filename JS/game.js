@@ -3,7 +3,7 @@ import EnergyBar from './energy_bar';
 import Fish from './fish';
 
 class Game {
-  constructor(ctx,fisherman,wave,timer,bucket,board){
+  constructor(ctx,fisherman,wave,timer,bucket,board,gamecover){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
@@ -11,6 +11,7 @@ class Game {
     this.timer = timer;
     this.bucket = bucket;
     this.board = board;
+    this.gamecover = gamecover;
   }
 
   start(X){
@@ -81,7 +82,8 @@ class Game {
 
   mayEndGame(){
     if(this.timer.count < 0){
-      this.on = false;
+      this.gamecover.el.style.visibility = "visible";
+      this.gamecover.draw();
     }
     if(this.wire.startX > this.wire.endX){
       this.board.draw("gotfish", this.fish.weight);
