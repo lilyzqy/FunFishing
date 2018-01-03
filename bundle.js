@@ -751,8 +751,10 @@ class SplashPage{
 
   draw(){
     this.ctx.font = "9px 'Press Start 2P',cursive";
-    // this.ctx.fillStyle = "blue";
-    this.ctx.fillText("hi",0,0);
+    this.ctx.fillText("WELCOME TO",80,100);
+    this.ctx.fillText("PRESS ENTER TO START",180,200);
+    this.ctx.font = "23px 'Press Start 2P',cursive";
+    this.ctx.fillText("FUN FISHING",80,140);
   }
 
   update(){
