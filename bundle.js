@@ -141,7 +141,7 @@ class EnergyBar {
 class Timer {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 30;
+    this.count = 3;
     this.on = false;
   }
 
@@ -296,7 +296,7 @@ class GameView{
 
   timeup(){
     this.gamecover.el.style.visibility = "visible";
-    this.gamecover.draw();
+    this.gamecover.draw(this.bucket.fishNumber,this.bucket.weight);
   }
 
 }
@@ -690,13 +690,14 @@ class Gamecover{
     this.ctx = this.el.getContext("2d");
   }
 
-  draw(status){
+  draw(fishNumber,weight){
     this.ctx.fillStyle = "white";
     this.ctx.fillRect(0,0,400,300);
     this.ctx.font = "13px 'Press Start 2P',cursive";
-    this.ctx.fillText("TIME UP");
     this.ctx.fillStyle = 'blue';
-    if(status === "win"){
+    this.ctx.fillText("TIME'S UP", 70,40);
+    this.ctx.font = "9px 'Press Start 2P',cursive";
+    if(fishNumber !== 0){
       this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 60,70);
 
     }else{

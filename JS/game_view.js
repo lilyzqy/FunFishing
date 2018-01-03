@@ -71,7 +71,7 @@ class GameView{
 
   timeup(){
     this.gamecover.el.style.visibility = "visible";
-    this.gamecover.draw();
+    this.gamecover.draw(this.bucket.fishNumber,this.bucket.weight);
   }
 
 }
