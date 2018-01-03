@@ -5,7 +5,8 @@ Live Game: [Fun Fishing](https://lilyzqy.github.io/FunFishing/)
 ### Introduction:
 This game is inspired by my favorite childhood phone game back in 1990s; the goal is to fish as many and heavy fishes as possible within 30 seconds.
 ![samplegif](https://github.com/lilyzqy/FunFishing/blob/master/images/fishing%20example.gif)
-Game Parameters and Basic Strategies:
+
+### Game Parameters and Basic Strategies:
 There're 2 major parameters in the game:
 1. Casting Power: it will decide how far you cast the rod
 2. Pulling Power: it will decide how fast you pull the rod
