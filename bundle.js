@@ -141,7 +141,7 @@ class EnergyBar {
 class Timer {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 3;
+    this.count = 30;
     this.on = false;
   }
 
