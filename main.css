@@ -1,4 +1,4 @@
-#game-canvas, #cover-canvas {
+#game-canvas, #cover-canvas, #splash-canvas {
         position: absolute;
         height: 80vh;
         width: auto;
@@ -9,6 +9,11 @@
         background-repeat: no-repeat;
         background-size: cover;
       }
+
+#splash-canvas{
+  background-image:  url('./images/splash_page.png');
+  z-index:2;
+}
 
 #game-canvas {
   z-index: -1;
