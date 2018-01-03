@@ -83,7 +83,7 @@ class Game {
   mayEndGame(){
     if(this.timer.count < 0){
       this.gamecover.el.style.visibility = "visible";
-      this.gamecover.draw();
+      this.gamecover.draw(this.bucket.fishNumber,this.bucket.weight);
     }
     if(this.wire.startX > this.wire.endX){
       this.board.draw("gotfish", this.fish.weight);

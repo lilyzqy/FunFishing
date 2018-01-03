@@ -397,7 +397,7 @@ class Game {
   mayEndGame(){
     if(this.timer.count < 0){
       this.gamecover.el.style.visibility = "visible";
-      this.gamecover.draw();
+      this.gamecover.draw(this.bucket.fishNumber,this.bucket.weight);
     }
     if(this.wire.startX > this.wire.endX){
       this.board.draw("gotfish", this.fish.weight);
@@ -695,13 +695,14 @@ class Gamecover{
     this.ctx.fillRect(0,0,400,300);
     this.ctx.font = "13px 'Press Start 2P',cursive";
     this.ctx.fillStyle = 'blue';
-    this.ctx.fillText("TIME'S UP", 70,40);
+    this.ctx.fillText("TIME'S UP", 145,40);
     this.ctx.font = "9px 'Press Start 2P',cursive";
     if(fishNumber !== 0){
+      console.log(fishNumber);
       this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 60,70);
 
     }else{
-      this.ctx.fillText("");
+      this.ctx.fillText("",0,0);
     }
   }
 }
