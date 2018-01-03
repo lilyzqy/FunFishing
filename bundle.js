@@ -705,6 +705,10 @@ class Gamecover{
       this.ctx.fillText("",0,0);
     }
   }
+
+  hide(){
+    this.el.style.visibility = "hidden";
+  }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Gamecover);

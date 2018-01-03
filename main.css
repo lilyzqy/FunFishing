@@ -12,7 +12,7 @@
 
 #splash-canvas{
   background-image:  url('./images/splash_page.png');
-  z-index:2;
+  z-index:1;
 }
 
 #game-canvas {

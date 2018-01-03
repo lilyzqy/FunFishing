@@ -19,6 +19,10 @@ class Gamecover{
       this.ctx.fillText("",0,0);
     }
   }
+
+  hide(){
+    this.el.style.visibility = "hidden";
+  }
 }
 
 export default Gamecover;
