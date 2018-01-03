@@ -12,6 +12,7 @@ class GameView{
     this.wave = wave;
     this.timer = timer;
     this.gamecover = gamecover;
+    this.on = false;
   }
 
   ready(){
@@ -32,7 +33,7 @@ class GameView{
   pressButton(e){
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
-    }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+    }else if (this.on && !this.energyBar.moving && !this.game.on && e.code === "Enter"){
       this.game.pressButton(e);
       this.timer.on = true;
       this.timer.update();

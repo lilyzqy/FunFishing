@@ -188,6 +188,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__timer__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gamecover__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__splash_page__ = __webpack_require__(12);
+
 
 
 
@@ -200,6 +202,9 @@ document.addEventListener("DOMContentLoaded", () => {
   boardcanvasEl.style.visibility = "hidden";
   const covercanvasEl = document.getElementById("cover-canvas");
   covercanvasEl.style.visibility = "hidden";
+  const splashPage = new __WEBPACK_IMPORTED_MODULE_4__splash_page__["a" /* default */]();
+  splashPage.draw();
+
 
   const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](ctx);
   wave.draw();
@@ -209,6 +214,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,wave,timer,gamecover);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
+  window.addEventListener("keyup",(e)=>{
+    if(e.code ==="Enter" && splashPage.showing === true){
+      splashPage.hide();
+      splashPage.showing = false;
+      gameView.on = true;
+    }
+  });
 });
 
 
@@ -237,6 +249,7 @@ class GameView{
     this.wave = wave;
     this.timer = timer;
     this.gamecover = gamecover;
+    this.on = false;
   }
 
   ready(){
@@ -257,7 +270,7 @@ class GameView{
   pressButton(e){
     if(this.game.on && e.code === "Space"){
       this.game.pressButton(e);
-    }else if (!this.energyBar.moving && !this.game.on && e.code === "Enter"){
+    }else if (this.on && !this.energyBar.moving && !this.game.on && e.code === "Enter"){
       this.game.pressButton(e);
       this.timer.on = true;
       this.timer.update();
@@ -712,6 +725,42 @@ class Gamecover{
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Gamecover);
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wave__ = __webpack_require__(10);
+
+
+class SplashPage{
+  constructor(){
+    this.showing = true;
+    this.el = document.getElementById("splash-canvas");
+    this.ctx = this.el.getContext("2d");
+    this.wave = new __WEBPACK_IMPORTED_MODULE_0__wave__["a" /* default */](this.ctx);
+    this.wave.draw();
+    this.wave.update();
+  }
+
+  hide(){
+    this.el.style.visibility = "hidden";
+  }
+
+  draw(){
+    this.ctx.font = "9px 'Press Start 2P',cursive";
+    // this.ctx.fillStyle = "blue";
+    this.ctx.fillText("hi",0,0);
+  }
+
+  update(){
+
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (SplashPage);
 
 
 /***/ })
