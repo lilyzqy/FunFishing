@@ -19,8 +19,9 @@ And there're 2 according game strategies:
 When game starts, you will select the casting power by pressing ENTER to cast the rod (more power, further you cast) and wait for the fish; when notified there's fish on hook, you need to pull the rod by keep pressing SPACE key, the fish would be either caught when you successfully pull the fish to the shore or escaped when you pull the rod too fast(break the fishline) or too slow.
 
 ### Technical Highlights
-This game is made of vanilla Java Script. It used DOM to manipulate the html elements and all the animation is achieved by drawing on the html canvas.
+* This game is made of vanilla Java Script. It used DOM to manipulate the html elements and all the animation is achieved by drawing on the html canvas.
+* This game is utilizing Object-oriented programming; each game component is designed with individual object which is highly interactive with each other.
 
 ### Opportunity for improvements
 * Audio
-* Tutorials
+* Better Tutorial UI
