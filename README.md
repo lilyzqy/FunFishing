@@ -1,6 +1,6 @@
 ## Fun Fishing
 
-Live Game: Fun Fishing
+Live Game: [Fun Fishing](https://lilyzqy.github.io/FunFishing/)
 
 ### Introduction:
 This game is inspired by my favorite childhood phone game back in 1990s; the goal is to fish as many and heavy fishes as possible within 30 seconds.
