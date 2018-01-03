@@ -8,7 +8,8 @@ class Gamecover{
     this.ctx.fillStyle = "white";
     this.ctx.fillRect(0,0,400,300);
     this.ctx.font = "9px 'Press Start 2P',cursive";
-    this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 70,70);
+    this.ctx.fillStyle = 'blue';
+    this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 60,70);
   }
 }
 
