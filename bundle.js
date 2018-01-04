@@ -186,10 +186,8 @@ class Timer {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__timer__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gamecover__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__splash_page__ = __webpack_require__(12);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gamecover__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__splash_page__ = __webpack_require__(12);
 
 
 
@@ -202,16 +200,15 @@ document.addEventListener("DOMContentLoaded", () => {
   boardcanvasEl.style.visibility = "hidden";
   const covercanvasEl = document.getElementById("cover-canvas");
   covercanvasEl.style.visibility = "hidden";
-  const splashPage = new __WEBPACK_IMPORTED_MODULE_4__splash_page__["a" /* default */]();
+  const splashPage = new __WEBPACK_IMPORTED_MODULE_3__splash_page__["a" /* default */]();
   splashPage.draw();
 
 
   const wave = new __WEBPACK_IMPORTED_MODULE_1__wave__["a" /* default */](ctx);
   wave.draw();
   wave.update();
-  const timer = new __WEBPACK_IMPORTED_MODULE_2__timer__["a" /* default */](ctx);
-  const gamecover = new __WEBPACK_IMPORTED_MODULE_3__gamecover__["a" /* default */]();
-  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,wave,timer,gamecover);
+  const gamecover = new __WEBPACK_IMPORTED_MODULE_2__gamecover__["a" /* default */]();
+  const gameView = new __WEBPACK_IMPORTED_MODULE_0__game_view__["a" /* default */](ctx,wave,gamecover);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
   window.addEventListener("keyup",(e)=>{
@@ -242,12 +239,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
 class GameView{
-  constructor(ctx,wave,timer,gamecover){
+  constructor(ctx,wave,gamecover){
     this.ctx = ctx;
     this.wave = wave;
-    this.timer = timer;
     this.gamecover = gamecover;
     this.on = false;
   }
@@ -256,6 +251,7 @@ class GameView{
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
     this.board = new __WEBPACK_IMPORTED_MODULE_4__board__["a" /* default */]();
+    this.timer = new __WEBPACK_IMPORTED_MODULE_3__timer__["a" /* default */](this.ctx);
     this.bucket = new __WEBPACK_IMPORTED_MODULE_5__bucket__["a" /* default */](this.ctx);
     this.game = new __WEBPACK_IMPORTED_MODULE_1__game__["a" /* default */](this.ctx,
                          this.fisherman,
@@ -710,10 +706,13 @@ class Gamecover{
     this.ctx.fillStyle = 'blue';
     this.ctx.fillText("TIME'S UP", 145,40);
     this.ctx.font = "9px 'Press Start 2P',cursive";
+    this.ctx.fillText("REFRESH THE PAGE", 160, 230);
+    this.ctx.fillText("TO PLAY AGAIN", 160, 240);
     if(fishNumber !== 0){
       console.log(fishNumber);
       this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 60,70);
-
+      this.ctx.fillText(`YOU COUGHT ${fishNumber} FISH`, 160, 180);
+      this.ctx.fillText(`WEIGHT ${weight} lb`,160, 190);
     }else{
       this.ctx.fillText("",0,0);
     }
@@ -740,9 +739,6 @@ class SplashPage{
     this.showing = true;
     this.el = document.getElementById("splash-canvas");
     this.ctx = this.el.getContext("2d");
-    this.wave = new __WEBPACK_IMPORTED_MODULE_0__wave__["a" /* default */](this.ctx);
-    this.wave.draw();
-    this.wave.update();
   }
 
   hide(){
@@ -750,6 +746,9 @@ class SplashPage{
   }
 
   draw(){
+    this.wave = new __WEBPACK_IMPORTED_MODULE_0__wave__["a" /* default */](this.ctx);
+    this.wave.draw();
+    this.wave.update();
     this.ctx.font = "9px 'Press Start 2P',cursive";
     this.ctx.fillText("WELCOME TO",80,100);
     this.ctx.fillText("PRESS ENTER TO START",180,200);
@@ -757,9 +756,6 @@ class SplashPage{
     this.ctx.fillText("FUN FISHING",80,140);
   }
 
-  update(){
-
-  }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (SplashPage);

@@ -5,12 +5,10 @@ import Timer from './timer';
 import Board from './board';
 import Bucket from './bucket';
 
-
 class GameView{
-  constructor(ctx,wave,timer,gamecover){
+  constructor(ctx,wave,gamecover){
     this.ctx = ctx;
     this.wave = wave;
-    this.timer = timer;
     this.gamecover = gamecover;
     this.on = false;
   }
@@ -19,6 +17,7 @@ class GameView{
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
     this.board = new Board();
+    this.timer = new Timer(this.ctx);
     this.bucket = new Bucket(this.ctx);
     this.game = new Game(this.ctx,
                          this.fisherman,

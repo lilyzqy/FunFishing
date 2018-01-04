@@ -1,6 +1,5 @@
 import GameView from './game_view';
 import Wave from './wave';
-import Timer from './timer';
 import Gamecover from './gamecover';
 import SplashPage from './splash_page';
 
@@ -18,9 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const wave = new Wave(ctx);
   wave.draw();
   wave.update();
-  const timer = new Timer(ctx);
   const gamecover = new Gamecover();
-  const gameView = new GameView(ctx,wave,timer,gamecover);
+  const gameView = new GameView(ctx,wave,gamecover);
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
   window.addEventListener("keyup",(e)=>{
