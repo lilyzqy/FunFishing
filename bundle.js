@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
   window.addEventListener("keyup",(e)=>{
-    if(e.code ==="Enter" && splashPage.showing === true){
+    if(e.code ==="Enter" && splashPage.showing){
       splashPage.hide();
       splashPage.showing = false;
       gameView.on = true;
@@ -598,15 +598,15 @@ class Board {
 
   draw(type, fishWeight){
     if (type === "gotfish"){
-        this.ctx.drawImage(this.fishImg, 35, 5);
+        this.ctx.drawImage(this.fishImg, 160, 85);
         this.ctx.font = "9px 'Press Start 2P',cursive";
-        this.ctx.fillText(`WEIGHT: ${fishWeight} lb`,30,124);
+        this.ctx.fillText(`WEIGHT: ${fishWeight} lb`,160,205);
     }else if (type === "broken"){
       this.ctx.font = "9px 'Press Start 2P',cursive";
-      this.ctx.fillText("THE WIRE IS BROKEN!",20,74);
+      this.ctx.fillText("THE WIRE IS BROKEN!",139,155);
     }else if (type === "escape"){
       this.ctx.font = "10px 'Press Start 2P',cursive";
-      this.ctx.fillText("THE FISH ESCAPED!",20,74);
+      this.ctx.fillText("THE FISH ESCAPED!",139,155);
     }
   }
 }

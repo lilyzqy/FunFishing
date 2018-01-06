@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gameView.ready();
   window.addEventListener("keyup",gameView.pressButton.bind(gameView));
   window.addEventListener("keyup",(e)=>{
-    if(e.code ==="Enter" && splashPage.showing === true){
+    if(e.code ==="Enter" && splashPage.showing){
       splashPage.hide();
       splashPage.showing = false;
       gameView.on = true;

@@ -1,4 +1,4 @@
-#game-canvas, #cover-canvas, #splash-canvas {
+#game-canvas, #cover-canvas, #splash-canvas, #board-canvas {
         position: absolute;
         height: 80vh;
         width: auto;
@@ -20,14 +20,7 @@
 }
 
 #board-canvas {
-  position: absolute;
-  height: 40vh;
-  width: auto;
-  top: 25%;
-  left: 40%;
   background-image: url('./images/board.png');
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 h2{
