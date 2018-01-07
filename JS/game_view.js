@@ -38,7 +38,7 @@ class GameView{
       this.timer.update();
       this.energyBar.updateForEnergy();
       this.board.boardcanvasEl.style.visibility = "hidden";
-      this.board.ctx.clearRect(0,0,200,140);
+      this.board.ctx.clearRect(110,80,200,140);
       this.update();
       this.energyBar.moving = true;
     }else if(this.energyBar.moving && !this.game.on && e.code === "Enter"){
