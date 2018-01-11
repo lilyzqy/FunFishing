@@ -3,7 +3,7 @@ import EnergyBar from './energy_bar';
 import Fish from './fish';
 
 class Game {
-  constructor(ctx,fisherman,wave,timer,bucket,board,gamecover){
+  constructor(ctx,fisherman,wave,timer,bucket,board,gamecover,instruction){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
@@ -12,6 +12,7 @@ class Game {
     this.bucket = bucket;
     this.board = board;
     this.gamecover = gamecover;
+    this.instruction = instruction;
   }
 
   start(X){
@@ -19,7 +20,6 @@ class Game {
     this.energyBar = new EnergyBar(this.ctx);
     this.draw();
     this.update();
-    // this.timer.update();
     window.setTimeout(()=>{
       this.youGotFish(X);
     }, Math.floor((Math.random() * 8) + 2)*1000);

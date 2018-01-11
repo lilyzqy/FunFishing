@@ -27,7 +27,8 @@ class GameView{
                          this.timer,
                          this.bucket,
                          this.board,
-                         this.gamecover);
+                         this.gamecover,
+                         this.instruction);
     this.draw();
   }
 

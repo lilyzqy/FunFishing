@@ -258,7 +258,8 @@ class GameView{
                          this.timer,
                          this.bucket,
                          this.board,
-                         this.gamecover);
+                         this.gamecover,
+                         this.instruction);
     this.draw();
   }
 
@@ -326,7 +327,7 @@ class GameView{
 
 
 class Game {
-  constructor(ctx,fisherman,wave,timer,bucket,board,gamecover){
+  constructor(ctx,fisherman,wave,timer,bucket,board,gamecover,instruction){
     this.ctx = ctx;
     this.on = false;
     this.fisherman = fisherman;
@@ -335,6 +336,7 @@ class Game {
     this.bucket = bucket;
     this.board = board;
     this.gamecover = gamecover;
+    this.instruction = instruction;
   }
 
   start(X){
@@ -342,7 +344,6 @@ class Game {
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_1__energy_bar__["a" /* default */](this.ctx);
     this.draw();
     this.update();
-    // this.timer.update();
     window.setTimeout(()=>{
       this.youGotFish(X);
     }, Math.floor((Math.random() * 8) + 2)*1000);
@@ -705,8 +706,9 @@ class Instruction {
   draw(){
     this.ctx.clearRect(250,250,30,10);
     this.ctx.font = "9px 'Press Start 2P',cursive";
-    this.fillStyle = "white";
+    this.ctx.fillStyle = "white";
     this.ctx.fillText("PRESS ENTER",290,290);
+    this.ctx.fillStyle = "black";
   }
 
 
