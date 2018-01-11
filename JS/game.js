@@ -46,7 +46,6 @@ class Game {
       this.fisherman.pullBack();
     }else if(e.code === "Enter"){
       if(this.fish && this.fish.outOfWater){
-        console.log("back to water");
         this.fish.outOfWater = false;
       }
     }
@@ -56,6 +55,7 @@ class Game {
     if(this.on){
       if(this.wire.fishOn){
         this.wire.update();
+        this.instruction.draw("PRESS SPACE");
       }
       this.energyBar.updateForWireStrenth();
       if(this.energyBar.X >= 65){
@@ -71,7 +71,7 @@ class Game {
 
   draw(){
     this.ctx.clearRect(0,140,400,120);
-    this.ctx.clearRect(0,270,400,30);
+    this.ctx.clearRect(0,270,200,30);
     this.ctx.clearRect(0,0,200,100);
     this.wire.draw(this.energyBar.X);
     this.energyBar.draw();
@@ -106,6 +106,7 @@ class Game {
   endGame (){
     this.timer.on = false;
     this.ctx.clearRect(0,110,400,150);
+    this.instruction.draw("PRESS ENTER");
     this.board.boardcanvasEl.style.visibility = "visible";
     this.on = false;
     window.cancelAnimationFrame(this.gameGoing);

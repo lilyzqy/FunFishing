@@ -301,7 +301,7 @@ class GameView{
     this.energyBar.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
-    this.instruction.draw();
+    this.instruction.draw("PRESS ENTER");
   }
 
   timeup(){
@@ -370,7 +370,6 @@ class Game {
       this.fisherman.pullBack();
     }else if(e.code === "Enter"){
       if(this.fish && this.fish.outOfWater){
-        console.log("back to water");
         this.fish.outOfWater = false;
       }
     }
@@ -380,6 +379,7 @@ class Game {
     if(this.on){
       if(this.wire.fishOn){
         this.wire.update();
+        this.instruction.draw("PRESS SPACE");
       }
       this.energyBar.updateForWireStrenth();
       if(this.energyBar.X >= 65){
@@ -395,7 +395,7 @@ class Game {
 
   draw(){
     this.ctx.clearRect(0,140,400,120);
-    this.ctx.clearRect(0,270,400,30);
+    this.ctx.clearRect(0,270,200,30);
     this.ctx.clearRect(0,0,200,100);
     this.wire.draw(this.energyBar.X);
     this.energyBar.draw();
@@ -430,6 +430,7 @@ class Game {
   endGame (){
     this.timer.on = false;
     this.ctx.clearRect(0,110,400,150);
+    this.instruction.draw("PRESS ENTER");
     this.board.boardcanvasEl.style.visibility = "visible";
     this.on = false;
     window.cancelAnimationFrame(this.gameGoing);
@@ -703,11 +704,12 @@ class Instruction {
     this.ctx = ctx;
   }
 
-  draw(){
-    this.ctx.clearRect(250,250,30,10);
+  draw(order){
+    // this.ctx.fillRect(290,280,100,10);
+    this.ctx.clearRect(290,278,130,10);
     this.ctx.font = "9px 'Press Start 2P',cursive";
     this.ctx.fillStyle = "white";
-    this.ctx.fillText("PRESS ENTER",290,290);
+    this.ctx.fillText(`${order}`,290,288);
     this.ctx.fillStyle = "black";
   }
 
@@ -735,15 +737,16 @@ class Gamecover{
     this.ctx.fillStyle = 'blue';
     this.ctx.fillText("TIME'S UP", 145,40);
     this.ctx.font = "9px 'Press Start 2P',cursive";
-    this.ctx.fillText("REFRESH THE PAGE", 160, 230);
-    this.ctx.fillText("TO PLAY AGAIN", 160, 240);
+    this.ctx.fillText("REFRESH THE PAGE", 180, 230);
+    this.ctx.fillText("TO PLAY AGAIN", 180, 240);
+    this.ctx.fillText(`YOU COUGHT ${fishNumber} FISH`, 180, 150);
+    this.ctx.fillText(`WEIGHT ${weight} lb`,180, 165);
     if(fishNumber !== 0){
       console.log(fishNumber);
       this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 60,70);
-      this.ctx.fillText(`YOU COUGHT ${fishNumber} FISH`, 160, 180);
-      this.ctx.fillText(`WEIGHT ${weight} lb`,160, 190);
     }else{
-      this.ctx.fillText("",0,0);
+      this.ctx.fillText("FISHING IS HARD, GOOD LUCK NEXT TIME",50,60);
+      // this.ctx.fillText("GOOD LUCK NEXT TIME",110,70);
     }
   }
 
