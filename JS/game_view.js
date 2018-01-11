@@ -70,6 +70,7 @@ class GameView{
     this.energyBar.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
+    this.instruction.X = 290;
     this.instruction.draw("PRESS ENTER");
   }
 

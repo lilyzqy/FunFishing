@@ -301,6 +301,7 @@ class GameView{
     this.energyBar.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
+    this.instruction.X = 290;
     this.instruction.draw("PRESS ENTER");
   }
 
@@ -379,12 +380,16 @@ class Game {
     if(this.on){
       if(this.wire.fishOn){
         this.wire.update();
-        this.instruction.draw("PRESS SPACE");
+        this.instruction.X = 220;
+        if(this.energyBar.X <= 65){
+          this.wire.dangerous = true;
+        }
+        this.instruction.draw("PRESS SPACE TO PULL");
       }
       this.energyBar.updateForWireStrenth();
-      if(this.energyBar.X >= 65){
-        this.wire.dangerous = true;
-      }
+      // if(this.energyBar.X >= 65){
+      //   this.wire.dangerous = true;
+      // }
     }else{
       this.energyBar.reset();
     }
@@ -430,6 +435,7 @@ class Game {
   endGame (){
     this.timer.on = false;
     this.ctx.clearRect(0,110,400,150);
+    this.instruction.X = 290;
     this.instruction.draw("PRESS ENTER");
     this.board.boardcanvasEl.style.visibility = "visible";
     this.on = false;
@@ -702,14 +708,16 @@ class Bucket{
 class Instruction {
   constructor(ctx){
     this.ctx = ctx;
+    this.X = 290;
+    this.Y = 288;
   }
 
   draw(order){
     // this.ctx.fillRect(290,280,100,10);
-    this.ctx.clearRect(290,278,130,10);
+    this.ctx.clearRect(200,278,200,10);
     this.ctx.font = "9px 'Press Start 2P',cursive";
     this.ctx.fillStyle = "white";
-    this.ctx.fillText(`${order}`,290,288);
+    this.ctx.fillText(`${order}`,this.X, this.Y);
     this.ctx.fillStyle = "black";
   }
 
