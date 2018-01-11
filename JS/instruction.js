@@ -6,8 +6,11 @@ class Instruction {
   draw(){
     this.ctx.clearRect(250,250,30,10);
     this.ctx.font = "9px 'Press Start 2P',cursive";
-    this.ctx.fillText("PRESS ENTER");
+    this.fillStyle = "white";
+    this.ctx.fillText("PRESS ENTER",290,290);
   }
 
-  
+
 }
+
+export default Instruction;

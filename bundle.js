@@ -138,44 +138,40 @@ class EnergyBar {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class Timer {
+class Wave {
   constructor(ctx){
     this.ctx = ctx;
-    this.count = 30;
-    this.on = false;
+    this.X = 0;
+    this.Y = 0;
+    this.img = new Image();
+    this.img.src = "images/wave.png";
+    this.a = 0.1;
   }
-
-  pause(){
-    this.on = false;
-  }
-
 
   draw(){
-    this.ctx.clearRect(250,0,200,100);
-    this.ctx.font = "9px 'Press Start 2P',cursive";
-    // this.ctx.fillStyle = "red";
-    this.cal();
-    this.ctx.fillText(`TIMER: 00:${this.seconds}`,270,30);
+      this.ctx.drawImage(this.img, this.X, this.Y);
   }
 
-  cal(){
-    if(this.count < 9.5){
-      this.seconds = `0${Math.ceil((this.count).toFixed())}`;
-    }else{
-      this.seconds = Math.ceil((this.count).toFixed());
+  move(){
+    const min = -10;
+    const max = 1.2;
+    if( min < this.X < max){
+      if(this.X < min || this.X > max){
+        this.a *= -1;
+      }
+      this.X += this.a;
     }
   }
 
   update(){
+    this.ctx.clearRect(0,260,400,10);
+    this.move();
     this.draw();
-    this.count -= 1/130;
-    if(this.on && this.count > 0 ){
-      window.requestAnimationFrame(this.update.bind(this));
-    }
+    window.requestAnimationFrame(this.update.bind(this));
   }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (Timer);
+/* harmony default export */ __webpack_exports__["a"] = (Wave);
 
 
 /***/ }),
@@ -185,9 +181,9 @@ class Timer {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_view__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gamecover__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__splash_page__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wave__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gamecover__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__splash_page__ = __webpack_require__(13);
 
 
 
@@ -229,9 +225,11 @@ document.addEventListener("DOMContentLoaded", () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__energy_bar__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fisherman__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timer__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__board__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__bucket__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timer__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__board__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__bucket__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__instruction__ = __webpack_require__(11);
+
 
 
 
@@ -250,6 +248,7 @@ class GameView{
   ready(){
     this.energyBar = new __WEBPACK_IMPORTED_MODULE_0__energy_bar__["a" /* default */](this.ctx);
     this.fisherman = new __WEBPACK_IMPORTED_MODULE_2__fisherman__["a" /* default */](this.ctx);
+    this.instruction = new __WEBPACK_IMPORTED_MODULE_6__instruction__["a" /* default */](this.ctx);
     this.board = new __WEBPACK_IMPORTED_MODULE_4__board__["a" /* default */]();
     this.timer = new __WEBPACK_IMPORTED_MODULE_3__timer__["a" /* default */](this.ctx);
     this.bucket = new __WEBPACK_IMPORTED_MODULE_5__bucket__["a" /* default */](this.ctx);
@@ -301,6 +300,7 @@ class GameView{
     this.energyBar.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
+    this.instruction.draw();
   }
 
   timeup(){
@@ -584,6 +584,51 @@ class Fisherman {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+class Timer {
+  constructor(ctx){
+    this.ctx = ctx;
+    this.count = 30;
+    this.on = false;
+  }
+
+  pause(){
+    this.on = false;
+  }
+
+
+  draw(){
+    this.ctx.clearRect(250,0,200,100);
+    this.ctx.font = "9px 'Press Start 2P',cursive";
+    // this.ctx.fillStyle = "red";
+    this.cal();
+    this.ctx.fillText(`TIMER: 00:${this.seconds}`,270,30);
+  }
+
+  cal(){
+    if(this.count < 9.5){
+      this.seconds = `0${Math.ceil((this.count).toFixed())}`;
+    }else{
+      this.seconds = Math.ceil((this.count).toFixed());
+    }
+  }
+
+  update(){
+    this.draw();
+    this.count -= 1/130;
+    if(this.on && this.count > 0 ){
+      window.requestAnimationFrame(this.update.bind(this));
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Timer);
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 class Board {
   constructor(){
     this.boardcanvasEl = document.getElementById("board-canvas");
@@ -615,7 +660,7 @@ class Board {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -648,48 +693,30 @@ class Bucket{
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class Wave {
+class Instruction {
   constructor(ctx){
     this.ctx = ctx;
-    this.X = 0;
-    this.Y = 0;
-    this.img = new Image();
-    this.img.src = "images/wave.png";
-    this.a = 0.1;
   }
 
   draw(){
-      this.ctx.drawImage(this.img, this.X, this.Y);
+    this.ctx.clearRect(250,250,30,10);
+    this.ctx.font = "9px 'Press Start 2P',cursive";
+    this.fillStyle = "white";
+    this.ctx.fillText("PRESS ENTER",290,290);
   }
 
-  move(){
-    const min = -10;
-    const max = 1.2;
-    if( min < this.X < max){
-      if(this.X < min || this.X > max){
-        this.a *= -1;
-      }
-      this.X += this.a;
-    }
-  }
 
-  update(){
-    this.ctx.clearRect(0,260,400,10);
-    this.move();
-    this.draw();
-    window.requestAnimationFrame(this.update.bind(this));
-  }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (Wave);
+/* harmony default export */ __webpack_exports__["a"] = (Instruction);
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -727,11 +754,11 @@ class Gamecover{
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wave__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wave__ = __webpack_require__(1);
 
 
 class SplashPage{

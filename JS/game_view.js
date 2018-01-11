@@ -4,6 +4,7 @@ import Fisherman from"./fisherman";
 import Timer from './timer';
 import Board from './board';
 import Bucket from './bucket';
+import Instruction from './instruction';
 
 class GameView{
   constructor(ctx,wave,gamecover){
@@ -16,6 +17,7 @@ class GameView{
   ready(){
     this.energyBar = new EnergyBar(this.ctx);
     this.fisherman = new Fisherman(this.ctx);
+    this.instruction = new Instruction(this.ctx);
     this.board = new Board();
     this.timer = new Timer(this.ctx);
     this.bucket = new Bucket(this.ctx);
@@ -67,6 +69,7 @@ class GameView{
     this.energyBar.draw();
     this.energyBar.drawTitle("Power");
     this.fisherman.draw("ready");
+    this.instruction.draw();
   }
 
   timeup(){
