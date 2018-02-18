@@ -2,6 +2,8 @@ class Gamecover{
   constructor(){
     this.el = document.getElementById("cover-canvas");
     this.ctx = this.el.getContext("2d");
+    this.background = new Image();
+    // this.background.src = 
   }
 
   draw(fishNumber,weight){
