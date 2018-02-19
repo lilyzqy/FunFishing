@@ -3,7 +3,7 @@ class Gamecover{
     this.el = document.getElementById("cover-canvas");
     this.ctx = this.el.getContext("2d");
     this.background = new Image();
-    // this.background.src = 
+    this.background.src = "images/bucket2.png";
   }
 
   draw(fishNumber,weight){
