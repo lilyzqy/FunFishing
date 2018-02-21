@@ -22,7 +22,7 @@ class Gamecover{
       this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 60,70);
     }else{
       this.ctx.fillText("FISHING IS HARD, GOOD LUCK NEXT TIME",50,60);
-      this.ctx.drawImage(this.background, 30, 85);
+      this.ctx.drawImage(this.background, 40, 125);
     }
   }
 

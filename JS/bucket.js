@@ -2,7 +2,7 @@ class Bucket{
   constructor(ctx){
     this.ctx = ctx;
     this.bucketImg = new Image();
-    this.bucketImg.src = "images/bucket.png";
+    this.bucketImg.src = "images/bucket2.png";
     this.weight = 0;
     this.fishNumber = 0;
   }

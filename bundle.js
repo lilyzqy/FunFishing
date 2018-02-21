@@ -676,7 +676,7 @@ class Bucket{
   constructor(ctx){
     this.ctx = ctx;
     this.bucketImg = new Image();
-    this.bucketImg.src = "images/bucket.png";
+    this.bucketImg.src = "images/bucket2.png";
     this.weight = 0;
     this.fishNumber = 0;
   }
@@ -756,7 +756,7 @@ class Gamecover{
       this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 60,70);
     }else{
       this.ctx.fillText("FISHING IS HARD, GOOD LUCK NEXT TIME",50,60);
-      this.ctx.drawImage(this.background, 30, 85);
+      this.ctx.drawImage(this.background, 40, 125);
     }
   }
 
