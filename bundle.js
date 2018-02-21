@@ -737,7 +737,7 @@ class Gamecover{
     this.el = document.getElementById("cover-canvas");
     this.ctx = this.el.getContext("2d");
     this.background = new Image();
-    this.background.src = "images/bucket2.png";
+    this.background.src = "images/bucket.png";
   }
 
   draw(fishNumber,weight){
@@ -756,6 +756,7 @@ class Gamecover{
       this.ctx.fillText("CONGRATULATIONS, FISH FOR DINNER!", 60,70);
     }else{
       this.ctx.fillText("FISHING IS HARD, GOOD LUCK NEXT TIME",50,60);
+      this.ctx.drawImage(this.background, 30, 85);
     }
   }
 
